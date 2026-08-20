@@ -11,7 +11,7 @@ const MACHINERY_DB = [
         id: 'm1',
         name: 'John Deere 5050D Tractor',
         category: 'tillage',
-        categoryName: 'Field Work',
+        categoryName: 'Tillage & Land Prep',
         hp: '50 HP',
         rate: 450,
         unit: 'hr',
@@ -26,7 +26,7 @@ const MACHINERY_DB = [
         id: 'm2',
         name: 'Multi-Speed Heavy Rotavator',
         category: 'tillage',
-        categoryName: 'Field Work',
+        categoryName: 'Tillage & Land Prep',
         hp: '42 HP Required',
         rate: 350,
         unit: 'hr',
@@ -56,7 +56,7 @@ const MACHINERY_DB = [
         id: 'm4',
         name: 'Heavy Duty 3-Bottom Disc Plough',
         category: 'tillage',
-        categoryName: 'Field Work',
+        categoryName: 'Tillage & Land Prep',
         hp: '45 HP',
         rate: 300,
         unit: 'hr',
@@ -101,7 +101,7 @@ const MACHINERY_DB = [
         id: 'm7',
         name: 'Precision Laser Land Leveler',
         category: 'tillage',
-        categoryName: 'Field Work',
+        categoryName: 'Tillage & Land Prep',
         hp: '55 HP Dual Transmitter',
         rate: 500,
         unit: 'hr',
@@ -149,7 +149,6 @@ const MANPOWER_DB = [
     {
         id: 'w1',
         name: 'Banana Desuckering & Earthing Crew',
-        category: 'desuckering',
         size: '4 Skilled Workers',
         rate: 1200,
         unit: 'day',
@@ -163,7 +162,6 @@ const MANPOWER_DB = [
     {
         id: 'w2',
         name: 'Foliar Spraying & Pest Care Operators',
-        category: 'spraying',
         size: '2 Licensed Operators',
         rate: 800,
         unit: 'day',
@@ -177,7 +175,6 @@ const MANPOWER_DB = [
     {
         id: 'w3',
         name: 'Bunch Harvesting & Loading Team',
-        category: 'harvesting',
         size: '6 Workers',
         rate: 1800,
         unit: 'day',
@@ -190,8 +187,7 @@ const MANPOWER_DB = [
     },
     {
         id: 'w4',
-        name: 'Land Preparation & Trench Digging Crew',
-        category: 'planting',
+        name: 'Land Preparation & Trench Planting Crew',
         size: '3 Workers',
         rate: 900,
         unit: 'day',
@@ -199,36 +195,8 @@ const MANPOWER_DB = [
         phone: '9512347890',
         distance: '1.8 km',
         image: 'planting_crew.png',
-        specialty: 'Pit digging, organic basal manure mixing & soil preparation',
+        specialty: 'Pit digging, organic basal manure mixing & TC sucker planting',
         badge: 'Local'
-    },
-    {
-        id: 'w5',
-        name: 'Pit Digging & Sucker Planting Crew',
-        category: 'planting',
-        size: '4 Workers',
-        rate: 1000,
-        unit: 'day',
-        leader: 'Ramu Nursery & Sowing Team',
-        phone: '9876543210',
-        distance: '2.0 km',
-        image: 'planting_crew.png',
-        specialty: 'Tissue culture banana sucker planting, trenching & drip layout',
-        badge: 'Planting Team'
-    },
-    {
-        id: 'w6',
-        name: 'Soil Leveling & Ridge Bed Preparation Crew',
-        category: 'planting',
-        size: '5 Workers',
-        rate: 1100,
-        unit: 'day',
-        leader: 'Venkatesh Tillage Group',
-        phone: '9765432109',
-        distance: '1.9 km',
-        image: 'maintenance_crew.png',
-        specialty: 'Trench bed digging, compost spreading & field leveling',
-        badge: 'Land Prep'
     }
 ];
 
@@ -280,8 +248,6 @@ function saveUserListings() {
 }
 
 function setupRentingEventListeners() {
-    // Menu toggle for sidebar managed globally by script.js
-
     // Rate unit toggle buttons in listing form
     const rateBtns = document.querySelectorAll('#rate-unit-toggle-container .rate-unit-btn');
     rateBtns.forEach(btn => {
@@ -328,13 +294,11 @@ function switchRentingTab(tab) {
     if (viewEquip) viewEquip.classList.toggle('active', tab === 'equipment');
     if (viewList) viewList.classList.toggle('active', tab === 'list');
     if (viewManpower) viewManpower.classList.toggle('active', tab === 'manpower');
-    if (filterContainer) filterContainer.style.display = (tab === 'equipment' || tab === 'manpower') ? 'flex' : 'none';
+    if (filterContainer) filterContainer.style.display = tab === 'equipment' ? 'flex' : 'none';
 
     if (tab === 'equipment') renderRentingGrid();
     if (tab === 'manpower') renderLaborGrid();
 }
-
-let activeWorkerCategoryFilter = 'all';
 
 function filterCategory(cat) {
     activeCategoryFilter = cat;
@@ -343,15 +307,6 @@ function filterCategory(cat) {
         btn.classList.toggle('active', btn.getAttribute('onclick').includes(`'${cat}'`));
     });
     renderRentingGrid();
-}
-
-function filterWorkerCategory(cat) {
-    activeWorkerCategoryFilter = cat;
-    const filterBtns = document.querySelectorAll('#worker-filters .filter-pill');
-    filterBtns.forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('onclick').includes(`'${cat}'`));
-    });
-    renderLaborGrid();
 }
 
 function handleSearchInput(query) {
@@ -468,12 +423,12 @@ function renderRentalAIAdvisor() {
     }
 
     advisorCard.innerHTML = `
-        <div style="background: rgba(255, 248, 225, 0.95); border: 2px solid rgba(251, 192, 45, 0.75); padding: 10px 14px; border-radius: 16px; margin: 0 auto 15px auto; width: 100%; max-width: 100%; box-sizing: border-box; color: #000000; box-shadow: 0 4px 15px rgba(0,0,0,0.06); text-align: center;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 5px; flex-wrap: wrap;">
-                <img src="cool_banana_transparent.png" alt="Banana AI" style="width: 26px; height: 26px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(251,192,45,0.4));" onerror="this.onerror=null; this.src='banana_character.png';">
-                <span style="font-weight: 900; font-size: 0.92rem; color: #1A1A1A; letter-spacing: 0.3px; text-transform: uppercase;">RENTROX AI SMART RECOMMENDATION</span>
+        <div style="background: rgba(255, 248, 225, 0.9); border: 2px solid rgba(251, 192, 45, 0.6); padding: 12px 20px; border-radius: 16px; margin: 0 auto 20px auto; max-width: 780px; color: #000000; box-shadow: 0 4px 15px rgba(0,0,0,0.04); text-align: center;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 6px;">
+                <img src="cool_banana_transparent.png" alt="Banana AI" style="width: 32px; height: 32px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(251,192,45,0.4));" onerror="this.onerror=null; this.src='banana_character.png';">
+                <span style="font-weight: 800; font-size: 1.15rem; color: #1A1A1A; letter-spacing: 0.5px; text-transform: uppercase;">RENTROX AI SMART RECOMMENDATION</span>
             </div>
-            <div style="font-size: 0.84rem; color: #222222; font-weight: 600; line-height: 1.35;">
+            <div style="font-size: 1.05rem; color: #222222; font-weight: 600; line-height: 1.4;">
                 <strong>${cleanCrop}</strong> in <strong>${stageName} Stage</strong>: ${recText}
             </div>
         </div>
@@ -486,9 +441,7 @@ function renderRentingGrid() {
     grid.innerHTML = '';
 
     let items = MACHINERY_DB.filter(item => {
-        const matchesCat = activeCategoryFilter === 'all' || 
-                           item.category === activeCategoryFilter ||
-                           (activeCategoryFilter === 'field' && (item.category === 'tillage' || item.category === 'field'));
+        const matchesCat = activeCategoryFilter === 'all' || item.category === activeCategoryFilter;
         const matchesSearch = !currentSearchQuery || 
             item.name.toLowerCase().includes(currentSearchQuery) || 
             item.desc.toLowerCase().includes(currentSearchQuery) ||
@@ -516,9 +469,8 @@ function renderRentingGrid() {
                     <span class="dist-tag">📍 ${item.distance}</span>
                 </div>
                 <p class="item-desc">${item.desc}</p>
-                <div class="owner-info" style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px;">
-                    <span style="font-weight: 700; color: #1A1A1A;">👤 ${item.owner}</span>
-                    <a href="tel:${item.phone}" class="phone-link" style="font-weight: 800; font-size: 0.88rem; color: #2E7D32; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">📞 ${item.phone}</a>
+                <div class="owner-info">
+                    <span>👤 ${item.owner} • 📞 ${item.phone}</span>
                 </div>
                 <div class="card-footer-row">
                     <div class="rate-price">₹${item.rate} <span class="rate-unit">/${item.unit}</span></div>
@@ -535,22 +487,14 @@ function renderLaborGrid() {
     grid.innerHTML = '';
 
     let items = MANPOWER_DB.filter(item => {
-        const matchesCat = activeWorkerCategoryFilter === 'all' || 
-                           item.category === activeWorkerCategoryFilter || 
-                           (activeWorkerCategoryFilter === 'field' && (item.category === 'field' || item.category === 'trenching' || item.category === 'planting')) ||
-                           (activeWorkerCategoryFilter === 'harvesting' && item.category === 'harvesting') ||
-                           (activeWorkerCategoryFilter === 'spraying' && item.category === 'spraying') ||
-                           (activeWorkerCategoryFilter === 'trenching' && (item.category === 'trenching' || item.category === 'desuckering')) ||
-                           (activeWorkerCategoryFilter === 'planting' && item.category === 'planting');
-        const matchesSearch = !currentSearchQuery || 
+        return !currentSearchQuery || 
             item.name.toLowerCase().includes(currentSearchQuery) || 
             item.specialty.toLowerCase().includes(currentSearchQuery) ||
             item.leader.toLowerCase().includes(currentSearchQuery);
-        return matchesCat && matchesSearch;
     });
 
     if (items.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 30px; color: #666; font-size: 1rem;">No worker teams found matching this category filter.</div>`;
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666; font-size: 1.1rem;">No worker teams found matching your search.</div>`;
         return;
     }
 
@@ -569,9 +513,8 @@ function renderLaborGrid() {
                     <span class="dist-tag">📍 ${item.distance}</span>
                 </div>
                 <p class="item-desc">${item.specialty}</p>
-                <div class="owner-info" style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px;">
-                    <span style="font-weight: 700; color: #1A1A1A;">👨‍🌾 ${item.leader}</span>
-                    <a href="tel:${item.phone}" class="phone-link" style="font-weight: 800; font-size: 0.88rem; color: #2E7D32; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">📞 ${item.phone}</a>
+                <div class="owner-info">
+                    <span>👨‍🌾 ${item.leader} • 📞 ${item.phone}</span>
                 </div>
                 <div class="card-footer-row">
                     <div class="rate-price">₹${item.rate} <span class="rate-unit">/${item.unit}</span></div>
@@ -704,7 +647,7 @@ function populateCategoryDropdown(type) {
 
     if (type === 'machine') {
         select.innerHTML = `
-            <option value="tillage">Field Work</option>
+            <option value="tillage">Tillage & Land Prep</option>
             <option value="sowing">Sowing & Planting</option>
             <option value="care">Crop Care & Spraying</option>
             <option value="harvesting">Harvesting & Processing</option>

@@ -3,24 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-    (function() {
-        var meta = document.querySelector('meta[name="viewport"]');
-        var content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-        if (meta) { meta.setAttribute('content', content); }
-        else {
-            meta = document.createElement('meta');
-            meta.name = 'viewport';
-            meta.content = content;
-            document.head.appendChild(meta);
-        }
-    })();
-    </script>
     <title>MICROSUN MANAGEMENT - Renting</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="renting.css">
-    <link rel="stylesheet" href="mobile-fix.css">
+    <link rel="stylesheet" href="style.css?v=20260814">
+    <link rel="stylesheet" href="renting.css?v=20260814">
 </head>
 <body>
 
@@ -29,28 +15,16 @@
 
 
 
-
-    <!-- Top Bar / Language Selector -->
-    <div class="language-selector hub-lang" style="position: absolute; top: 20px; right: 20px; z-index: 20;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-        <select id="lang-switch">
-            <option value="en">English</option>
-            <option value="hi">हिन्दी (Hindi)</option>
-            <option value="bn">বাংলা (Bengali)</option>
-            <option value="mr">मराठी (Marathi)</option>
-            <option value="te">తెలుగు (Telugu)</option>
-            <option value="ta">தமிழ் (Tamil)</option>
-            <option value="gu">ગુજરાતી (Gujarati)</option>
-            <option value="ur">اردو (Urdu)</option>
-            <option value="kn">ಕನ್ನಡ (Kannada)</option>
-            <option value="or">ଓଡ଼ିଆ (Odia)</option>
-            <option value="ml">മലയാളം (Malayalam)</option>
-            <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
-        </select>
+    <!-- Admin Mode Toggle Switch -->
+    <div class="admin-toggle-wrapper" style="position: absolute; top: 20px; right: 220px; z-index: 20; display: flex; align-items: center; gap: 8px;">
+        <label for="admin-toggle" style="font-size: 0.95rem; font-weight: 700; color: #000000; cursor: pointer; user-select: none;">Admin Mode</label>
+        <input type="checkbox" id="admin-toggle" onchange="toggleAdminMode(this.checked)" style="width: 18px; height: 18px; cursor: pointer;">
     </div>
 
+
+
     <!-- Sidebar hamburger -->
-    <button id="menuToggle" class="hamburger-btn">
+    <button id="menuToggle" class="hamburger-btn" style="position: absolute; top: 20px; left: 20px; z-index: 60;">
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
@@ -140,20 +114,25 @@
                         <button id="btn-tab-manpower" onclick="switchRentingTab('manpower')" data-i18n="tabManpower">Hire worker's</button>
                     </div>
 
+                    <!-- Category Filter Pills (Visible when in Rent Machinery tab) -->
+                    <div class="category-filters-container" id="equip-filters">
+                        <button class="filter-pill active" onclick="filterCategory('all')" data-i18n="filterAll">All</button>
+                        <button class="filter-pill" onclick="filterCategory('tillage')" data-i18n="filterTillage">Tillage & Land Prep</button>
+                        <button class="filter-pill" onclick="filterCategory('sowing')" data-i18n="filterSowing">Sowing & Planting</button>
+                        <button class="filter-pill" onclick="filterCategory('care')" data-i18n="filterCare">Crop Care & Spraying</button>
+                        <button class="filter-pill" onclick="filterCategory('harvesting')" data-i18n="filterHarvesting">Harvesting & Processing</button>
+                    </div>
+
                     <!-- View Views Container -->
                     <div class="renting-views-container">
                         
                         <!-- 1. Equipment Tab View -->
                         <div id="equipment-view" class="renting-view active">
-                            <!-- Category Filter Pills for Rent Machinery -->
-                            <div class="category-filters-container" id="equip-filters">
-                                <button class="filter-pill active" onclick="filterCategory('all')" data-i18n="filterAll">All</button>
-                                <button class="filter-pill" onclick="filterCategory('field')">Field Work</button>
-                                <button class="filter-pill" onclick="filterCategory('sowing')" data-i18n="filterSowing">Sowing & Planting</button>
-                                <button class="filter-pill" onclick="filterCategory('care')" data-i18n="filterCare">Crop Care & Spraying</button>
-                                <button class="filter-pill" onclick="filterCategory('harvesting')" data-i18n="filterHarvesting">Harvesting & Processing</button>
+                            <!-- Search Bar -->
+                            <div class="search-bar-container">
+                                <input type="text" id="txt-search-equip" placeholder="Search tractors, tools, implements..." data-i18n-placeholder="searchPlaceholder" oninput="handleSearchInput(this.value)">
                             </div>
-
+                            
                             <!-- Rentable Equipment Grid (Rendered Dynamically via JS) -->
                             <div class="renting-grid" id="equip-grid">
                                 <!-- Cards injected dynamically -->
@@ -176,49 +155,55 @@
                                             </div>
                                             <div class="listing-type-option" id="type-opt-worker" onclick="selectListingType('worker')">
                                                 <span class="option-icon">👥</span>
-                                                <span class="option-text" data-i18n="optListWorker">List Worker Crew</span>
+                                                <span class="option-text" data-i18n="optListWorker">List Worker / Crew</span>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="form-grid">
                                         <div class="form-group">
-                                            <label id="lbl-name" data-i18n="lblName">Machine Name / Model</label>
-                                            <input type="text" id="lst-name" required placeholder="e.g. Mahindra Arjun 555 DI">
+                                            <label for="lst-name" id="lbl-name" data-i18n="lblMachineName">Machine Name / Model</label>
+                                            <input type="text" id="lst-name" placeholder="e.g. Mahindra Arjun 555 DI" oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s\-\(\)\/]/g, '').replace(/\s{2,}/g, ' ')" required>
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label data-i18n="lblCategory">Category</label>
-                                            <select id="lst-category">
-                                                <!-- Populated dynamically -->
+                                            <label for="lst-category" id="lbl-category" data-i18n="lblCategory">Equipment Category</label>
+                                            <select id="lst-category" required>
+                                                <!-- Populated dynamically via Javascript based on type selection -->
                                             </select>
                                         </div>
 
                                         <div class="form-group">
-                                            <label id="lbl-rate" data-i18n="lblRate">Reasonable Rental Rate (₹ / hour)</label>
-                                            <div style="display: flex; gap: 8px;">
-                                                <input type="number" id="lst-rate" required placeholder="e.g. 450" style="flex: 1;">
-                                                <select id="lst-rate-unit" style="width: 90px;">
-                                                    <option value="hr">/ hr</option>
-                                                    <option value="day">/ day</option>
-                                                    <option value="acre">/ acre</option>
+                                            <label for="lst-rate" id="lbl-rate" data-i18n="lblRate">Reasonable Rental Rate (₹ / hour)</label>
+                                            <div class="rate-input-row" style="display: flex; gap: 8px; width: 100%; align-items: center;">
+                                                <input type="text" id="lst-rate" placeholder="e.g. 350" oninput="this.value = this.value.replace(/[^0-9]/g, '')" style="flex: 1.2; width: 100%;" required>
+                                                <div class="rate-unit-toggle" id="rate-unit-toggle-container" style="flex: 1.8; display: flex;">
+                                                    <button type="button" class="rate-unit-btn active" data-unit="hr" id="btn-unit-hr">Hour</button>
+                                                    <button type="button" class="rate-unit-btn" data-unit="day" id="btn-unit-day">Day</button>
+                                                    <button type="button" class="rate-unit-btn" data-unit="acre" id="btn-unit-acre">Acre</button>
+                                                </div>
+                                                <select id="lst-rate-unit" style="display: none;">
+                                                    <option value="hr" data-i18n="optUnitHr">/ hour</option>
+                                                    <option value="day" data-i18n="optUnitDay">/ day</option>
+                                                    <option value="acre" data-i18n="optUnitAcre">/ acre</option>
                                                 </select>
                                             </div>
+                                            <div id="ai-rate-suggestion" class="ai-suggestion-text" style="display: none;"></div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label id="lbl-owner" data-i18n="lblOwner">Owner / Provider Name</label>
-                                            <input type="text" id="lst-owner" required placeholder="e.g. Ramesh Patel">
+                                            <label for="lst-owner" id="lbl-owner" data-i18n="lblOwnerName">Owner / Provider Name</label>
+                                            <input type="text" id="lst-owner" placeholder="e.g. Ramesh Patel" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '').replace(/\s{2,}/g, ' ')" required>
                                         </div>
 
                                         <div class="form-group">
-                                            <label data-i18n="lblPhone">Mobile Number</label>
-                                            <input type="tel" id="lst-phone" required placeholder="e.g. 9876543210">
+                                            <label for="lst-phone" data-i18n="lblPhone">Contact Phone Number</label>
+                                            <input type="tel" id="lst-phone" placeholder="e.g. 9876543210" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="10" required>
                                         </div>
 
                                         <div class="form-group">
-                                            <label data-i18n="lblDistance">Distance from Village (km)</label>
-                                            <input type="text" id="lst-distance" placeholder="e.g. 2.5">
+                                            <label for="lst-distance" data-i18n="lblLocation">Your Location Distance (km)</label>
+                                            <input type="text" id="lst-distance" placeholder="e.g. 2.5" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); if(this.value.split('.').length > 2) this.value = this.value.substring(0, this.value.length - 1);" required>
                                         </div>
                                     </div>
 
@@ -239,16 +224,6 @@
 
                         <!-- 3. Manpower Tab View (Labor) -->
                         <div id="manpower-view" class="renting-view">
-                            <!-- Category Filter Pills for Hire Workers -->
-                            <div class="category-filters-container" id="worker-filters">
-                                <button class="filter-pill active" onclick="filterWorkerCategory('all')">All</button>
-                                <button class="filter-pill" onclick="filterWorkerCategory('field')">Field Work</button>
-                                <button class="filter-pill" onclick="filterWorkerCategory('harvesting')">Bunch Harvesting & Loading</button>
-                                <button class="filter-pill" onclick="filterWorkerCategory('spraying')">Spraying & Disease Care</button>
-                                <button class="filter-pill" onclick="filterWorkerCategory('trenching')">Earthing up & Trenching</button>
-                                <button class="filter-pill" onclick="filterWorkerCategory('planting')">Pit Digging & Planting</button>
-                            </div>
-
                             <!-- Manpower labor hiring Grid (Rendered Dynamically via JS) -->
                             <div class="renting-grid" id="labor-grid">
                                 <!-- Cards injected dynamically -->
@@ -315,8 +290,9 @@
     <script src="dashboard_translations.js"></script>
     <script src="hub_features_translations.js"></script>
     <script src="renting_translations.js"></script>
-    <script src="renting.js?v=8"></script>
-    <script src="sidebar.js"></script>
+    <script src="renting.js?v=20260814_2"></script>
+    <script src="script.js?v=20260814_2"></script>
+    <script src="sidebar.js?v=20260814_2"></script>
 </body>
 </html>
 

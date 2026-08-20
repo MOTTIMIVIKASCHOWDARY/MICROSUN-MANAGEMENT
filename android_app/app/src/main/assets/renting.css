@@ -245,57 +245,53 @@ body, p, label, h2, h3, h4, span, input, select, option, button:not(.renting-boo
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.8rem;
+    font-size: 0.88rem;
     font-weight: 700;
     color: #222;
-    padding-top: 6px;
+    padding-top: 8px;
     border-top: 1px dashed rgba(0, 0, 0, 0.12);
-    margin-top: 4px;
+    margin-top: 6px;
 }
 
-.phone-link {
-    color: #2e7d32 !important;
-    text-decoration: none;
-    background: rgba(46, 125, 50, 0.1);
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-weight: 800;
+.phone-link-pill {
+    color: #1b5e20 !important;
+    text-decoration: none !important;
+    background: rgba(46, 125, 50, 0.12) !important;
+    border: 1px solid rgba(46, 125, 50, 0.25) !important;
+    padding: 3px 10px !important;
+    border-radius: 8px !important;
+    font-weight: 800 !important;
+    font-size: 0.88rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    transition: all 0.2s ease !important;
+}
+
+.phone-link-pill:hover {
+    background: rgba(46, 125, 50, 0.22) !important;
+    transform: translateY(-1px);
+    color: #0b3d0b !important;
 }
 
 .card-footer-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     margin-top: 8px;
     padding-top: 6px;
 }
 
 .rate-price {
-    font-size: 1.15rem !important;
+    font-size: 1.2rem !important;
     font-weight: 900 !important;
     color: #1b5e20 !important;
 }
 
 .rate-unit {
-    font-size: 0.78rem !important;
+    font-size: 0.8rem !important;
     font-weight: 700 !important;
     color: #555 !important;
-}
-
-.book-now-btn {
-    background: #2e7d32 !important;
-    color: #ffffff !important;
-    border: none !important;
-    padding: 8px 14px !important;
-    border-radius: 8px !important;
-    font-size: 0.82rem !important;
-    font-weight: 800 !important;
-    cursor: pointer !important;
-    transition: background 0.2s;
-}
-
-.book-now-btn:hover {
-    background: #1b5e20 !important;
 }
 
 .renting-item-image-container {
@@ -424,31 +420,24 @@ body, p, label, h2, h3, h4, span, input, select, option, button:not(.renting-boo
 
 /* Category Filter Pills */
 .category-filters-container {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    gap: 8px !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-    margin-bottom: 1.2rem !important;
-    padding: 6px 4px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    width: 100%;
 }
 
 .filter-pill {
     background: rgba(46, 125, 50, 0.08) !important;
-    border: 1.5px solid rgba(46, 125, 50, 0.22) !important;
+    border: 1.5px solid rgba(46, 125, 50, 0.18) !important;
     color: #1b5e20 !important;
     font-family: 'Outfit', sans-serif;
-    font-size: 0.85rem !important;
-    font-weight: 800 !important;
-    padding: 8px 16px !important;
-    border-radius: 25px !important;
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 30px;
     cursor: pointer;
-    white-space: nowrap !important;
-    flex-shrink: 0 !important;
     transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     outline: none;
 }
@@ -463,13 +452,13 @@ body, p, label, h2, h3, h4, span, input, select, option, button:not(.renting-boo
     background: #2e7d32 !important;
     color: #ffffff !important;
     border-color: #2e7d32 !important;
-    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3) !important;
+    box-shadow: 0 6px 15px rgba(46, 125, 50, 0.25);
 }
 
-/* Search Bar Styling - Hidden */
+/* Search Bar Styling */
 .search-bar-container {
-    display: none !important;
-}
+    width: 100%;
+    margin-bottom: 2rem;
 }
 
 .search-bar-container input {
@@ -1285,27 +1274,6 @@ body, p, label, h2, h3, h4, span, input, select, option, button:not(.renting-boo
     background: rgba(255, 215, 0, 0.25) !important;
     border-left: 3px solid #FFD700 !important;
 }
-
-/* NATIVE ANDROID MOBILE RENTING STYLING */
-@media (max-width: 768px) {
-    .renting-grid, .form-grid, .equipment-cards {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-    }
-    .renting-card {
-        padding: 1rem !important;
-        border-radius: 16px !important;
-    }
-    .rental-item-card {
-        flex-direction: column !important;
-        width: 100% !important;
-    }
-    .booking-modal-content {
-        width: 95% !important;
-        padding: 14px !important;
-    }
-}
-
 
 
 

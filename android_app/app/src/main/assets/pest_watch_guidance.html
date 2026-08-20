@@ -3,19 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-    (function() {
-        var meta = document.querySelector('meta[name="viewport"]');
-        var content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-        if (meta) { meta.setAttribute('content', content); }
-        else {
-            meta = document.createElement('meta');
-            meta.name = 'viewport';
-            meta.content = content;
-            document.head.appendChild(meta);
-        }
-    })();
-    </script>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
@@ -23,41 +10,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="pest_watch_guidance.css">
-    <link rel="stylesheet" href="mobile-fix.css">
 </head>
 <body>
 
     <div class="bg-overlay"></div>
 
-
-    <!-- Language Selector -->
-    <div class="language-selector hub-lang">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-        <select id="lang-switch">
-            <option value="en">English</option>
-            <option value="hi">हिन्दी (Hindi)</option>
-            <option value="bn">বাংলা (Bengali)</option>
-            <option value="mr">मराठी (Marathi)</option>
-            <option value="te">తెలుగు (Telugu)</option>
-            <option value="ta">தமிழ் (Tamil)</option>
-            <option value="gu">ગુજરાતી (Gujarati)</option>
-            <option value="ur">اردو (Urdu)</option>
-            <option value="kn">ಕನ್ನಡ (Kannada)</option>
-            <option value="or">ଓଡ଼ିଆ (Odia)</option>
-            <option value="ml">മലയാളം (Malayalam)</option>
-            <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
-        </select>
-    </div>
-
-    <!-- Top Bar Segmented View Switcher Pills -->
-    <div class="armor-view-switch-container">
-        <button id="btn-tab-pest-watch" onclick="switchArmorView('pest-watch')">
+    <!-- Top Bar Segmented View Switcher Pills (Centered at Top Bar) -->
+    <div style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 50; display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 5px 8px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
+        <button id="btn-tab-pest-watch" onclick="switchArmorView('pest-watch')" style="padding: 7px 18px; border-radius: 20px; font-weight: 800; font-size: 0.88rem; border: none; background: #ffffff; color: #111111; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.12); transition: all 0.2s ease;">
             🐛 Pest Watch
         </button>
-        <button id="btn-tab-disease-scan" onclick="switchArmorView('disease-scan')">
+        <button id="btn-tab-disease-scan" onclick="switchArmorView('disease-scan')" style="padding: 7px 18px; border-radius: 20px; font-weight: 800; font-size: 0.88rem; border: none; background: transparent; color: #ffffff; cursor: pointer; transition: all 0.2s ease;">
             🦠 Disease Scan
         </button>
-        <button id="btn-tab-nutrient-care" onclick="switchArmorView('nutrient-care')">
+        <button id="btn-tab-nutrient-care" onclick="switchArmorView('nutrient-care')" style="padding: 7px 18px; border-radius: 20px; font-weight: 800; font-size: 0.88rem; border: none; background: transparent; color: #ffffff; cursor: pointer; transition: all 0.2s ease;">
             🌱 Nutrient Care
         </button>
     </div>
@@ -142,7 +108,7 @@
 
                 <div id="pest-watch-view" class="armor-view active">
                     <!-- Top Row: Left Timeline Track + Right AI Climate Predictor -->
-                    <div class="pest-watch-top-row">
+                    <div style="display: flex; gap: 2rem; align-items: stretch; margin-bottom: 2rem; width: 100%;">
                         
                         <!-- Left: Vertical 5-Stage Track Card -->
                         <div class="timeline-track-card" id="timeline-track-card-id" style="width: 320px; min-width: 320px; min-height: 520px; margin-bottom: 0;">
@@ -195,11 +161,8 @@
                         <!-- Right: AI Climate Outbreak Predictor Widget -->
                         <div class="ai-predictor-card" id="ai-predictor-card-id" style="flex: 1; min-height: 520px; margin-bottom: 0; display: flex; flex-direction: column; justify-content: space-between;">
                             <div class="ai-pulse-indicator" id="ai-pulse"></div>
-                            <div class="ai-header-group" style="justify-content: center; text-align: center; width: 100%; flex-direction: column; align-items: center; gap: 4px;">
+                            <div class="ai-header-group" style="justify-content: center; text-align: center; width: 100%;">
                                 <h2 data-i18n="aiPredictorTitle" style="font-size: 1.6rem; font-weight: 800; color: #111; margin: 0 auto; text-align: center; width: 100%;">AI Climate Pest & Disease Predictor</h2>
-                                <div id="ai-location-badge" style="font-size: 0.85rem; font-weight: 700; color: #1b5e20; margin-top: 2px; display: flex; align-items: center; justify-content: center; gap: 4px; background: rgba(46, 125, 50, 0.12); padding: 3px 12px; border-radius: 12px; border: 1px solid rgba(46, 125, 50, 0.25);">
-                                    📍 <span id="predictor-loc-text">Live Weather Sync (GPS Active)</span>
-                                </div>
                             </div>
                             
                             <div class="ai-metrics-row">
@@ -1089,7 +1052,7 @@
                     </div>
                 </div>
 
-                <div id="disease-scan-view" class="armor-view" style="display: none; flex-direction: column; justify-content: center; align-items: center; width: 100% !important; max-width: 1000px !important; min-height: auto !important; height: auto !important; margin: 0 auto !important; padding: 0 !important;">
+                <div id="disease-scan-view" class="armor-view" style="display: none; flex-direction: column; justify-content: center; align-items: center; width: 100%; max-width: 1000px; min-height: calc(100vh - 120px); margin: 0 auto; padding-top: 0;">
                     <style>
                         @keyframes bounceUpload {
                             0%, 100% { transform: translateY(0); }
@@ -1103,8 +1066,8 @@
                         
                         /* Circular Glass Screen Viewport */
                         .circular-viewport {
-                            width: min(270px, 55vh) !important;
-                            height: min(270px, 55vh) !important;
+                            width: 320px !important;
+                            height: 320px !important;
                             border-radius: 50% !important;
                             background: rgba(255, 255, 255, 0.14) !important;
                             backdrop-filter: blur(25px) !important;
@@ -1218,12 +1181,12 @@
                     </style>
 
                     <!-- Standalone Header Centered & Styled inside its own Premium Pill Glass Box -->
-                    <div class="scanner-header" style="display: flex; justify-content: center; align-items: center; margin: 0.2rem auto 0.6rem auto; position: relative; z-index: 2; width: auto; max-width: fit-content; background: rgba(255, 255, 255, 0.25) !important; backdrop-filter: blur(30px) !important; -webkit-backdrop-filter: blur(30px) !important; border: 2px solid rgba(255, 255, 255, 0.5) !important; border-radius: 40px !important; padding: 0.5rem 1.8rem !important; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12), inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important;">
-                        <h2 class="notranslate" translate="no" style="font-size: 1.4rem; font-weight: 800; color: #000000 !important; text-align: center; margin: 0; letter-spacing: 0.5px; text-transform: uppercase;" data-i18n="scanTitle">BANANA ARMOR AI Pathogen Scanner</h2>
+                    <div class="scanner-header" style="display: flex; justify-content: center; align-items: center; margin: 0.5rem auto 1.2rem auto; position: relative; z-index: 2; width: auto; max-width: fit-content; background: rgba(255, 255, 255, 0.25) !important; backdrop-filter: blur(30px) !important; -webkit-backdrop-filter: blur(30px) !important; border: 2px solid rgba(255, 255, 255, 0.5) !important; border-radius: 40px !important; padding: 0.75rem 2.4rem !important; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12), inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important;">
+                        <h2 class="notranslate" translate="no" style="font-size: 1.75rem; font-weight: 800; color: #000000 !important; text-align: center; margin: 0; letter-spacing: 0.5px; text-transform: uppercase;" data-i18n="scanTitle">BANANA ARMOR AI Pathogen Scanner</h2>
                     </div>
 
                     <!-- Scanner Interactive Deck -->
-                    <div class="scanner-deck" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem; margin-top: 0; position: relative; z-index: 2; width: 100%;">
+                    <div class="scanner-deck" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem; margin-top: 0; position: relative; z-index: 2; width: 100%;">
                         
                         <!-- Circular Glass Viewport -->
                         <div class="circular-viewport" id="circle-viewport">
@@ -1238,7 +1201,7 @@
                             
                             <!-- Idle State Content -->
                             <div id="circle-idle" style="display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 3; width: 100%; height: 100%;">
-                                <img class="idle-pulse" src="cool_banana_transparent.png" style="width: 175px; height: 175px; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.12));" alt="Cool Banana Character">
+                                <img class="idle-pulse" src="cool_banana_transparent.png" style="width: 210px; height: 210px; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.12));" alt="Cool Banana Character">
                             </div>
                         </div>
 
@@ -1246,7 +1209,7 @@
                         <input type="file" id="leaf-image-input" accept="image/*" style="display: none;">
 
                         <!-- Glowing Pulse Scan Button -->
-                        <button class="scan-me-btn" id="scan-me-btn" style="width: 220px; padding: 12px 24px; font-size: 0.95rem;">
+                        <button class="scan-me-btn" id="scan-me-btn">
                             ⚡ SCAN ME
                         </button>
                     </div>
@@ -1272,8 +1235,8 @@
                         <h2 style=" font-size: 2.6rem; font-weight: 800; color: #000000 !important; text-align: center; margin: 0 0 2rem 0; letter-spacing: 2px; border-bottom: 2px solid rgba(0, 0, 0, 0.12) !important; padding-bottom: 1.5rem; text-transform: uppercase; width: 100%;">DISEASE BOARD</h2>
 
                         <div class="report-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.8rem; flex-wrap: wrap; gap: 1rem;">
-                            <h3 id="report-class" style="font-size: 2rem; font-weight: 800; color: #000000 !important; margin: 0; letter-spacing: -0.5px;">Black Sigatoka (Mycosphaerella fijiensis)</h3>
-                            <span class="confidence-badge" id="report-confidence" style="background: rgba(46, 125, 50, 0.15); border: 2px solid #2e7d32; color: #1b5e20 !important; font-weight: 800; font-size: 1.15rem; padding: 6px 16px; border-radius: 30px; box-shadow: none;">97.4% Match Confidence</span>
+                            <h3 id="report-class" style="font-size: 2rem; font-weight: 800; color: #000000 !important; margin: 0; letter-spacing: -0.5px;">Yellow Sigatoka Spot</h3>
+                            <span class="confidence-badge" id="report-confidence" style="background: none; border: none; color: #000000 !important; font-weight: 700; font-size: 1.25rem; box-shadow: none; padding: 0;">98.42% Confidence</span>
                         </div>
                         
                         <div class="report-meta" style="font-size: 1.25rem; margin-bottom: 2rem; background: none; padding: 0; border: none; font-weight: 700; color: #000000 !important; display: flex; align-items: center; gap: 10px;">
@@ -1319,14 +1282,14 @@
                 <div id="nutrient-care-view" class="armor-view" style="display: none; width: 100%;">
                     
                     <!-- Standalone Header Centered & Styled inside its own Premium Pill Glass Box -->
-                    <div class="nutrient-header-standalone" style="display: flex; justify-content: center; align-items: center; margin: 0 0 1.2rem 0; position: relative; z-index: 2; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; background: rgba(255, 255, 255, 0.22) !important; backdrop-filter: blur(30px) !important; -webkit-backdrop-filter: blur(30px) !important; border: 2px solid rgba(255, 255, 255, 0.45) !important; border-radius: 30px !important; padding: 0.8rem 1.2rem !important; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1), inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important; text-align: center;">
-                        <h2 style="font-size: 1.3rem; font-weight: 900; color: #000000 !important; text-align: center; margin: 0; letter-spacing: 0.5px; text-transform: uppercase;">PRECISION DOSAGE CONTROL DECK</h2>
+                    <div class="nutrient-header-standalone" style="display: flex; justify-content: center; align-items: center; margin: 0 auto 2.5rem auto; position: relative; z-index: 2; width: auto; max-width: fit-content; background: rgba(255, 255, 255, 0.22) !important; backdrop-filter: blur(30px) !important; -webkit-backdrop-filter: blur(30px) !important; border: 2px solid rgba(255, 255, 255, 0.45) !important; border-radius: 40px !important; padding: 1.2rem 4rem !important; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12), inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important; text-align: center;">
+                        <h2 style=" font-size: 2.3rem; font-weight: 900; color: #000000 !important; text-align: center; margin: 0; letter-spacing: 1px; text-transform: uppercase;">PRECISION DOSAGE CONTROL DECK</h2>
                     </div>
 
-                    <div class="card glass nutrient-card" style="display: flex !important; flex-direction: column !important; height: auto !important; min-height: unset !important; background: rgba(255, 255, 255, 0.22) !important; backdrop-filter: blur(30px) !important; -webkit-backdrop-filter: blur(30px) !important; border: 2px solid rgba(255, 255, 255, 0.45) !important; border-radius: 22px !important; padding: 1.2rem 1rem !important; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.14), inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important; color: #000000 !important; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important; margin: 0;">
+                    <div class="card glass nutrient-card" style="display: flex !important; flex-direction: column !important; height: auto !important; min-height: unset !important; background: rgba(255, 255, 255, 0.22) !important; backdrop-filter: blur(30px) !important; -webkit-backdrop-filter: blur(30px) !important; border: 2px solid rgba(255, 255, 255, 0.45) !important; border-radius: 28px !important; padding: 2.2rem 2.8rem !important; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18), inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important; color: #000000 !important; max-width: 1400px; width: 100%; margin: 0 auto; box-sizing: border-box;">
                         
                         <!-- Segmented View Toggle Buttons -->
-                        <div style="display: flex; background: rgba(0,0,0,0.05); padding: 5px; border-radius: 30px; border: 1.5px solid rgba(0,0,0,0.06); width: 100% !important; max-width: 100% !important; margin: 0 0 1.2rem 0; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); box-sizing: border-box !important;">
+                        <div style="display: flex; background: rgba(0,0,0,0.05); padding: 6px; border-radius: 40px; border: 1.5px solid rgba(0,0,0,0.06); width: 80%; max-width: 600px; margin: 0 auto 2.5rem auto; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05); box-sizing: border-box;">
                             <button id="btn-toggle-fertilizer" onclick="switchCalcView('fertilizer')" class="calc-tab-btn active">🌱 Fertilizer Calculator</button>
                             <button id="btn-toggle-pesticide" onclick="switchCalcView('pesticide')" class="calc-tab-btn">🧪 Pesticide Spray Calculator</button>
                         </div>
@@ -1334,32 +1297,32 @@
                         <!-- ==========================================
                              1. FERTILIZER CALCULATOR VIEW
                              ========================================== -->
-                        <div id="fertilizer-calc-view" style="display: block;">
-                            <div class="calc-grid-wrapper" style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 1.5rem;">
+                        <div id="fertilizer-calc-view" style="display: block; width: 100%; box-sizing: border-box;">
+                            <div style="display: grid; grid-template-columns: 1fr 1.05fr; gap: 2.5rem; width: 100%; box-sizing: border-box;">
                                 
                                 <!-- Inputs Column -->
-                                <div style="display: flex; flex-direction: column; justify-content: flex-start !important; height: auto !important; min-height: unset !important; gap: 0.7rem;">
-                                    <h4 style="font-size: 1.05rem; font-weight: 800; margin: 0; border-bottom: 1.5px solid rgba(0,0,0,0.08); padding-bottom: 0.4rem; text-transform: uppercase;">🔢 Calculator Inputs</h4>
+                                <div style="display: flex; flex-direction: column; justify-content: space-between !important; height: 100% !important; min-height: 480px; box-sizing: border-box;">
+                                    <h4 style="font-size: 1.45rem; font-weight: 800; margin: 0; border-bottom: 1.5px solid rgba(0,0,0,0.08); padding-bottom: 0.8rem; text-transform: uppercase;">🔢 Calculator Inputs</h4>
                                     
                                     <!-- Calculation Mode Pill Selector -->
                                     <div>
-                                        <label style="display: block; font-size: 0.88rem; font-weight: 800; margin-bottom: 0.3rem;">Nutrient Mode</label>
-                                        <div style="display: flex; background: rgba(0,0,0,0.05); padding: 3px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.05);">
-                                            <button id="btn-mode-plants" onclick="setFertMode('plants')" style="flex: 1; border: none; background: #ffffff !important; padding: 7px 12px; border-radius: 16px; font-weight: 800; cursor: pointer; color: #000000 !important; font-size: 0.82rem; transition: all 0.3s ease;">By Plant Count</button>
-                                            <button id="btn-mode-area" onclick="setFertMode('area')" style="flex: 1; border: none; background: transparent !important; padding: 7px 12px; border-radius: 16px; font-weight: 700; cursor: pointer; color: #000000 !important; opacity: 0.7; font-size: 0.82rem; transition: all 0.3s ease;">By Farm Area (Acres)</button>
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Nutrient Mode</label>
+                                        <div style="display: flex; background: rgba(0,0,0,0.05); padding: 6px; border-radius: 30px; border: 1px solid rgba(0,0,0,0.05);">
+                                            <button id="btn-mode-plants" onclick="setFertMode('plants')" style="flex: 1; border: none; background: #ffffff !important; padding: 12px 20px; border-radius: 25px; font-weight: 800; cursor: pointer; color: #000000 !important; font-size: 1.1rem; transition: all 0.3s ease;">By Plant Count</button>
+                                            <button id="btn-mode-area" onclick="setFertMode('area')" style="flex: 1; border: none; background: transparent !important; padding: 12px 20px; border-radius: 25px; font-weight: 700; cursor: pointer; color: #000000 !important; opacity: 0.7; font-size: 1.1rem; transition: all 0.3s ease;">By Farm Area (Acres)</button>
                                         </div>
                                     </div>
 
                                     <!-- Size Numeric Input -->
                                     <div>
-                                        <label id="lbl-fert-size" style="display: block; font-size: 0.88rem; font-weight: 800; margin-bottom: 0.3rem;">Number of Plants</label>
-                                        <input type="number" id="inp-fert-size" value="500" min="1" max="10000000" oninput="calculateFertilizer()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 10px; padding: 8px 12px; font-size: 0.95rem; font-weight: 800; color: #000000 !important;">
+                                        <label id="lbl-fert-size" style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Number of Plants</label>
+                                        <input type="number" id="inp-fert-size" value="500" min="1" max="10000000" oninput="calculateFertilizer()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 14px; padding: 16px 20px; font-size: 1.25rem; font-weight: 700; color: #000000 !important;">
                                     </div>
 
                                     <!-- Growth Stage Selector -->
                                     <div>
-                                        <label style="display: block; font-size: 0.88rem; font-weight: 800; margin-bottom: 0.3rem;">Crop Growth Phase</label>
-                                        <select id="sel-fert-stage" onchange="calculateFertilizer()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 10px; padding: 8px 12px; font-size: 0.88rem; font-weight: 800; color: #000000 !important; cursor: pointer;">
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Crop Growth Phase</label>
+                                        <select id="sel-fert-stage" onchange="calculateFertilizer()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 14px; padding: 16px 20px; font-size: 1.2rem; font-weight: 700; color: #000000 !important; cursor: pointer;">
                                             <option value="seedling">Seedling Stage (Establishment | Months 1-3)</option>
                                             <option value="vegetative" selected>Vegetative Stage (Rapid Canopy | Months 4-6)</option>
                                             <option value="flowering">Flowering / Shooting (Bunch Emergence | Months 7-9)</option>
@@ -1369,8 +1332,8 @@
 
                                     <!-- Soil Fertility Selector -->
                                     <div>
-                                        <label style="display: block; font-size: 0.88rem; font-weight: 800; margin-bottom: 0.3rem;">Soil Testing Fertility</label>
-                                        <select id="sel-fert-soil" onchange="calculateFertilizer()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 10px; padding: 8px 12px; font-size: 0.88rem; font-weight: 800; color: #000000 !important; cursor: pointer;">
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Soil Testing Fertility</label>
+                                        <select id="sel-fert-soil" onchange="calculateFertilizer()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 14px; padding: 16px 20px; font-size: 1.2rem; font-weight: 700; color: #000000 !important; cursor: pointer;">
                                             <option value="low">Low Fertility (+20% Dosage Supplement)</option>
                                             <option value="medium" selected>Medium Fertility (Standard Crop Guide)</option>
                                             <option value="high">High Fertility (-20% Dosage Discount)</option>
@@ -1379,94 +1342,94 @@
                                 </div>
                                 
                                 <!-- Outputs Column -->
-                                <div style="display: flex; flex-direction: column; gap: 0.8rem; background: rgba(255, 255, 255, 0.18) !important; backdrop-filter: blur(25px) !important; -webkit-backdrop-filter: blur(25px) !important; padding: 1rem; border-radius: 18px; border: 1.5px solid rgba(255,255,255,0.45); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), inset 1px 1px 2px rgba(255,255,255,0.5);">
+                                <div style="display: flex; flex-direction: column; gap: 0.8rem; background: rgba(255, 255, 255, 0.18) !important; backdrop-filter: blur(25px) !important; -webkit-backdrop-filter: blur(25px) !important; padding: 1.4rem; border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.45); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), inset 1px 1px 2px rgba(255,255,255,0.5); box-sizing: border-box; min-width: 0;">
                                     
                                     <!-- Header -->
-                                    <div style="border-bottom: 1.5px solid rgba(0,0,0,0.06); padding-bottom: 0.5rem; margin-bottom: 0.1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-                                        <h4 style="font-size: 1.1rem; font-weight: 900; margin: 0; color: #1b5e20 !important; letter-spacing: 0.5px; text-transform: uppercase;">📊 RECOMMENDED DOSAGE RESULTS</h4>
-                                        <span id="val-fert-npk" style="font-size: 0.8rem; font-weight: 800; background: rgba(0,0,0,0.06); color: #000000 !important; padding: 4px 10px; border-radius: 20px; display: inline-block;">N: -- kg | P: -- kg | K: -- kg</span>
+                                    <div style="border-bottom: 1.5px solid rgba(0,0,0,0.06); padding-bottom: 0.6rem; margin-bottom: 0.2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                                        <h4 style="font-size: 1.15rem; font-weight: 900; margin: 0; color: #1b5e20 !important; letter-spacing: 0.5px; text-transform: uppercase;">📊 RECOMMENDED DOSAGE RESULTS</h4>
+                                        <span id="val-fert-npk" style="font-size: 0.82rem; font-weight: 800; background: rgba(0,0,0,0.06); color: #000000 !important; padding: 4px 12px; border-radius: 20px; display: inline-block;">N: -- kg | P: -- kg | K: -- kg</span>
                                     </div>
 
                                     <!-- Futuristic NPK Visualizer Deck -->
-                                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 0.1rem;" class="ai-metrics-row">
+                                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 0.2rem;" class="ai-metrics-row">
                                         
                                         <!-- Nitrogen Gauge Card -->
-                                        <div style="background: rgba(255,255,255,0.4) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 12px !important; padding: 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 95px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
+                                        <div style="background: rgba(255,255,255,0.45) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 14px !important; padding: 0.7rem 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 100px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
                                             <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, rgba(0, 210, 255, 0.12) 0%, rgba(0, 102, 255, 0.02) 100%); transition: height 0.5s ease-out;" id="bar-fert-n"></div>
-                                            <span style="font-size: 0.65rem; font-weight: 800; color: #0066ff !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Nitrogen (N)</span>
-                                            <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #00d2ff, #0066ff); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 3px 6px rgba(0, 102, 255, 0.25);">N</div>
-                                            <span id="val-fert-n" style="font-size: 1.1rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- kg</span>
+                                            <span style="font-size: 0.72rem; font-weight: 800; color: #0066ff !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Nitrogen (N)</span>
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #00d2ff, #0066ff); color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 3px 6px rgba(0, 102, 255, 0.25);">N</div>
+                                            <span id="val-fert-n" style="font-size: 1.15rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- kg</span>
                                         </div>
 
                                         <!-- Phosphorus Gauge Card -->
-                                        <div style="background: rgba(255,255,255,0.4) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 12px !important; padding: 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 95px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
+                                        <div style="background: rgba(255,255,255,0.45) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 14px !important; padding: 0.7rem 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 100px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
                                             <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, rgba(224, 64, 251, 0.12) 0%, rgba(106, 27, 154, 0.02) 100%); transition: height 0.5s ease-out;" id="bar-fert-p"></div>
-                                            <span style="font-size: 0.65rem; font-weight: 800; color: #6a1b9a !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Phosphorus (P)</span>
-                                            <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #e040fb, #6a1b9a); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 4px 10px rgba(106, 27, 154, 0.25);">P</div>
-                                            <span id="val-fert-p" style="font-size: 1.1rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- kg</span>
+                                            <span style="font-size: 0.72rem; font-weight: 800; color: #6a1b9a !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Phosphorus (P)</span>
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #e040fb, #6a1b9a); color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 3px 6px rgba(106, 27, 154, 0.25);">P</div>
+                                            <span id="val-fert-p" style="font-size: 1.15rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- kg</span>
                                         </div>
 
                                         <!-- Potassium Gauge Card -->
-                                        <div style="background: rgba(255,255,255,0.4) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 12px !important; padding: 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 95px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
+                                        <div style="background: rgba(255,255,255,0.45) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 14px !important; padding: 0.7rem 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 100px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
                                             <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, rgba(255, 179, 0, 0.12) 0%, rgba(255, 111, 0, 0.02) 100%); transition: height 0.5s ease-out;" id="bar-fert-k"></div>
-                                            <span style="font-size: 0.65rem; font-weight: 800; color: #ff6f00 !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Potassium (K)</span>
-                                            <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #ffb300, #ff6f00); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 4px 10px rgba(255, 111, 0, 0.25);">K</div>
-                                            <span id="val-fert-k" style="font-size: 1.1rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- kg</span>
+                                            <span style="font-size: 0.72rem; font-weight: 800; color: #ff6f00 !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Potassium (K)</span>
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #ffb300, #ff6f00); color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 3px 6px rgba(255, 111, 0, 0.25);">K</div>
+                                            <span id="val-fert-k" style="font-size: 1.15rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- kg</span>
                                         </div>
 
                                     </div>
 
                                     <!-- Fertilizer Cards Deck -->
-                                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <div style="display: flex; flex-direction: column; gap: 0.6rem;">
                                         
                                         <!-- Urea Card -->
-                                        <div style="display: flex; align-items: center; gap: 0.6rem; background: rgba(255,255,255,0.55); padding: 0.5rem 0.8rem; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.7); box-shadow: 0 3px 10px rgba(0,0,0,0.01); transition: all 0.3s ease; position: relative; overflow: hidden;" class="sample-card">
+                                        <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(255,255,255,0.55); padding: 0.7rem 1rem; border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.7); box-shadow: 0 3px 10px rgba(0,0,0,0.01); transition: all 0.3s ease; position: relative; overflow: hidden;" class="sample-card">
                                             <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, #00d2ff, #0066ff);"></div>
-                                            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(0, 102, 255, 0.06); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">🧪</div>
-                                            <div style="flex: 1;">
+                                            <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(0, 102, 255, 0.06); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">🧪</div>
+                                            <div style="flex: 1; min-width: 0;">
                                                 <div style="display: flex; align-items: center; gap: 6px;">
-                                                    <h5 style="margin: 0; font-size: 0.95rem; font-weight: 800; color: #000000 !important;">Urea</h5>
-                                                    <span style="font-size: 0.6rem; font-weight: 800; background: rgba(0, 102, 255, 0.08); color: #0066ff !important; padding: 1px 4px; border-radius: 4px; text-transform: uppercase;">46% N</span>
+                                                    <h5 style="margin: 0; font-size: 1rem; font-weight: 800; color: #000000 !important;">Urea</h5>
+                                                    <span style="font-size: 0.65rem; font-weight: 800; background: rgba(0, 102, 255, 0.08); color: #0066ff !important; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">46% N</span>
                                                 </div>
-                                                <p style="margin: 1px 0 0 0; font-size: 0.75rem; font-weight: 600; opacity: 0.8; line-height: 1.2;">Apply around root ring base collar in split wet schedule.</p>
+                                                <p style="margin: 2px 0 0 0; font-size: 0.78rem; font-weight: 600; opacity: 0.8; line-height: 1.2;">Apply around root ring base collar in split wet schedule.</p>
                                             </div>
-                                            <div style="text-align: right; min-width: 95px;">
-                                                <span style="display: block; font-size: 1.1rem; font-weight: 900; color: #0066ff !important; letter-spacing: -0.5px;" id="val-fert-urea">-- kg</span>
-                                                <span style="font-size: 0.75rem; font-weight: 800; color: #000000 !important; opacity: 0.75;" id="val-bags-urea">-- Bags (50kg)</span>
+                                            <div style="text-align: right; min-width: 105px;">
+                                                <span style="display: block; font-size: 1.15rem; font-weight: 900; color: #0066ff !important; letter-spacing: -0.5px;" id="val-fert-urea">-- kg</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #000000 !important; opacity: 0.75;" id="val-bags-urea">-- Bags (50kg)</span>
                                             </div>
                                         </div>
 
                                         <!-- SSP Card -->
-                                        <div style="display: flex; align-items: center; gap: 0.6rem; background: rgba(255,255,255,0.55); padding: 0.5rem 0.8rem; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.7); box-shadow: 0 3px 10px rgba(0,0,0,0.01); transition: all 0.3s ease; position: relative; overflow: hidden;" class="sample-card">
+                                        <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(255,255,255,0.55); padding: 0.7rem 1rem; border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.7); box-shadow: 0 3px 10px rgba(0,0,0,0.01); transition: all 0.3s ease; position: relative; overflow: hidden;" class="sample-card">
                                             <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, #e040fb, #6a1b9a);"></div>
-                                            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(106, 27, 154, 0.06); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">🌱</div>
-                                            <div style="flex: 1;">
+                                            <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(106, 27, 154, 0.06); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">🌱</div>
+                                            <div style="flex: 1; min-width: 0;">
                                                 <div style="display: flex; align-items: center; gap: 6px;">
-                                                    <h5 style="margin: 0; font-size: 0.95rem; font-weight: 800; color: #000000 !important;">SSP</h5>
-                                                    <span style="font-size: 0.6rem; font-weight: 800; background: rgba(106, 27, 154, 0.08); color: #6a1b9a !important; padding: 1px 4px; border-radius: 4px; text-transform: uppercase;">16% P</span>
+                                                    <h5 style="margin: 0; font-size: 1rem; font-weight: 800; color: #000000 !important;">SSP</h5>
+                                                    <span style="font-size: 0.65rem; font-weight: 800; background: rgba(106, 27, 154, 0.08); color: #6a1b9a !important; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">16% P</span>
                                                 </div>
-                                                <p style="margin: 1px 0 0 0; font-size: 0.75rem; font-weight: 600; opacity: 0.8; line-height: 1.2;">Incorporate deep inside corm zone for active root initiation.</p>
+                                                <p style="margin: 2px 0 0 0; font-size: 0.78rem; font-weight: 600; opacity: 0.8; line-height: 1.2;">Incorporate deep inside corm zone for active root initiation.</p>
                                             </div>
-                                            <div style="text-align: right; min-width: 95px;">
-                                                <span style="display: block; font-size: 1.1rem; font-weight: 900; color: #6a1b9a !important; letter-spacing: -0.5px;" id="val-fert-ssp">-- kg</span>
-                                                <span style="font-size: 0.75rem; font-weight: 800; color: #000000 !important; opacity: 0.75;" id="val-bags-ssp">-- Bags (50kg)</span>
+                                            <div style="text-align: right; min-width: 105px;">
+                                                <span style="display: block; font-size: 1.15rem; font-weight: 900; color: #6a1b9a !important; letter-spacing: -0.5px;" id="val-fert-ssp">-- kg</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #000000 !important; opacity: 0.75;" id="val-bags-ssp">-- Bags (50kg)</span>
                                             </div>
                                         </div>
 
                                         <!-- MOP Card -->
-                                        <div style="display: flex; align-items: center; gap: 0.6rem; background: rgba(255,255,255,0.55); padding: 0.5rem 0.8rem; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.7); box-shadow: 0 3px 10px rgba(0,0,0,0.01); transition: all 0.3s ease; position: relative; overflow: hidden;" class="sample-card">
+                                        <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(255,255,255,0.55); padding: 0.7rem 1rem; border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.7); box-shadow: 0 3px 10px rgba(0,0,0,0.01); transition: all 0.3s ease; position: relative; overflow: hidden;" class="sample-card">
                                             <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, #ffb300, #ff6f00);"></div>
-                                            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(255, 111, 0, 0.06); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">🍌</div>
-                                            <div style="flex: 1;">
+                                            <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(255, 111, 0, 0.06); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">🍌</div>
+                                            <div style="flex: 1; min-width: 0;">
                                                 <div style="display: flex; align-items: center; gap: 6px;">
-                                                    <h5 style="margin: 0; font-size: 0.95rem; font-weight: 800; color: #000000 !important;">MOP</h5>
-                                                    <span style="font-size: 0.6rem; font-weight: 800; background: rgba(255, 111, 0, 0.08); color: #ff6f00 !important; padding: 1px 4px; border-radius: 4px; text-transform: uppercase;">60% K</span>
+                                                    <h5 style="margin: 0; font-size: 1rem; font-weight: 800; color: #000000 !important;">MOP</h5>
+                                                    <span style="font-size: 0.65rem; font-weight: 800; background: rgba(255, 111, 0, 0.08); color: #ff6f00 !important; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">60% K</span>
                                                 </div>
-                                                <p style="margin: 1px 0 0 0; font-size: 0.75rem; font-weight: 600; opacity: 0.8; line-height: 1.2;">Essential Potassium feed to boost bunch shooting weight.</p>
+                                                <p style="margin: 2px 0 0 0; font-size: 0.78rem; font-weight: 600; opacity: 0.8; line-height: 1.2;">Essential Potassium feed to boost bunch shooting weight.</p>
                                             </div>
-                                            <div style="text-align: right; min-width: 95px;">
-                                                <span style="display: block; font-size: 1.1rem; font-weight: 900; color: #ff6f00 !important; letter-spacing: -0.5px;" id="val-fert-mop">-- kg</span>
-                                                <span style="font-size: 0.75rem; font-weight: 800; color: #000000 !important; opacity: 0.75;" id="val-bags-mop">-- Bags (50kg)</span>
+                                            <div style="text-align: right; min-width: 105px;">
+                                                <span style="display: block; font-size: 1.15rem; font-weight: 900; color: #ff6f00 !important; letter-spacing: -0.5px;" id="val-fert-mop">-- kg</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #000000 !important; opacity: 0.75;" id="val-bags-mop">-- Bags (50kg)</span>
                                             </div>
                                         </div>
 
@@ -1474,45 +1437,39 @@
 
                                     <!-- Plantix Split Schedule Timeline -->
                                     <div style="margin-top: 0.6rem; border-top: 1.5px solid rgba(0,0,0,0.06); padding-top: 0.8rem;">
-                                        <h5 style="font-size: 0.85rem; font-weight: 900; margin: 0 0 0.6rem 0; text-transform: uppercase; color: #1b5e20 !important; letter-spacing: 0.5px;">📅 Split Application Timeline (Per Plant Dosage)</h5>
+                                        <h5 style="font-size: 0.88rem; font-weight: 900; margin: 0 0 0.6rem 0; text-transform: uppercase; color: #1b5e20 !important; letter-spacing: 0.5px;">📅 Split Application Timeline (Per Plant Dosage)</h5>
                                         
-                                        <style>
-                                            @media (max-width: 600px) {
-                                                .timeline-desktop-line { display: none !important; }
-                                                .split-timeline-grid { grid-template-columns: 1fr 1fr !important; gap: 6px !important; }
-                                            }
-                                        </style>
-                                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; position: relative;" class="split-timeline-grid">
+                                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; position: relative;" class="split-timeline-grid">
                                             
                                             <!-- Connected Line Background for Desktop -->
                                             <div style="position: absolute; top: 15px; left: 12.5%; right: 12.5%; height: 2px; background: rgba(46, 125, 50, 0.15); z-index: 1;" class="timeline-desktop-line"></div>
                                             
                                             <!-- Step 1 -->
-                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.4); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 8px; padding: 0.4rem 0.2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
-                                                <div style="width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(46, 125, 50, 0.2);">1</div>
-                                                <span style="font-size: 0.7rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Basal Dose</span>
-                                                <span style="font-size: 0.75rem; font-weight: 800; color: #1b5e20 !important; background: rgba(46, 125, 50, 0.06); padding: 2px 5px; border-radius: 8px; border: 1px solid rgba(46, 125, 50, 0.12); white-space: nowrap;" id="lbl-split-1">--g/plant</span>
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(46, 125, 50, 0.2);">1</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Basal Dose</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #1b5e20 !important; background: rgba(46, 125, 50, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(46, 125, 50, 0.12); white-space: nowrap;" id="lbl-split-1">--g/plant</span>
                                             </div>
 
                                             <!-- Step 2 -->
-                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.4); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 8px; padding: 0.4rem 0.2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
-                                                <div style="width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(46, 125, 50, 0.2);">2</div>
-                                                <span style="font-size: 0.7rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Month 2</span>
-                                                <span style="font-size: 0.75rem; font-weight: 800; color: #1b5e20 !important; background: rgba(46, 125, 50, 0.06); padding: 2px 5px; border-radius: 8px; border: 1px solid rgba(46, 125, 50, 0.12); white-space: nowrap;" id="lbl-split-2">--g/plant</span>
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(46, 125, 50, 0.2);">2</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Month 2</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #1b5e20 !important; background: rgba(46, 125, 50, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(46, 125, 50, 0.12); white-space: nowrap;" id="lbl-split-2">--g/plant</span>
                                             </div>
 
                                             <!-- Step 3 -->
-                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.4); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 8px; padding: 0.4rem 0.2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
-                                                <div style="width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(46, 125, 50, 0.2);">3</div>
-                                                <span style="font-size: 0.7rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Month 4</span>
-                                                <span style="font-size: 0.75rem; font-weight: 800; color: #1b5e20 !important; background: rgba(46, 125, 50, 0.06); padding: 2px 5px; border-radius: 8px; border: 1px solid rgba(46, 125, 50, 0.12); white-space: nowrap;" id="lbl-split-3">--g/plant</span>
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(46, 125, 50, 0.2);">3</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Month 4</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #1b5e20 !important; background: rgba(46, 125, 50, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(46, 125, 50, 0.12); white-space: nowrap;" id="lbl-split-3">--g/plant</span>
                                             </div>
 
                                             <!-- Step 4 -->
-                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.4); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 8px; padding: 0.4rem 0.2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
-                                                <div style="width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(46, 125, 50, 0.2);">4</div>
-                                                <span style="font-size: 0.7rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Month 6</span>
-                                                <span style="font-size: 0.75rem; font-weight: 800; color: #1b5e20 !important; background: rgba(46, 125, 50, 0.06); padding: 2px 5px; border-radius: 8px; border: 1px solid rgba(46, 125, 50, 0.12); white-space: nowrap;" id="lbl-split-4">--g/plant</span>
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(46, 125, 50, 0.2);">4</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Month 6</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #1b5e20 !important; background: rgba(46, 125, 50, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(46, 125, 50, 0.12); white-space: nowrap;" id="lbl-split-4">--g/plant</span>
                                             </div>
 
                                         </div>
@@ -1524,46 +1481,49 @@
                         <!-- ==========================================
                              2. PESTICIDE SPRAY CALCULATOR VIEW
                              ========================================== -->
-                        <div id="pesticide-calc-view" style="display: none;">
-                            <div class="calc-grid-wrapper" style="display: grid; grid-template-columns: 1.15fr 1fr; gap: 1.5rem;">
+                        <div id="pesticide-calc-view" style="display: none; width: 100%; box-sizing: border-box;">
+                            <div style="display: grid; grid-template-columns: 1fr 1.05fr; gap: 2.5rem; width: 100%; box-sizing: border-box;">
                                 
                                 <!-- Inputs Column -->
-                                <div style="display: flex; flex-direction: column; justify-content: flex-start !important; height: auto !important; min-height: unset !important; gap: 0.7rem;">
-                                    <h4 style="font-size: 1.05rem; font-weight: 800; margin: 0; border-bottom: 1.5px solid rgba(0,0,0,0.08); padding-bottom: 0.4rem; text-transform: uppercase;">🔢 Spray Inputs</h4>
+                                <div style="display: flex; flex-direction: column; justify-content: space-between !important; height: 100% !important; min-height: 480px; box-sizing: border-box;">
+                                    <h4 style="font-size: 1.45rem; font-weight: 800; margin: 0; border-bottom: 1.5px solid rgba(0,0,0,0.08); padding-bottom: 0.8rem; text-transform: uppercase;">🔢 Spray Inputs</h4>
                                     
-                                    <!-- AI Diagnosed Target Disease Card (Single Scanned Target - No Dropdown) -->
+                                    <!-- AI Scanned Target Disease Card (Auto-filled from Scanner - Option A) -->
                                     <div>
-                                        <label style="display: block; font-size: 0.88rem; font-weight: 800; margin-bottom: 0.3rem;">Target Disease / Chemical Product</label>
-                                        <div id="target-disease-card" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.75); border: 1.5px solid rgba(46, 125, 50, 0.35); border-radius: 12px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);">
-                                            <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; flex-shrink: 0; box-shadow: 0 3px 8px rgba(46, 125, 50, 0.25);">🛡️</div>
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">AI Scanned Target Disease</label>
+                                        <div id="target-disease-card" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.75); border: 2px solid rgba(46, 125, 50, 0.4); border-radius: 16px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; box-shadow: 0 6px 18px rgba(0,0,0,0.05);">
+                                            <div id="target-disease-icon" style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 900; flex-shrink: 0; box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);">🛡️</div>
                                             <div style="flex: 1; min-width: 0;">
-                                                <span style="display: block; font-size: 0.65rem; font-weight: 900; color: #1b5e20 !important; text-transform: uppercase; letter-spacing: 0.5px;">AI DIAGNOSED TARGET</span>
-                                                <span id="lbl-target-disease-name" style="display: block; font-size: 0.88rem; font-weight: 900; color: #000000 !important; line-height: 1.3; word-break: break-word;">Yellow Sigatoka Leaf Spot (Propiconazole 25% EC)</span>
+                                                <div style="display: flex; align-items: center; gap: 8px;">
+                                                    <span style="font-size: 0.72rem; font-weight: 900; color: #1b5e20 !important; text-transform: uppercase; letter-spacing: 0.5px;">AI DIAGNOSED TARGET</span>
+                                                    <span id="lbl-target-disease-badge" style="font-size: 0.65rem; font-weight: 800; background: rgba(46, 125, 50, 0.12); color: #1b5e20; padding: 2px 6px; border-radius: 6px;">AUTO-FILLED FROM SCANNER</span>
+                                                </div>
+                                                <span id="lbl-target-disease-name" style="display: block; font-size: 1.2rem; font-weight: 900; color: #000000 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;">Black Sigatoka Leaf Spot (Propiconazole 25% EC)</span>
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Sprayer Water Tank Capacity Pill Selector -->
                                     <div>
-                                        <label style="display: block; font-size: 0.88rem; font-weight: 800; margin-bottom: 0.3rem;">Sprayer Water Tank Capacity</label>
-                                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; background: rgba(0,0,0,0.03); padding: 4px; border-radius: 14px; border: 1px solid rgba(0,0,0,0.05);">
-                                            <button id="btn-tank-12" onclick="setTankCapacity(12)" class="tank-btn" style="padding: 6px 8px; font-size: 0.82rem;">12 L</button>
-                                            <button id="btn-tank-16" onclick="setTankCapacity(16)" class="tank-btn active" style="padding: 6px 8px; font-size: 0.82rem;">16 L</button>
-                                            <button id="btn-tank-20" onclick="setTankCapacity(20)" class="tank-btn" style="padding: 6px 8px; font-size: 0.82rem;">20 L</button>
-                                            <button id="btn-tank-200" onclick="setTankCapacity(200)" class="tank-btn" style="padding: 6px 8px; font-size: 0.82rem;">200 L</button>
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Sprayer Water Tank Capacity</label>
+                                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: rgba(0,0,0,0.03); padding: 8px; border-radius: 18px; border: 1px solid rgba(0,0,0,0.05);">
+                                            <button id="btn-tank-12" onclick="setTankCapacity(12)" class="tank-btn">12 L</button>
+                                            <button id="btn-tank-16" onclick="setTankCapacity(16)" class="tank-btn active">16 L</button>
+                                            <button id="btn-tank-20" onclick="setTankCapacity(20)" class="tank-btn">20 L</button>
+                                            <button id="btn-tank-200" onclick="setTankCapacity(200)" class="tank-btn">200 L</button>
                                         </div>
                                     </div>
 
                                     <!-- Crops count input -->
                                     <div>
-                                        <label style="display: block; font-size: 0.88rem; font-weight: 800; margin-bottom: 0.3rem;">Number of Crops to Treat</label>
-                                        <input type="number" id="inp-pest-crops" value="500" min="1" max="10000000" oninput="calculatePesticide()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 10px; padding: 8px 12px; font-size: 0.95rem; font-weight: 800; color: #000000 !important;">
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Number of Crops to Treat</label>
+                                        <input type="number" id="inp-pest-crops" value="500" min="1" max="10000000" oninput="calculatePesticide()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 14px; padding: 16px 20px; font-size: 1.25rem; font-weight: 700; color: #000000 !important;">
                                     </div>
 
                                     <!-- Crop Growth Phase for fluid rate calculation -->
                                     <div>
-                                        <label style="display: block; font-size: 0.88rem; font-weight: 800; margin-bottom: 0.3rem;">Crop Stage (Spray Coverage Factor)</label>
-                                        <select id="sel-pest-stage" onchange="calculatePesticide()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 10px; padding: 8px 12px; font-size: 0.88rem; font-weight: 800; color: #000000 !important; cursor: pointer;">
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Crop Stage (Spray Coverage Factor)</label>
+                                        <select id="sel-pest-stage" onchange="calculatePesticide()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 14px; padding: 16px 20px; font-size: 1.2rem; font-weight: 700; color: #000000 !important; cursor: pointer;">
                                             <option value="seedling">Seedling Stage (0.2 Liters / plant)</option>
                                             <option value="vegetative" selected>Vegetative Stage (0.5 Liters / plant)</option>
                                             <option value="flowering">Flowering Stage (0.6 Liters / plant)</option>
@@ -1573,110 +1533,104 @@
                                 </div>
                                 
                                 <!-- Outputs Column -->
-                                <div style="display: flex; flex-direction: column; gap: 0.8rem; background: rgba(255, 255, 255, 0.18) !important; backdrop-filter: blur(25px) !important; -webkit-backdrop-filter: blur(25px) !important; padding: 1rem; border-radius: 18px; border: 1.5px solid rgba(255,255,255,0.45); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), inset 1px 1px 2px rgba(255,255,255,0.5);">
+                                <div style="display: flex; flex-direction: column; gap: 0.8rem; background: rgba(255, 255, 255, 0.18) !important; backdrop-filter: blur(25px) !important; -webkit-backdrop-filter: blur(25px) !important; padding: 1.4rem; border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.45); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), inset 1px 1px 2px rgba(255,255,255,0.5); box-sizing: border-box; min-width: 0;">
                                     
                                     <!-- Header -->
-                                    <div style="border-bottom: 1.5px solid rgba(0,0,0,0.06); padding-bottom: 0.5rem; margin-bottom: 0.1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-                                        <h4 style="font-size: 1.1rem; font-weight: 900; margin: 0; color: #1b5e20 !important; letter-spacing: 0.5px; text-transform: uppercase;">📊 Dilution & Sprayer Calculations</h4>
+                                    <div style="border-bottom: 1.5px solid rgba(0,0,0,0.06); padding-bottom: 0.6rem; margin-bottom: 0.2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                                        <h4 style="font-size: 1.15rem; font-weight: 900; margin: 0; color: #1b5e20 !important; letter-spacing: 0.5px; text-transform: uppercase;">📊 Dilution & Sprayer Calculations</h4>
                                     </div>
 
                                     <!-- Futuristic Pesticide Visualizer Deck -->
-                                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 0.1rem;" class="ai-metrics-row">
+                                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 0.2rem;" class="ai-metrics-row">
                                         
                                         <!-- Dose Per Tank Card -->
-                                        <div style="background: rgba(255,255,255,0.4) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 12px !important; padding: 0.4rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
+                                        <div style="background: rgba(255,255,255,0.45) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 14px !important; padding: 0.7rem 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 100px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
                                             <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, rgba(0, 203, 214, 0.12) 0%, rgba(0, 128, 128, 0.02) 100%); transition: height 0.5s ease-out;" id="bar-pest-dose"></div>
-                                            <span style="font-size: 0.65rem; font-weight: 800; color: #008080 !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Dose / Tank</span>
-                                            <div style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 900; z-index: 2; margin: 2px 0; box-shadow: 0 3px 6px rgba(0, 128, 128, 0.2);">D</div>
-                                            <span id="val-pest-dose-tank" style="font-size: 0.95rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- ml</span>
-                                            <span id="lbl-pest-dilution" style="font-size: 0.6rem; font-weight: 700; color: #008080 !important; opacity: 0.85; z-index: 2; margin-top: -2px;">(--)</span>
+                                            <span style="font-size: 0.72rem; font-weight: 800; color: #008080 !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Dose / Tank</span>
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080); color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 3px 6px rgba(0, 128, 128, 0.2);">D</div>
+                                            <span id="val-pest-dose-tank" style="font-size: 1.15rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- ml</span>
+                                            <span id="lbl-pest-dilution" style="font-size: 0.68rem; font-weight: 700; color: #008080 !important; opacity: 0.85; z-index: 2; margin-top: -2px;">(--)</span>
                                         </div>
 
                                         <!-- Sprayer Tanks Card -->
-                                        <div style="background: rgba(255,255,255,0.4) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 12px !important; padding: 0.4rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
+                                        <div style="background: rgba(255,255,255,0.45) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 14px !important; padding: 0.7rem 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 100px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
                                             <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, rgba(179, 136, 255, 0.12) 0%, rgba(98, 0, 234, 0.02) 100%); transition: height 0.5s ease-out;" id="bar-pest-tanks"></div>
-                                            <span style="font-size: 0.65rem; font-weight: 800; color: #6200ea !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Sprayer Tanks</span>
-                                            <div style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #b388ff, #6200ea); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 900; z-index: 2; margin: 2px 0; box-shadow: 0 3px 6px rgba(98, 0, 234, 0.2);">T</div>
-                                            <span id="val-pest-tanks" style="font-size: 0.95rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- Tanks</span>
+                                            <span style="font-size: 0.72rem; font-weight: 800; color: #6200ea !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Sprayer Tanks</span>
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #b388ff, #6200ea); color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 3px 6px rgba(98, 0, 234, 0.2);">T</div>
+                                            <span id="val-pest-tanks" style="font-size: 1.15rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- Tanks</span>
                                         </div>
 
                                         <!-- Safety Waiting PHI Card -->
-                                        <div style="background: rgba(255,255,255,0.4) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 12px !important; padding: 0.4rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
+                                        <div style="background: rgba(255,255,255,0.45) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 14px !important; padding: 0.7rem 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 100px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
                                             <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, rgba(211, 47, 47, 0.12) 0%, rgba(198, 40, 40, 0.02) 100%); transition: height 0.5s ease-out;" id="bar-pest-buy"></div>
-                                            <span style="font-size: 0.65rem; font-weight: 800; color: #d32f2f !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Safety PHI</span>
-                                            <div style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #ff8a80, #d32f2f); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 900; z-index: 2; margin: 2px 0; box-shadow: 0 3px 6px rgba(211, 47, 47, 0.2);">P</div>
-                                            <span id="val-pest-phi" style="font-size: 0.95rem; font-weight: 900; color: #d32f2f !important; z-index: 2;">-- Days</span>
+                                            <span style="font-size: 0.72rem; font-weight: 800; color: #d32f2f !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Safety PHI</span>
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #ff8a80, #d32f2f); color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 3px 6px rgba(211, 47, 47, 0.2);">P</div>
+                                            <span id="val-pest-phi" style="font-size: 1.15rem; font-weight: 900; color: #d32f2f !important; z-index: 2;">-- Days</span>
                                         </div>
 
                                     </div>
 
                                     <!-- Detailed Chemical Product Card -->
-                                    <div style="display: flex; align-items: center; gap: 0.6rem; background: rgba(255,255,255,0.55); padding: 0.5rem 0.8rem; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.7); box-shadow: 0 3px 10px rgba(0,0,0,0.01); transition: all 0.3s ease; position: relative; overflow: hidden;" class="sample-card">
+                                    <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(255,255,255,0.55); padding: 0.7rem 1rem; border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.7); box-shadow: 0 3px 10px rgba(0,0,0,0.01); transition: all 0.3s ease; position: relative; overflow: hidden;" class="sample-card">
                                         <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, #00cbd6, #008080);" id="pest-border-color"></div>
-                                        <img id="img-pest-product" src="propiconazole.png" style="width: 32px; height: 32px; object-fit: contain; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.08));" alt="Product">
-                                        <div style="flex: 1; margin-left: 0.2rem;">
+                                        <img id="img-pest-product" src="propiconazole.png" style="width: 36px; height: 36px; object-fit: contain; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.08));" alt="Product">
+                                        <div style="flex: 1; min-width: 0; margin-left: 0.2rem;">
                                             <div style="display: flex; align-items: center; gap: 6px;">
-                                                <h5 id="lbl-pest-name" style="margin: 0; font-size: 0.95rem; font-weight: 800; color: #000000 !important;">Propiconazole 25% EC</h5>
-                                                <span id="lbl-pest-type" style="font-size: 0.6rem; font-weight: 800; background: rgba(0, 102, 255, 0.08); color: #0066ff !important; padding: 1px 4px; border-radius: 4px; text-transform: uppercase;">Foliar Systemic Fungicide</span>
+                                                <h5 id="lbl-pest-name" style="margin: 0; font-size: 1rem; font-weight: 800; color: #000000 !important;">Propiconazole 25% EC</h5>
+                                                <span id="lbl-pest-type" style="font-size: 0.65rem; font-weight: 800; background: rgba(0, 102, 255, 0.08); color: #0066ff !important; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">Foliar Systemic Fungicide</span>
                                             </div>
-                                            <p id="lbl-pest-safety" style="margin: 1px 0 0 0; font-size: 0.75rem; font-weight: 600; opacity: 0.8; line-height: 1.2;">Wear gloves. Spray undersides of leaves thoroughly.</p>
+                                            <p id="lbl-pest-safety" style="margin: 2px 0 0 0; font-size: 0.78rem; font-weight: 600; opacity: 0.8; line-height: 1.2;">Wear gloves. Spray undersides of leaves thoroughly.</p>
                                         </div>
-                                        <div style="text-align: right; min-width: 95px;">
-                                            <span style="display: block; font-size: 1.1rem; font-weight: 900; color: #008080 !important; letter-spacing: -0.5px;" id="val-pest-buy">-- ml</span>
-                                            <span style="font-size: 0.75rem; font-weight: 800; color: #000000 !important; opacity: 0.75;" id="val-pest-total-fluid">-- L total</span>
+                                        <div style="text-align: right; min-width: 105px;">
+                                            <span style="display: block; font-size: 1.15rem; font-weight: 900; color: #008080 !important; letter-spacing: -0.5px;" id="val-pest-buy">-- ml</span>
+                                            <span style="font-size: 0.78rem; font-weight: 800; color: #000000 !important; opacity: 0.75;" id="val-pest-total-fluid">-- L total</span>
                                         </div>
                                     </div>
 
                                     <!-- Precision Spray Protocol Timeline -->
                                     <div style="margin-top: 0.6rem; border-top: 1.5px solid rgba(0,0,0,0.06); padding-top: 0.8rem;">
-                                        <h5 style="font-size: 0.85rem; font-weight: 900; margin: 0 0 0.6rem 0; text-transform: uppercase; color: #0066ff !important; letter-spacing: 0.5px;">📅 Precision Spray Protocol Timeline</h5>
+                                        <h5 style="font-size: 0.88rem; font-weight: 900; margin: 0 0 0.6rem 0; text-transform: uppercase; color: #0066ff !important; letter-spacing: 0.5px;">📅 Precision Spray Protocol Timeline</h5>
                                         
-                                        <style>
-                                            @media (max-width: 600px) {
-                                                .timeline-desktop-line { display: none !important; }
-                                                .split-timeline-grid { grid-template-columns: 1fr 1fr !important; gap: 6px !important; }
-                                            }
-                                        </style>
-                                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; position: relative;" class="split-timeline-grid">
+                                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; position: relative;" class="split-timeline-grid">
                                             
                                             <!-- Connected Line Background for Desktop -->
                                             <div style="position: absolute; top: 15px; left: 12.5%; right: 12.5%; height: 2px; background: rgba(0, 102, 255, 0.15); z-index: 1;" class="timeline-desktop-line"></div>
                                             
                                             <!-- Step 1 -->
-                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.4); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 8px; padding: 0.4rem 0.2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
-                                                <div style="width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(0, 128, 128, 0.2);">1</div>
-                                                <span style="font-size: 0.7rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Weather Check</span>
-                                                <span style="font-size: 0.75rem; font-weight: 800; color: #008080 !important; background: rgba(0, 128, 128, 0.06); padding: 2px 5px; border-radius: 8px; border: 1px solid rgba(0, 128, 128, 0.12); white-space: nowrap;">Wind &lt; 10km/h</span>
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(0, 128, 128, 0.2);">1</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Weather Check</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #008080 !important; background: rgba(0, 128, 128, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(0, 128, 128, 0.12); white-space: nowrap;">Wind &lt; 10km/h</span>
                                             </div>
 
                                             <!-- Step 2 -->
-                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.4); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 8px; padding: 0.4rem 0.2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
-                                                <div style="width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(0, 128, 128, 0.2);">2</div>
-                                                <span style="font-size: 0.7rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Dilution Mix</span>
-                                                <span style="font-size: 0.75rem; font-weight: 800; color: #008080 !important; background: rgba(0, 128, 128, 0.06); padding: 2px 5px; border-radius: 8px; border: 1px solid rgba(0, 128, 128, 0.12); white-space: nowrap;" id="lbl-pest-step-dilution">-- ml/L</span>
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(0, 128, 128, 0.2);">2</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Dilution Mix</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #008080 !important; background: rgba(0, 128, 128, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(0, 128, 128, 0.12); white-space: nowrap;" id="lbl-pest-step-dilution">-- ml/L</span>
                                             </div>
 
                                             <!-- Step 3 -->
-                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.4); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 8px; padding: 0.4rem 0.2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
-                                                <div style="width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(0, 128, 128, 0.2);">3</div>
-                                                <span style="font-size: 0.7rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Spray Method</span>
-                                                <span style="font-size: 0.75rem; font-weight: 800; color: #008080 !important; background: rgba(0, 128, 128, 0.06); padding: 2px 5px; border-radius: 8px; border: 1px solid rgba(0, 128, 128, 0.12); white-space: nowrap;">Leaf Underside</span>
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(0, 128, 128, 0.2);">3</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Spray Method</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #008080 !important; background: rgba(0, 128, 128, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(0, 128, 128, 0.12); white-space: nowrap;">Leaf Underside</span>
                                             </div>
 
                                             <!-- Step 4 -->
-                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.4); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 8px; padding: 0.4rem 0.2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
-                                                <div style="width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(0, 128, 128, 0.2);">4</div>
-                                                <span style="font-size: 0.7rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Harvest Safety</span>
-                                                <span style="font-size: 0.75rem; font-weight: 800; color: #d32f2f !important; background: rgba(211, 47, 47, 0.06); padding: 2px 5px; border-radius: 8px; border: 1px solid rgba(211, 47, 47, 0.12); white-space: nowrap;" id="lbl-pest-step-phi">-- Days PHI</span>
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(0, 128, 128, 0.2);">4</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Harvest Safety</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #d32f2f !important; background: rgba(211, 47, 47, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(211, 47, 47, 0.12); white-space: nowrap;" id="lbl-pest-step-phi">-- Days PHI</span>
                                             </div>
 
                                         </div>
                                     </div>
-                            </div>
-                        </div>
+                                </div> <!-- closes Outputs Column -->
+                            </div> <!-- closes grid container -->
+                        </div> <!-- closes pesticide-calc-view -->
                     </div>
                 </div> <!-- Closes #nutrient-care-view -->
-
 
             </div>
         </main>

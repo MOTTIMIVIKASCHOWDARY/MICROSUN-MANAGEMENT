@@ -3,50 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     loadUserProfile();
     setupTabSwitching();
-    setupHamburgerMenu();
 });
-
-// Setup Hamburger Menu Logic (Managed globally by script.js)
-function setupHamburgerMenu() {
-}
-
-function toggleSidebarMenu(e) {
-    if (e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-    const menuToggle = document.getElementById('menuToggle');
-    const mainSidebar = document.getElementById('mainSidebar');
-    const sidebarOverlay = document.getElementById('sidebarOverlay');
-
-    const isOpen = mainSidebar ? mainSidebar.classList.contains('open') : false;
-
-    if (isOpen) {
-        if (menuToggle) menuToggle.classList.remove('open');
-        if (sidebarOverlay) {
-            sidebarOverlay.classList.remove('open');
-            sidebarOverlay.style.display = 'none';
-            sidebarOverlay.style.opacity = '0';
-            sidebarOverlay.style.pointerEvents = 'none';
-        }
-        if (mainSidebar) {
-            mainSidebar.classList.remove('open');
-            mainSidebar.style.transform = 'translateX(-100%)';
-        }
-    } else {
-        if (menuToggle) menuToggle.classList.add('open');
-        if (sidebarOverlay) {
-            sidebarOverlay.classList.add('open');
-            sidebarOverlay.style.display = 'block';
-            sidebarOverlay.style.opacity = '1';
-            sidebarOverlay.style.pointerEvents = 'auto';
-        }
-        if (mainSidebar) {
-            mainSidebar.classList.add('open');
-            mainSidebar.style.transform = 'translateX(0)';
-        }
-    }
-}
 
 function toggleBananaArmorSubmenu(e) {
     if (e) e.stopPropagation();
@@ -246,62 +203,35 @@ function handleProfilePhotoUpload(e) {
     reader.readAsDataURL(file);
 }
 
-// Save User Profile to Firebase Firestore and localStorage
-async function saveUserProfile(e) {
+// Save User Profile to localStorage
+function saveUserProfile(e) {
     if (e) e.preventDefault();
 
-    const btn = document.querySelector('.btn-save-profile');
-    if (btn) btn.textContent = 'Saving to Firebase Firestore...';
+    const name = document.getElementById('profFullName').value.trim();
+    const role = document.getElementById('profUserRole').value;
+    const countryCode = document.getElementById('profCountryCode').value;
+    const phone = document.getElementById('profMobileNumber').value.trim();
+    const lang = document.getElementById('profLang').value;
+    const state = document.getElementById('profState').value;
+    const district = document.getElementById('profDistrict').value.trim();
 
-    const name = document.getElementById('profFullName') ? document.getElementById('profFullName').value.trim() : 'Ramesh Kumar';
-    const role = document.getElementById('profUserRole') ? document.getElementById('profUserRole').value : 'Farmer';
-    const countryCode = document.getElementById('profCountryCode') ? document.getElementById('profCountryCode').value : '+91';
-    const phone = document.getElementById('profMobileNumber') ? document.getElementById('profMobileNumber').value.trim() : '9842109876';
-    const lang = document.getElementById('profLang') ? document.getElementById('profLang').value : 'en';
-    const state = document.getElementById('profState') ? document.getElementById('profState').value : 'Tamil Nadu';
-    const district = document.getElementById('profDistrict') ? document.getElementById('profDistrict').value.trim() : 'Trichy';
+    const farmSize = document.getElementById('profFarmSize').value.trim();
+    const cropVariety = document.getElementById('profCropVariety').value;
+    const soilType = document.getElementById('profSoilType').value;
+    const irrigation = document.getElementById('profIrrigation').value;
+    const plantingDate = document.getElementById('profPlantingDate').value;
+    const harvestDate = document.getElementById('profHarvestDate').value;
 
-    const farmSize = document.getElementById('profFarmSize') ? document.getElementById('profFarmSize').value.trim() : '12.5';
-    const cropVariety = document.getElementById('profCropVariety') ? document.getElementById('profCropVariety').value : 'Grand Naine (G9)';
-    const soilType = document.getElementById('profSoilType') ? document.getElementById('profSoilType').value : 'alluvial';
-    const irrigation = document.getElementById('profIrrigation') ? document.getElementById('profIrrigation').value : 'drip';
-    const plantingDate = document.getElementById('profPlantingDate') ? document.getElementById('profPlantingDate').value : '2025-10-15';
-    const harvestDate = document.getElementById('profHarvestDate') ? document.getElementById('profHarvestDate').value : '2026-08-01';
+    const upiId = document.getElementById('profUpiId').value.trim();
+    const bankAcc = document.getElementById('profBankAcc').value.trim();
+    const ifsc = document.getElementById('profIfsc').value.trim();
+    const bankName = document.getElementById('profBankName').value.trim();
 
-    const upiId = document.getElementById('profUpiId') ? document.getElementById('profUpiId').value.trim() : `${phone}@upi`;
-    const bankAcc = document.getElementById('profBankAcc') ? document.getElementById('profBankAcc').value.trim() : '';
-    const ifsc = document.getElementById('profIfsc') ? document.getElementById('profIfsc').value.trim() : '';
-    const bankName = document.getElementById('profBankName') ? document.getElementById('profBankName').value.trim() : '';
+    const giTag = document.getElementById('profGiTag').value;
+    const organicCert = document.getElementById('profOrganicCert').value;
+    const fssai = document.getElementById('profFssai').value.trim();
 
-    const giTag = document.getElementById('profGiTag') ? document.getElementById('profGiTag').value : '';
-    const organicCert = document.getElementById('profOrganicCert') ? document.getElementById('profOrganicCert').value : '';
-    const fssai = document.getElementById('profFssai') ? document.getElementById('profFssai').value.trim() : '';
-
-    const profileData = {
-        name,
-        fullName: name,
-        role,
-        countryCode,
-        phone,
-        lang,
-        state,
-        district,
-        farmSize,
-        cropVariety,
-        soilType,
-        irrigation,
-        plantingDate,
-        harvestDate,
-        upiId,
-        upi: upiId,
-        bankAcc,
-        ifsc,
-        bankName,
-        giTag,
-        organicCert,
-        fssai,
-        updatedAt: new Date().toISOString()
-    };
+    const smsAlerts = document.getElementById('chkSmsAlerts').checked;
 
     // Save to localStorage
     localStorage.setItem('microsun_fullName', name);
@@ -312,27 +242,29 @@ async function saveUserProfile(e) {
     localStorage.setItem('microsun_lang', lang);
     localStorage.setItem('microsun_state', state);
     localStorage.setItem('microsun_district', district);
+
     localStorage.setItem('microsun_farmSize', farmSize);
     localStorage.setItem('microsun_selected_variant', cropVariety);
     localStorage.setItem('microsun_soilType', soilType);
     localStorage.setItem('microsun_irrigation', irrigation);
     localStorage.setItem('microsun_planting_date', plantingDate);
     localStorage.setItem('microsun_harvest_date', harvestDate);
+
     localStorage.setItem('microsun_upi_id', upiId);
     localStorage.setItem('microsun_bank_acc', bankAcc);
     localStorage.setItem('microsun_ifsc', ifsc);
     localStorage.setItem('microsun_bank_name', bankName);
+
     localStorage.setItem('microsun_gi_tag', giTag);
     localStorage.setItem('microsun_organic_cert', organicCert);
     localStorage.setItem('microsun_fssai', fssai);
-    localStorage.setItem('microsun_current_user', JSON.stringify(profileData));
 
-    // Save to Firebase Cloud Firestore Database
+    localStorage.setItem('microsun_sms_enabled', smsAlerts ? 'true' : 'false');
+
+    // Save to Firestore Database if connected
     if (typeof saveUserToFirestore === 'function') {
-        await saveUserToFirestore(phone, profileData);
+        saveUserToFirestore(phone, { name, role, phone, state, district, farmSize, cropVariety, upiId, bankAcc, ifsc, bankName, giTag, organicCert, fssai });
     }
-
-    if (btn) btn.textContent = '💾 Save Profile';
 
     // Update Digital Pass
     updateDigitalPassportCard();

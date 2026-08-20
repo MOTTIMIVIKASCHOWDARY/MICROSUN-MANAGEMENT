@@ -1,45 +1,39 @@
-/**
- * MICROSUN MANAGEMENT - Universal Sidebar & 3-Bar Hamburger Menu Controller
- * Works seamlessly across all pages on Mobile, Tablet & Desktop.
- */
-
+// Universal Global Sidebar & Navigation Controller - MICROSUN MANAGEMENT
 (function () {
-    function initSidebar() {
-        const menuToggle = document.getElementById('menuToggle') || document.querySelector('.hamburger-btn');
+    function initSidebarController() {
+        const rawToggle = document.getElementById('menuToggle') || document.querySelector('.hamburger-btn');
         const mainSidebar = document.getElementById('mainSidebar') || document.querySelector('.sidebar');
-        let sidebarOverlay = document.getElementById('sidebarOverlay') || document.querySelector('.sidebar-overlay');
+        let rawOverlay = document.getElementById('sidebarOverlay') || document.querySelector('.sidebar-overlay');
 
-        if (!sidebarOverlay && mainSidebar) {
-            sidebarOverlay = document.createElement('div');
-            sidebarOverlay.id = 'sidebarOverlay';
-            sidebarOverlay.className = 'sidebar-overlay';
-            document.body.appendChild(sidebarOverlay);
+        if (!rawToggle || !mainSidebar) return;
+
+        // Ensure sidebar overlay exists in DOM
+        if (!rawOverlay) {
+            rawOverlay = document.createElement('div');
+            rawOverlay.id = 'sidebarOverlay';
+            rawOverlay.className = 'sidebar-overlay';
+            document.body.appendChild(rawOverlay);
         }
 
+        // Clone button and overlay to wipe any conflicting/duplicate listeners
+        const menuToggle = rawToggle.cloneNode(true);
+        rawToggle.parentNode.replaceChild(menuToggle, rawToggle);
+
+        const overlay = rawOverlay.cloneNode(true);
+        rawOverlay.parentNode.replaceChild(overlay, rawOverlay);
+
         function openSidebar() {
-            if (menuToggle) menuToggle.classList.add('open');
-            if (mainSidebar) {
-                mainSidebar.classList.add('open');
-                mainSidebar.style.transform = 'translateX(0)';
-            }
-            if (sidebarOverlay) {
-                sidebarOverlay.classList.add('open');
-                sidebarOverlay.style.opacity = '1';
-                sidebarOverlay.style.pointerEvents = 'auto';
-            }
+            menuToggle.classList.add('open');
+            mainSidebar.classList.add('open');
+            overlay.classList.add('open');
+            document.body.classList.add('sidebar-opened');
         }
 
         function closeSidebar() {
-            if (menuToggle) menuToggle.classList.remove('open');
-            if (mainSidebar) {
-                mainSidebar.classList.remove('open');
-                mainSidebar.style.transform = '';
-            }
-            if (sidebarOverlay) {
-                sidebarOverlay.classList.remove('open');
-                sidebarOverlay.style.opacity = '';
-                sidebarOverlay.style.pointerEvents = '';
-            }
+            menuToggle.classList.remove('open');
+            mainSidebar.classList.remove('open');
+            overlay.classList.remove('open');
+            document.body.classList.remove('sidebar-opened');
         }
 
         function toggleSidebar(e) {
@@ -47,67 +41,54 @@
                 e.preventDefault();
                 e.stopPropagation();
             }
-            const isOpen = (mainSidebar && mainSidebar.classList.contains('open')) ||
-                           (menuToggle && menuToggle.classList.contains('open'));
-            if (isOpen) {
+            if (mainSidebar.classList.contains('open')) {
                 closeSidebar();
             } else {
                 openSidebar();
             }
         }
 
-        // Direct event listeners on buttons
-        if (menuToggle) {
-            menuToggle.removeEventListener('click', toggleSidebar);
-            menuToggle.addEventListener('click', toggleSidebar);
-            menuToggle.removeEventListener('touchend', toggleSidebar);
-            menuToggle.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                toggleSidebar(e);
-            });
-        }
-
-        if (sidebarOverlay) {
-            sidebarOverlay.removeEventListener('click', closeSidebar);
-            sidebarOverlay.addEventListener('click', closeSidebar);
-            sidebarOverlay.removeEventListener('touchend', closeSidebar);
-            sidebarOverlay.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                closeSidebar();
-            });
-        }
-
-        // Global delegated click fail-safe for any 3-bar button
-        document.addEventListener('click', function (e) {
-            const btn = e.target.closest('#menuToggle, .hamburger-btn');
-            if (btn && btn !== menuToggle) {
-                toggleSidebar(e);
-            } else if (e.target.closest('#sidebarOverlay, .sidebar-overlay')) {
-                closeSidebar();
-            }
-        });
+        // Attach single, robust click listeners
+        menuToggle.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', closeSidebar);
 
         // Close on ESC key
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mainSidebar.classList.contains('open')) {
                 closeSidebar();
             }
         });
 
-        // Active page indicator highlighting
-        const currentPath = window.location.pathname.split('/').pop() || 'main_hub.html';
-        const menuItems = document.querySelectorAll('.menu-list .menu-item');
-        menuItems.forEach(item => {
-            const clickAttr = item.getAttribute('onclick') || '';
-            if (clickAttr.includes(currentPath)) {
-                item.classList.add('active');
-            }
-        });
+        // Banana Armor Submenu Toggle inside sidebar
+        const rawArmor = document.getElementById('bananaArmorToggle') || document.querySelector('.menu-item.has-submenu');
+        const armorSubmenu = document.getElementById('bananaArmorSubmenu') || document.querySelector('.submenu-list');
+        if (rawArmor && armorSubmenu) {
+            const armorToggle = rawArmor.cloneNode(true);
+            rawArmor.parentNode.replaceChild(armorToggle, rawArmor);
+
+            armorToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                armorToggle.classList.toggle('active');
+                const isCurrentlyOpen = armorSubmenu.classList.contains('open') && armorSubmenu.style.display !== 'none';
+                if (isCurrentlyOpen) {
+                    armorSubmenu.style.display = 'none';
+                    armorSubmenu.classList.remove('open');
+                } else {
+                    armorSubmenu.style.display = 'block';
+                    armorSubmenu.classList.add('open');
+                }
+                const indicator = armorToggle.querySelector('.submenu-indicator');
+                if (indicator) {
+                    indicator.textContent = (!isCurrentlyOpen) ? '▲' : '▼';
+                }
+            });
+        }
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initSidebar);
+        document.addEventListener('DOMContentLoaded', initSidebarController);
     } else {
-        initSidebar();
+        initSidebarController();
     }
 })();

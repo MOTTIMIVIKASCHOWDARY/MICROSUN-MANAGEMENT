@@ -394,56 +394,56 @@ function renderBuyers(buyersList) {
             <div class="buyer-card" id="card_${buyer.id}" style="border: 1.8px solid ${cardBorder};">
                 <div class="buyer-header">
                     <div class="buyer-avatar" style="background: ${tagBg};">${buyer.avatar}</div>
-                    <div style="flex: 1; min-width: 0;">
-                        <h3 class="buyer-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${buyer.name}</h3>
-                        <span class="buyer-tag" style="background: ${tagBg}; color: ${tagColor}; font-weight: 800;">${buyer.verifiedTag}</span>
+                    <div style="flex: 1;">
+                        <h3 class="buyer-name">${buyer.name}</h3>
+                        <span class="buyer-tag" style="background: ${tagBg}; color: ${tagColor}; font-weight: 900;">${buyer.verifiedTag}</span>
                     </div>
-                    <div class="price-badge" style="background: ${badgeBg} !important; color: #ffffff !important; font-weight: 900; box-shadow: 0 3px 10px ${isBuyMode ? 'rgba(21,101,192,0.35)' : 'rgba(46,125,50,0.35)'};">
+                    <div class="price-badge" style="background: ${badgeBg} !important; color: #ffffff !important; font-weight: 900; box-shadow: 0 4px 12px ${isBuyMode ? 'rgba(21,101,192,0.4)' : 'rgba(46,125,50,0.4)'};">
                         ₹ ${(buyer.offeredPriceTon / 1000).toFixed(1)}/Kg
                     </div>
                 </div>
 
-                <!-- Compact 2-Column Grid Details Box -->
-                <div class="buyer-details" style="background: rgba(255,255,255,0.78) !important; backdrop-filter: blur(12px); border: 1.5px solid rgba(255,255,255,0.9); border-radius: 14px; padding: 10px 12px; margin-bottom: 10px;">
+                <!-- Spacious 2-Column Grid Details Box -->
+                <div class="buyer-details" style="background: rgba(255,255,255,0.72) !important; backdrop-filter: blur(12px); border: 1.5px solid rgba(255,255,255,0.9); border-radius: 16px; padding: 12px 14px; margin-bottom: 14px;">
                     
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; border-bottom: 1.5px dashed rgba(0,0,0,0.1); padding-bottom: 8px; margin-bottom: 8px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-bottom: 1.5px dashed rgba(0,0,0,0.12); padding-bottom: 10px; margin-bottom: 10px;">
                         <div>
-                            <span style="font-size: 0.7rem; font-weight: 800; color: #555555; text-transform: uppercase; display: block; margin-bottom: 2px;">🌾 Variety</span>
-                            <span style="font-size: 0.86rem; font-weight: 900; color: ${isBuyMode ? '#0d47a1' : '#1b5e20'};">${buyer.requiredVariety}</span>
+                            <span style="font-size: 0.74rem; font-weight: 900; color: #555555; text-transform: uppercase; display: block; margin-bottom: 2px;">🌾 Variety</span>
+                            <span style="font-size: 0.92rem; font-weight: 900; color: ${isBuyMode ? '#0d47a1' : '#1b5e20'};">${buyer.requiredVariety}</span>
                         </div>
                         <div>
-                            <span style="font-size: 0.7rem; font-weight: 800; color: #555555; text-transform: uppercase; display: block; margin-bottom: 2px;">📦 Order Volume</span>
-                            <span style="font-size: 0.86rem; font-weight: 900; color: #000000;">${buyer.minQty} <span style="font-size: 0.68rem; background: ${tagBg}; color: ${tagColor}; padding: 1px 5px; border-radius: 4px; font-weight: 800; margin-left: 2px;">${shortGrade}</span></span>
+                            <span style="font-size: 0.74rem; font-weight: 900; color: #555555; text-transform: uppercase; display: block; margin-bottom: 2px;">📦 Order Volume</span>
+                            <span style="font-size: 0.92rem; font-weight: 900; color: #000000;">${buyer.minQty} <span style="font-size: 0.72rem; background: ${tagBg}; color: ${tagColor}; padding: 2px 6px; border-radius: 6px; font-weight: 900; margin-left: 3px;">${shortGrade}</span></span>
                         </div>
                         <div>
-                            <span style="font-size: 0.7rem; font-weight: 800; color: #555555; text-transform: uppercase; display: block; margin-bottom: 2px;">📍 Location State</span>
-                            <span style="font-size: 0.82rem; font-weight: 800; color: #000000;">${locState}</span>
+                            <span style="font-size: 0.74rem; font-weight: 900; color: #555555; text-transform: uppercase; display: block; margin-bottom: 2px;">📍 Location State</span>
+                            <span style="font-size: 0.88rem; font-weight: 900; color: #000000;">${locState}</span>
                         </div>
                         <div>
-                            <span style="font-size: 0.7rem; font-weight: 800; color: #555555; text-transform: uppercase; display: block; margin-bottom: 2px;">🚚 Logistics</span>
-                            <span style="font-size: 0.82rem; font-weight: 800; color: #000000;">${locPickup}</span>
+                            <span style="font-size: 0.74rem; font-weight: 900; color: #555555; text-transform: uppercase; display: block; margin-bottom: 2px;">🚚 Logistics</span>
+                            <span style="font-size: 0.88rem; font-weight: 900; color: #000000;">${locPickup}</span>
                         </div>
                     </div>
 
                     <!-- Clean 3-Row Contact & Escrow Details Box -->
-                    <div style="background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(0,0,0,0.06); border-radius: 10px; padding: 8px 10px; font-size: 0.8rem; font-weight: 800; color: #222222; display: flex; flex-direction: column; gap: 4px;">
+                    <div style="background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; padding: 10px 12px; font-size: 0.84rem; font-weight: 800; color: #222222; display: flex; flex-direction: column; gap: 6px;">
                         <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-                            <span style="color: #555555; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">👤 Contact Person</span>
-                            <span style="color: #000000; font-weight: 800; text-align: right; font-size: 0.82rem;">${cleanContactPerson}</span>
+                            <span style="color: #555555; font-size: 0.78rem; font-weight: 900; text-transform: uppercase;">👤 Contact Person</span>
+                            <span style="color: #000000; font-weight: 900; text-align: right;">${cleanContactPerson}</span>
                         </div>
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; border-top: 1px dashed rgba(0,0,0,0.06); padding-top: 4px;">
-                            <span style="color: #555555; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">📱 Mobile Number</span>
-                            <span style="color: ${tagColor}; font-weight: 900; font-size: 0.84rem; text-align: right; font-family: monospace;">${cleanPhone}</span>
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; border-top: 1px dashed rgba(0,0,0,0.08); padding-top: 5px;">
+                            <span style="color: #555555; font-size: 0.78rem; font-weight: 900; text-transform: uppercase;">📱 Mobile Number</span>
+                            <span style="color: ${tagColor}; font-weight: 900; font-size: 0.9rem; text-align: right; font-family: monospace;">${cleanPhone}</span>
                         </div>
-                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; border-top: 1px dashed rgba(0,0,0,0.06); padding-top: 4px;">
-                            <span style="color: #555555; font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">💳 Escrow Terms</span>
-                            <span style="color: #1b5e20; font-weight: 900; font-size: 0.78rem; text-align: right;">⚡ 100% Guaranteed Escrow</span>
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; border-top: 1px dashed rgba(0,0,0,0.08); padding-top: 5px;">
+                            <span style="color: #555555; font-size: 0.78rem; font-weight: 900; text-transform: uppercase;">💳 Escrow Terms</span>
+                            <span style="color: #1b5e20; font-weight: 900; font-size: 0.82rem; text-align: right;">⚡ 100% Guaranteed Escrow</span>
                         </div>
                     </div>
 
                 </div>
 
-                <button class="btn-sell-direct" onclick="executeOrderFulfillment('${buyer.id}', '${buyer.name.replace(/'/g, "\\'")}', '${buyer.requiredVariety.replace(/'/g, "\\'")}', ${buyer.offeredPriceTon}, '${buyer.minQty}')" style="background: ${btnBg} !important; color: #ffffff !important; box-shadow: 0 3px 12px ${isBuyMode ? 'rgba(21,101,192,0.35)' : 'rgba(46,125,50,0.35)'}; font-weight: 900; height: 38px; font-size: 0.84rem;">
+                <button class="btn-sell-direct" onclick="executeOrderFulfillment('${buyer.id}', '${buyer.name.replace(/'/g, "\\'")}', '${buyer.requiredVariety.replace(/'/g, "\\'")}', ${buyer.offeredPriceTon}, '${buyer.minQty}')" style="background: ${btnBg} !important; color: #ffffff !important; box-shadow: 0 4px 15px ${isBuyMode ? 'rgba(21,101,192,0.4)' : 'rgba(46,125,50,0.4)'}; font-weight: 900;">
                     ${btnText}
                 </button>
             </div>

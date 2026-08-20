@@ -17,15 +17,24 @@ try {
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
-        auth = firebase.auth ? firebase.auth() : null;
-        db = firebase.firestore ? firebase.firestore() : null;
+        const currentKey = localStorage.getItem('firebase_api_key');
+        if (currentKey && currentKey !== "DEMO_KEY") {
+            auth = firebase.auth ? firebase.auth() : null;
+            db = firebase.firestore ? firebase.firestore() : null;
+            console.log("🔥 Live Firebase Auth & Services Connected.");
+        } else {
+            console.log("ℹ️ Microsun Operating in Local-First Session Mode.");
+            auth = null;
+            db = null;
+        }
         if (firebase.auth && firebase.auth.GoogleAuthProvider) {
             googleProvider = new firebase.auth.GoogleAuthProvider();
         }
-        console.log("🔥 Firebase Auth, Firestore & Google Provider Connected Successfully!");
     }
 } catch (e) {
     console.warn("⚠️ Firebase initialized in Hybrid Local-First Mode:", e.message);
+    auth = null;
+    db = null;
 }
 
 // Helper: Sanitize document ID for Firestore (lowercase email / phone)

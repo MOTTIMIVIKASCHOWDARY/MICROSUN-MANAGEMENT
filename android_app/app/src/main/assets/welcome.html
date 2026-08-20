@@ -3,19 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-    (function() {
-        var meta = document.querySelector('meta[name="viewport"]');
-        var content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-        if (meta) { meta.setAttribute('content', content); }
-        else {
-            meta = document.createElement('meta');
-            meta.name = 'viewport';
-            meta.content = content;
-            document.head.appendChild(meta);
-        }
-    })();
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="bg.png" as="image">
@@ -163,7 +150,6 @@
         }
 
     </style>
-    <link rel="stylesheet" href="mobile-fix.css">
 </head>
 <body>
 

@@ -3,19 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-    (function() {
-        var meta = document.querySelector('meta[name="viewport"]');
-        var content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-        if (meta) { meta.setAttribute('content', content); }
-        else {
-            meta = document.createElement('meta');
-            meta.name = 'viewport';
-            meta.content = content;
-            document.head.appendChild(meta);
-        }
-    })();
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="bg.png" as="image">
@@ -275,42 +262,19 @@
         .sidebar::-webkit-scrollbar-thumb:hover {
             background: rgba(255,255,255,0.4); 
         }
-
-        /* Desktop specific: Ensure content shifts or sidebar behaves consistently */
-        @media (min-width: 1000px) {
-            .sidebar.open {
-                position: relative;
-                transform: translateX(0);
-            }
-            .sidebar:not(.open) {
-                transform: translateX(-100%);
-                position: absolute;
-            }
-        }
     </style>
-    <link rel="stylesheet" href="mobile-fix.css">
 </head>
 <body>
 
     <div class="bg-overlay"></div>
     
-    <div class="language-selector hub-lang">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-        <select id="lang-switch">
-            <option value="en">English</option>
-            <option value="hi">हिन्दी (Hindi)</option>
-            <option value="bn">বাংলা (Bengali)</option>
-            <option value="mr">मराठी (Marathi)</option>
-            <option value="te">తెలుగు (Telugu)</option>
-            <option value="ta">தமிழ் (Tamil)</option>
-            <option value="gu">ગુજરાતી (Gujarati)</option>
-            <option value="ur">اردو (Urdu)</option>
-            <option value="kn">ಕನ್ನಡ (Kannada)</option>
-            <option value="or">ଓଡ଼ିଆ (Odia)</option>
-            <option value="ml">മലയാളം (Malayalam)</option>
-            <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
-        </select>
-    </div>
+    <button class="logout-btn" onclick="window.location.href='index.html'" data-i18n="logout">Logout</button>
+
+    <button id="menuToggle" class="hamburger-btn">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </button>
 
     <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
@@ -320,74 +284,62 @@
             <div class="sidebar-header" data-i18n="appTitle">MICROSUN MANAGEMENT</div>
             <ul class="menu-list">
                 <li class="menu-item" onclick="window.location.href='dashboard.html'">
-                    <div class="menu-icon-circle">
-                        <span>🌱</span>
-                    </div>
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🌱</span></div>
                     <span class="menu-text notranslate" translate="no" data-i18n="menu_new_crop">PLANTER AI</span>
                 </li>
                 <li class="menu-item" onclick="window.location.href='climate_risk.html'">
-                    <div class="menu-icon-circle">
-                        <span>⛅</span>
-                    </div>
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">⛅</span></div>
                     <span class="menu-text notranslate" translate="no" data-i18n="menu_weather">SKY INTEL AI</span>
                 </li>
                 <li class="menu-item" onclick="window.location.href='renting.html'">
-                    <div class="menu-icon-circle">
-                        <span>🚜</span>
-                    </div>
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🚜</span></div>
                     <span class="menu-text notranslate" translate="no" data-i18n="menu_equipment">RENTROX AI</span>
                 </li>
 
+                <!-- BANANA ARMOR AI Submenu -->
                 <li class="menu-item has-submenu" id="bananaArmorToggle" onclick="window.location.href='pest_watch_guidance.html'">
-                    <div class="menu-icon-circle">
-                        <span>🍌</span>
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🍌</span></div>
+                            <span class="menu-text notranslate" translate="no" data-i18n="menu_banana_armor">BANANA ARMOR AI</span>
+                        </div>
+                        <span class="submenu-indicator" style="font-size: 0.8rem; margin-right: 12px; color: #ffffff;">▼</span>
                     </div>
-                    <span class="menu-text notranslate" translate="no" data-i18n="menu_banana_armor">BANANA ARMOR AI</span>
                 </li>
-                <ul class="submenu-list" id="bananaArmorSubmenu">
-                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=pest-watch'">
+                <ul class="submenu-list" id="bananaArmorSubmenu" style="display: none; list-style: none; padding: 4px 0 8px 65px; margin: 0;">
+                    <li class="submenu-item" onclick="event.stopPropagation(); window.location.href='pest_watch_guidance.html?view=pest-watch'" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
                         <span class="submenu-icon">🐛</span>
                         <span data-i18n="submenu_pest_watch">Pest Watch</span>
                     </li>
-                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=disease-scan'">
+                    <li class="submenu-item" onclick="event.stopPropagation(); window.location.href='pest_watch_guidance.html?view=disease-scan'" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
                         <span class="submenu-icon">🦠</span>
                         <span data-i18n="submenu_disease_scan">Disease Scan</span>
                     </li>
-                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=nutrient-care'">
+                    <li class="submenu-item" onclick="event.stopPropagation(); window.location.href='pest_watch_guidance.html?view=nutrient-care'" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
                         <span class="submenu-icon">🌱</span>
                         <span data-i18n="submenu_nutrient_care">Nutrient Care</span>
                     </li>
                 </ul>
 
                 <li class="menu-item" onclick="window.location.href='analytics.html'">
-                    <div class="menu-icon-circle">
-                        <span>📈</span>
-                    </div>
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📈</span></div>
                     <span class="menu-text notranslate" translate="no" data-i18n="menu_expense">YEXA AI</span>
                 </li>
                 <li class="menu-item" onclick="window.location.href='market.html'">
-                    <div class="menu-icon-circle">
-                        <span>💰</span>
-                    </div>
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">💰</span></div>
                     <span class="menu-text notranslate" translate="no" data-i18n="menu_market">MARKETX AI</span>
                 </li>
                 <li class="menu-item" onclick="window.location.href='b2c_selling.html'">
-                    <div class="menu-icon-circle">
-                        <span>📦</span>
-                    </div>
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📦</span></div>
                     <span class="menu-text" data-i18n="menu_direct">B2C Produce Selling</span>
                 </li>
                 <li class="menu-item" onclick="window.location.href='profile.html'">
-                    <div class="menu-icon-circle">
-                        <span>👨‍🌾</span>
-                    </div>
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">👤</span></div>
                     <span class="menu-text" data-i18n="menu_profile">User Profile</span>
                 </li>
                 <li class="menu-item active" onclick="window.location.href='main_hub.html'">
-                    <div class="menu-icon-circle">
-                        <span>🏠</span>
-                    </div>
-                    <span class="menu-text">Back to Main Hub</span>
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🏠</span></div>
+                    <span class="menu-text" data-i18n="menu_back_hub">Back to Main Hub</span>
                 </li>
             </ul>
         </aside>
@@ -395,14 +347,7 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="welcome-header">
-                <div class="hub-header-row">
-                    <button id="menuToggle" class="hamburger-btn">
-                        <div class="hamburger-line"></div>
-                        <div class="hamburger-line"></div>
-                        <div class="hamburger-line"></div>
-                    </button>
-                    <h1 data-i18n="hub_title">Farmer Central Hub</h1>
-                </div>
+                <h1 data-i18n="hub_title">Farmer Central Hub</h1>
                 <p data-i18n="hub_subtitle">Select a module from the menu to manage your crop</p>
             </div>
         </main>
@@ -410,7 +355,6 @@
 
     <script src="translations.js"></script>
     <script src="hub_features_translations.js"></script>
-    <script src="sidebar.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const langSwitch = document.getElementById('lang-switch');
@@ -427,31 +371,16 @@
                 localStorage.setItem('microsun_lang', langCode);
             }
 
-            if (langSwitch) {
-                langSwitch.addEventListener('change', (e) => {
-                    applyTranslations(e.target.value);
-                });
+            langSwitch.addEventListener('change', (e) => {
+                applyTranslations(e.target.value);
+            });
 
-                const savedLang = localStorage.getItem('microsun_lang') || 'en';
-                langSwitch.value = savedLang;
-                applyTranslations(savedLang);
-            }
-
-            // Banana Armor Submenu Toggle
-            const armorToggle = document.getElementById('bananaArmorToggle');
-            const armorSubmenu = document.getElementById('bananaArmorSubmenu');
-            if (armorToggle && armorSubmenu) {
-                armorToggle.addEventListener('click', (e) => {
-                    armorToggle.classList.toggle('active');
-                    armorSubmenu.classList.toggle('open');
-                    const indicator = armorToggle.querySelector('.submenu-indicator');
-                    if (indicator) {
-                        indicator.textContent = armorSubmenu.classList.contains('open') ? '▲' : '▼';
-                    }
-                });
-            }
+            const savedLang = localStorage.getItem('microsun_lang') || 'en';
+            langSwitch.value = savedLang;
+            applyTranslations(savedLang);
         });
     </script>
+    <script src="sidebar.js"></script>
 </body>
 </html>
 

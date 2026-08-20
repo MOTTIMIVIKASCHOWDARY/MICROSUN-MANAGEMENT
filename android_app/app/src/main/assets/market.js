@@ -37,6 +37,7 @@ let activeInterval = '1W';
 let trendChartInstance = null;
 let liveStreamInterval = null;
 let isStreamPaused = false;
+let alertTargetPrice = 15500;
 
 function initMarketXEngine() {
     renderVarietySelectionGrid();
@@ -56,26 +57,23 @@ function renderVarietySelectionGrid() {
     if (!grid) return;
 
     grid.innerHTML = BANANA_VARIETY_CATALOG.map(crop => `
-        <div class="variety-card" onclick="selectCropVariety('${crop.id}')">
-            <div class="variety-card-top">
-                <div class="variety-badge-row">
-                    <span class="variety-tag notranslate" translate="no">${crop.tag}</span>
-                    <span class="variety-demand notranslate" translate="no">${crop.demand}</span>
+        <div class="variant-card" onclick="selectCropVariety('${crop.id}')" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 1.5rem; border-radius: 24px; position: relative; cursor: pointer;">
+            <div style="width: 100%; text-align: center;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; width: 100%;">
+                    <span class="notranslate" translate="no" style="font-size: 0.7rem; font-weight: 800; background: rgba(46, 125, 50, 0.15); color: #1b5e20 !important; padding: 4px 10px; border-radius: 20px; text-transform: uppercase;">${crop.tag}</span>
+                    <span class="notranslate" translate="no" style="font-size: 0.72rem; font-weight: 800; color: #e65100 !important;">${crop.demand}</span>
                 </div>
                 
-                <!-- Circular Avatar Container -->
-                <div class="variety-avatar-container">
-                    <img src="${crop.image}" class="variety-avatar-img" alt="${crop.name}">
+                <!-- Round Circular Logo Design Container (Planter AI Style) -->
+                <div style="width: 110px; height: 110px; border-radius: 50%; background: #ffffff; padding: 8px; margin: 0 auto 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,0.12), inset 0 0 10px rgba(0,0,0,0.03); border: 3px solid rgba(255,255,255,0.9);">
+                    <img src="${crop.image}" style="width: 85px; height: 85px; object-fit: contain; border-radius: 50%; filter: contrast(1.05) brightness(1.05);" alt="${crop.name}">
                 </div>
 
-                <h4 class="variety-title notranslate" translate="no">${crop.name}</h4>
-                <div class="variety-price-tag notranslate" translate="no">
-                    💰 Est. Mandi: ₹${crop.basePrice.toLocaleString('en-IN')} / Ton
-                    <span style="font-size: 0.8rem; opacity: 0.85; display: block; font-weight: 700; margin-top: 2px;">(₹${(crop.basePrice/1000).toFixed(1)} / kg)</span>
-                </div>
+                <h4 class="notranslate" translate="no" style="font-size: 1.2rem; font-weight: 900; color: #000000 !important; margin: 0 0 6px 0; text-align: center;">${crop.name}</h4>
+                <p class="notranslate" translate="no" style="font-size: 0.92rem; color: #1b5e20 !important; font-weight: 800; margin: 0 0 14px 0; text-align: center;">💰 Est. Mandi: ₹${crop.basePrice.toLocaleString('en-IN')} / Ton</p>
             </div>
             
-            <button class="variety-action-btn">
+            <button class="primary-btn" style="width: 100%; padding: 10px 14px; border-radius: 12px; font-weight: 800; font-size: 0.9rem; cursor: pointer; background: var(--banana-yellow, #FBC02D) !important; color: #000000 !important; border: none; box-shadow: 0 4px 12px rgba(251, 192, 45, 0.4);">
                 📈 View Live Mandi Prices
             </button>
         </div>
@@ -310,6 +308,22 @@ function setupEventListeners() {
         });
     });
 
+    // Alert threshold setter
+    const btnAlert = document.getElementById('btnSetAlert');
+    const inpAlert = document.getElementById('targetPriceInput');
+    if (btnAlert && inpAlert) {
+        btnAlert.addEventListener('click', () => {
+            alertTargetPrice = parseFloat(inpAlert.value) || activeCrop.basePrice;
+            btnAlert.classList.add('active-alert');
+            btnAlert.textContent = 'Alert Set! 🔔';
+            setTimeout(() => {
+                btnAlert.classList.remove('active-alert');
+                btnAlert.textContent = 'Set Alert';
+            }, 2500);
+            alert(`🔔 Market price alert set for ₹${alertTargetPrice.toLocaleString('en-IN')}/Ton! You will be notified when APMC rates touch this price.`);
+        });
+    }
+
     // Live Stream Toggle
     const btnToggleStream = document.getElementById('btnToggleStream');
     if (btnToggleStream) {
@@ -369,23 +383,20 @@ function renderApmcCards() {
         return `
         <div class="apmc-card" id="apmc-card-${idx}">
             <div class="apmc-header">
-                <span class="apmc-mandi-title notranslate" translate="no">${m.name}</span>
-                <span class="apmc-dot" title="Live Mandi Trading Feed"></span>
+                <span class="notranslate" translate="no">${m.name}</span>
+                <span class="apmc-dot"></span>
             </div>
             <div class="apmc-price-line">
-                <div class="apmc-price-group">
-                    <span class="apmc-price notranslate" translate="no" id="apmc-price-${idx}">₹${price.toLocaleString('en-IN')}</span>
-                    <span class="apmc-unit">/ Ton</span>
-                    <span class="apmc-kg-badge notranslate" translate="no" id="apmc-kg-${idx}">₹${(price / 1000).toFixed(1)}/kg</span>
-                </div>
+                <span class="apmc-price notranslate" translate="no" id="apmc-price-${idx}">₹${price.toLocaleString('en-IN')}</span>
+                <span class="apmc-unit">/ Ton</span>
                 <span class="apmc-change ${m.positive ? 'positive' : 'negative'} notranslate" translate="no" id="apmc-change-${idx}">${m.change}</span>
             </div>
             <div class="apmc-details notranslate" translate="no">
                 📦 Daily Arrivals: <strong>${m.volume}</strong>
             </div>
             <div class="apmc-range notranslate" translate="no">
-                <span class="range-lbl">Day Range:</span>
-                <span class="range-val">₹${minP.toLocaleString('en-IN')} - ₹${maxP.toLocaleString('en-IN')} / Ton</span>
+                <span class="range-lbl">Range:</span>
+                <span>₹${minP.toLocaleString('en-IN')} - ₹${maxP.toLocaleString('en-IN')}</span>
             </div>
         </div>
     `}).join('');
@@ -399,7 +410,6 @@ function startLiveMandiStream() {
         const idx = Math.floor(Math.random() * 4);
         const card = document.getElementById(`apmc-card-${idx}`);
         const priceEl = document.getElementById(`apmc-price-${idx}`);
-        const kgEl = document.getElementById(`apmc-kg-${idx}`);
         const changeEl = document.getElementById(`apmc-change-${idx}`);
 
         if (card && priceEl) {
@@ -408,9 +418,6 @@ function startLiveMandiStream() {
             const newPrice = Math.max(8000, currentPrice + delta);
 
             priceEl.textContent = `₹${newPrice.toLocaleString('en-IN')}`;
-            if (kgEl) {
-                kgEl.textContent = `₹${(newPrice / 1000).toFixed(1)}/kg`;
-            }
 
             card.classList.remove('tick-up-flash', 'tick-down-flash');
             void card.offsetWidth; // Trigger reflow

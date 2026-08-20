@@ -3,26 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-    (function() {
-        var meta = document.querySelector('meta[name="viewport"]');
-        var content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-        if (meta) { meta.setAttribute('content', content); }
-        else {
-            meta = document.createElement('meta');
-            meta.name = 'viewport';
-            meta.content = content;
-            document.head.appendChild(meta);
-        }
-    })();
-    </script>
     <title>MARKETX AI - Live APMC & Price Forecast - MICROSUN MANAGEMENT</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="market.css">
-    <link rel="stylesheet" href="mobile-fix.css">
 </head>
 <body>
     
@@ -35,6 +21,7 @@
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
     </button>
+
 
     
     <div id="sidebarOverlay" class="sidebar-overlay"></div>
@@ -57,20 +44,26 @@
                     <span class="menu-text notranslate" translate="no" data-i18n="menu_equipment">RENTROX AI</span>
                 </li>
 
+                <!-- BANANA ARMOR AI Submenu -->
                 <li class="menu-item has-submenu" id="bananaArmorToggle" onclick="window.location.href='pest_watch_guidance.html'">
-                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🍌</span></div>
-                    <span class="menu-text notranslate" translate="no" data-i18n="menu_banana_armor">BANANA ARMOR AI</span>
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🍌</span></div>
+                            <span class="menu-text notranslate" translate="no" data-i18n="menu_banana_armor">BANANA ARMOR AI</span>
+                        </div>
+                        <span class="submenu-indicator" style="font-size: 0.8rem; margin-right: 12px; color: #ffffff;">▼</span>
+                    </div>
                 </li>
-                <ul class="submenu-list" id="bananaArmorSubmenu">
-                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=pest-watch'">
+                <ul class="submenu-list" id="bananaArmorSubmenu" style="display: none; list-style: none; padding: 4px 0 8px 65px; margin: 0;">
+                    <li class="submenu-item" onclick="event.stopPropagation(); window.location.href='pest_watch_guidance.html?view=pest-watch'" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
                         <span class="submenu-icon">🐛</span>
                         <span data-i18n="submenu_pest_watch">Pest Watch</span>
                     </li>
-                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=disease-scan'">
+                    <li class="submenu-item" onclick="event.stopPropagation(); window.location.href='pest_watch_guidance.html?view=disease-scan'" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
                         <span class="submenu-icon">🦠</span>
                         <span data-i18n="submenu_disease_scan">Disease Scan</span>
                     </li>
-                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=nutrient-care'">
+                    <li class="submenu-item" onclick="event.stopPropagation(); window.location.href='pest_watch_guidance.html?view=nutrient-care'" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
                         <span class="submenu-icon">🌱</span>
                         <span data-i18n="submenu_nutrient_care">Nutrient Care</span>
                     </li>
@@ -89,7 +82,7 @@
                     <span class="menu-text" data-i18n="menu_direct">B2C Produce Selling</span>
                 </li>
                 <li class="menu-item" onclick="window.location.href='profile.html'">
-                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">👨‍🌾</span></div>
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">👤</span></div>
                     <span class="menu-text" data-i18n="menu_profile">User Profile</span>
                 </li>
                 <li class="menu-item" onclick="window.location.href='main_hub.html'">
@@ -101,39 +94,22 @@
 
         <!-- Main Workspace -->
         <main class="main-content">
-            <header class="top-bar">
+            <header class="top-bar" style="justify-content: flex-end;">
                 <div class="logo-spacer"></div>
-                <div class="language-selector">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                    <select id="lang-switch">
-                        <option value="en">English</option>
-                        <option value="hi">हिन्दी (Hindi)</option>
-                        <option value="bn">বাংলা (Bengali)</option>
-                        <option value="mr">मराठी (Marathi)</option>
-                        <option value="te">తెలుగు (Telugu)</option>
-                        <option value="ta">தமிழ் (Tamil)</option>
-                        <option value="gu">ગુજરાતી (Gujarati)</option>
-                        <option value="ur">اردو (Urdu)</option>
-                        <option value="kn">ಕನ್ನಡ (Kannada)</option>
-                        <option value="or">ଓଡ଼ିଆ (Odia)</option>
-                        <option value="ml">മലയാളം (Malayalam)</option>
-                        <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
-                    </select>
-                </div>
             </header>
 
             <!-- ==========================================
                  SCREEN 1: BANANA CROP VARIETY SELECTOR
                  ========================================== -->
             <div id="cropSelectionView" class="view-container active">
-                <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 25px; align-items: center; text-align: center; width: 100%;">
+                <div style="display: flex; flex-direction: column; gap: 5px; margin-bottom: 25px; align-items: center; text-align: center; width: 100%;">
                     <h2 data-i18n="marketTitle" style="font-size: 2.3rem; font-weight: 900; color: #000000 !important; margin: 0; text-transform: uppercase; letter-spacing: -0.5px;">MARKETX AI - Live APMC Mandi & Price Forecast</h2>
                     <p data-i18n="selectCropTitle" style="font-size: 1.15rem; color: #1b5e20 !important; font-weight: 800; margin: 0;">Select a Banana Variety to view Live APMC Trading Rates & AI Price Predictions</p>
                 </div>
 
-                <!-- 21 Banana Varieties Grid (3 per horizontal row on desktop) -->
-                <div class="variety-board-card">
-                    <div id="bananaVarietyGrid" class="banana-variety-grid">
+                <!-- 21 Banana Varieties Grid -->
+                <div class="dashboard-card" style="max-width: 1250px; margin: 0 auto; padding: 2rem;">
+                    <div id="bananaVarietyGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.2rem;">
                         <!-- Injected via JS -->
                     </div>
                 </div>
@@ -227,9 +203,18 @@
                         <div class="advisor-content">
                             <!-- AI Recommendation Badge Box -->
                             <div class="alert-threshold-box">
-                                <label style="font-size: 0.8rem; font-weight: 800; color: #1b5e20 !important; text-transform: uppercase; letter-spacing: 0.5px;">AI TRADE RECOMMENDATION</label>
-                                <div id="aiVerdictText" class="notranslate" translate="no" style="font-size: 1.15rem; font-weight: 900; color: #1b5e20 !important; line-height: 1.4; margin-top: 4px;">
+                                <label style="font-size: 0.8rem; font-weight: 800; color: #1b5e20 !important; text-transform: uppercase;">AI TRADE RECOMMENDATION</label>
+                                <div id="aiVerdictText" class="notranslate" translate="no" style="font-size: 1.15rem; font-weight: 900; color: #2e7d32 !important; line-height: 1.35;">
                                     🟢 STRONGLY RECOMMENDED TO HOLD (+8.4% EXPECTED PRICE SURGE IN 5 DAYS)
+                                </div>
+                            </div>
+
+                            <!-- Target Price Alert Threshold Box -->
+                            <div class="alert-threshold-box">
+                                <label for="targetPriceInput" style="color: #000000 !important; font-weight: 800;">Target Sell Alert Price (₹ / Ton)</label>
+                                <div class="alert-input-wrapper">
+                                    <input type="number" id="targetPriceInput" class="notranslate" translate="no" value="15500" step="100">
+                                    <button class="primary-btn" id="btnSetAlert">Set Alert</button>
                                 </div>
                             </div>
 
@@ -286,34 +271,7 @@
     <script src="hub_features_translations.js"></script>
     <script src="market_translations.js"></script>
     <script src="market.js"></script>
+    <script src="script.js"></script>
     <script src="sidebar.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.getElementById('menuToggle');
-            const mainSidebar = document.getElementById('mainSidebar');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
-
-            function toggleMenu() {
-                if(menuToggle && mainSidebar && sidebarOverlay) {
-                    menuToggle.classList.toggle('open');
-                    mainSidebar.classList.toggle('open');
-                    sidebarOverlay.classList.toggle('open');
-                }
-            }
-
-            if(menuToggle) menuToggle.addEventListener('click', toggleMenu);
-            if(sidebarOverlay) sidebarOverlay.addEventListener('click', toggleMenu);
-
-            // Banana Armor Submenu Toggle
-            const armorToggle = document.getElementById('bananaArmorToggle');
-            const armorSubmenu = document.getElementById('bananaArmorSubmenu');
-            if (armorToggle && armorSubmenu) {
-                armorToggle.addEventListener('click', () => {
-                    armorToggle.classList.toggle('active');
-                    armorSubmenu.classList.toggle('open');
-                });
-            }
-        });
-    </script>
 </body>
 </html>

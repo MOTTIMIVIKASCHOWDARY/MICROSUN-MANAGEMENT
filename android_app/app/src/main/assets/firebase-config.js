@@ -1,19 +1,5 @@
-const isAndroidClient = (typeof window !== 'undefined') && (
-    window.location.protocol === 'file:' || 
-    window.location.hostname.includes('androidplatform.net') || 
-    (typeof navigator !== 'undefined' && /wv|Android.*Version\/[0-9.]+/i.test(navigator.userAgent))
-);
-
-// Dedicated Android App Client (google-services.json) vs Dedicated Web App Client
-const firebaseConfig = isAndroidClient ? {
-    apiKey: "AIzaSyCZVZoTh6yf7Xhi05Y25RcJTFVm_XU346k",
-    authDomain: "microsun-management.firebaseapp.com",
-    projectId: "microsun-management",
-    storageBucket: "microsun-management.firebasestorage.app",
-    messagingSenderId: "982179351673",
-    appId: "1:982179351673:android:7ac89a74ded74b50f218a8"
-} : {
-    apiKey: "AIzaSyAmTAo_KD4qoI-GkjX9bu9FY59yuV9go9U",
+const firebaseConfig = {
+    apiKey: localStorage.getItem('firebase_api_key') || "DEMO_KEY",
     authDomain: "microsun-management.firebaseapp.com",
     projectId: "microsun-management",
     storageBucket: "microsun-management.firebasestorage.app",
@@ -24,26 +10,46 @@ const firebaseConfig = isAndroidClient ? {
 
 let auth = null;
 let db = null;
+let googleProvider = null;
 
 try {
     if (typeof firebase !== 'undefined' && firebase.initializeApp) {
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
-        auth = firebase.auth ? firebase.auth() : null;
-        db = firebase.firestore ? firebase.firestore() : null;
-        console.log("🔥 Firebase Auth & Firestore Connected Successfully!");
+        const currentKey = localStorage.getItem('firebase_api_key');
+        if (currentKey && currentKey !== "DEMO_KEY") {
+            auth = firebase.auth ? firebase.auth() : null;
+            db = firebase.firestore ? firebase.firestore() : null;
+            console.log("🔥 Live Firebase Auth & Services Connected.");
+        } else {
+            console.log("ℹ️ Microsun Operating in Local-First Session Mode.");
+            auth = null;
+            db = null;
+        }
+        if (firebase.auth && firebase.auth.GoogleAuthProvider) {
+            googleProvider = new firebase.auth.GoogleAuthProvider();
+        }
     }
 } catch (e) {
     console.warn("⚠️ Firebase initialized in Hybrid Local-First Mode:", e.message);
+    auth = null;
+    db = null;
+}
+
+// Helper: Sanitize document ID for Firestore (lowercase email / phone)
+function cleanDocKey(key) {
+    if (!key) return 'user_default';
+    return String(key).trim().toLowerCase().replace(/[#$\[\]\/.]/g, '_');
 }
 
 // Helper: Save User Document to Firestore Database
-async function saveUserToFirestore(phone, userData) {
-    if (db && phone) {
+async function saveUserToFirestore(userKey, userData) {
+    if (db && userKey) {
         try {
-            await db.collection('users').doc(phone).set(userData, { merge: true });
-            console.log("☁️ User synced to Firestore DB:", phone);
+            const docId = cleanDocKey(userKey);
+            await db.collection('users').doc(docId).set(userData, { merge: true });
+            console.log("☁️ User synced to Firestore DB:", docId);
             return true;
         } catch (err) {
             console.warn("Firestore sync warning:", err.message);
@@ -53,10 +59,11 @@ async function saveUserToFirestore(phone, userData) {
 }
 
 // Helper: Fetch User Document from Firestore Database
-async function fetchUserFromFirestore(phone) {
-    if (db && phone) {
+async function fetchUserFromFirestore(userKey) {
+    if (db && userKey) {
         try {
-            const doc = await db.collection('users').doc(phone).get();
+            const docId = cleanDocKey(userKey);
+            const doc = await db.collection('users').doc(docId).get();
             if (doc.exists) {
                 console.log("☁️ User loaded from Firestore DB:", doc.data());
                 return doc.data();
@@ -68,40 +75,3 @@ async function fetchUserFromFirestore(phone) {
     return null;
 }
 
-// Real-Time Listener: Listen to Live User Document Changes across Web & Android
-function listenToUserRealtime(phone, callback) {
-    if (db && phone && typeof callback === 'function') {
-        try {
-            return db.collection('users').doc(phone).onSnapshot((doc) => {
-                if (doc.exists) {
-                    console.log("⚡ Real-Time User Update received from Cloud Firestore:", phone);
-                    callback(doc.data());
-                }
-            }, (err) => {
-                console.warn("Real-time listener warning:", err.message);
-            });
-        } catch (e) {
-            console.warn("Could not attach real-time listener:", e.message);
-        }
-    }
-    return null;
-}
-
-// Real-Time Listener: Listen to Live Collection (Market, Listings, Prices)
-function listenToCollectionRealtime(collectionName, callback) {
-    if (db && collectionName && typeof callback === 'function') {
-        try {
-            return db.collection(collectionName).onSnapshot((snapshot) => {
-                const items = [];
-                snapshot.forEach(doc => items.push({ id: doc.id, ...doc.data() }));
-                console.log(`⚡ Real-Time ${collectionName} Update: ${items.length} records`);
-                callback(items);
-            }, (err) => {
-                console.warn(`Real-time collection ${collectionName} warning:`, err.message);
-            });
-        } catch (e) {
-            console.warn(`Could not attach collection listener for ${collectionName}:`, e.message);
-        }
-    }
-    return null;
-}
