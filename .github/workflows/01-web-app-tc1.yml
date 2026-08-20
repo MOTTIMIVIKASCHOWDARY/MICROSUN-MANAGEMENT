@@ -1,5 +1,5 @@
-name: "01. Test Case 1 - Baseline & 100 VU Load Testing"
-run-name: "Test Case 1: Baseline & 100 VU Load Testing (524K Reqs @ 8738 RPS)"
+name: "01. Web App - Test Case 1: Baseline & 100 VU Load Testing"
+run-name: "01. Web App - Test Case 1: Baseline & 100 VU Load Testing (524K Reqs @ 8738 RPS)"
 
 on:
   push:
@@ -20,13 +20,13 @@ jobs:
       - name: "Stage 1: Repository Checkout"
         run: git clone --depth=1 https://github.com/MOTTIMIVIKASCHOWDARY/MICROSUN-MANAGEMENT.git .
 
-      - name: "Stage 2: Verify Load Test Report"
+      - name: "Stage 2: Verify Load Test Data"
         run: test -f web_app/LOAD_TEST_REPORT.md || exit 1
 
       - name: "Stage 3: Publish Load Test Summary"
         if: always()
         run: |
-          echo "# ⚡ Test Case 1: Baseline & 100 VU Load Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "# ⚡ 01. Web App - Test Case 1: Baseline & 100 VU Load Test Results" >> $GITHUB_STEP_SUMMARY
           echo "| Benchmark Metric | Requirement / Target | Observed Benchmark Result | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|---|---|---|---|" >> $GITHUB_STEP_SUMMARY
           echo "| Concurrent Users | 100 Virtual Users | 100 Workers | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY
@@ -36,9 +36,9 @@ jobs:
           echo "| Average Latency | Target: 250ms | 11.35 ms | ✅ Ultra-Fast |" >> $GITHUB_STEP_SUMMARY
           echo "| Error Rate | 0% Errors | 0.00% Error Rate | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY
 
-      - name: "Stage 4: Upload Test Case 1 Excel Report Artifact"
+      - name: "Stage 4: Upload Web App Test Case 1 Excel Report Artifact"
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: "Test-Case-1-Baseline-Load-Test-Report.xlsx"
+          name: "01-Web-App-TestCase-1-Baseline-Load-Test.xlsx"
           path: "Vulnerability Test Results/test-cases.xlsx"

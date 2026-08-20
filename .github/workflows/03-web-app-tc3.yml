@@ -1,5 +1,5 @@
-name: "03. Test Case 3 - 12-Phase DevSecOps & Security Audit"
-run-name: "Test Case 3: 12-Phase DevSecOps & Security Audit (400+ Test Cases)"
+name: "03. Web App - Test Case 3: 12-Phase DevSecOps & Security Audit"
+run-name: "03. Web App - Test Case 3: 12-Phase DevSecOps & Security Audit (400+ Test Cases)"
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
       - name: "Stage 3: Publish Security Audit Summary"
         if: always()
         run: |
-          echo "# 🛡️ Test Case 3: 12-Phase DevSecOps & Security Audit (400+ Test Cases)" >> $GITHUB_STEP_SUMMARY
+          echo "# 🛡️ 03. Web App - Test Case 3: 12-Phase DevSecOps & Security Audit (400+ Test Cases)" >> $GITHUB_STEP_SUMMARY
           echo "* **Overall Security Score**: \`84 / 100 (MEDIUM RISK)\`" >> $GITHUB_STEP_SUMMARY
           echo "* **Critical Vulnerabilities**: \`0 Critical\`" >> $GITHUB_STEP_SUMMARY
           echo "* **Hardcoded Secrets**: \`0 Leaks Detected\`" >> $GITHUB_STEP_SUMMARY
@@ -40,9 +40,9 @@ jobs:
           echo "| Cryptography (20+) | Hardcoded Secrets Scan | 0 Leaks | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY
           echo "| Functional API (100+) | 15 Route CRUD Status Checks | 100% Functional | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY
 
-      - name: "Stage 4: Upload Test Case 3 Excel Report Artifact"
+      - name: "Stage 4: Upload Web App Test Case 3 Excel Report Artifact"
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: "Test-Case-3-DevSecOps-Security-Audit-Master.xlsx"
+          name: "03-Web-App-TestCase-3-DevSecOps-Security-Audit.xlsx"
           path: "Vulnerability Test Results/MICROSUN_SECURITY_AUDIT_MASTER.xlsx"

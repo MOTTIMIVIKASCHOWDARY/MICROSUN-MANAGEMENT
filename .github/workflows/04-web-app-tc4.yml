@@ -1,5 +1,5 @@
-name: "04. Test Case 4 - Complete CI/CD Deployment & Live Testing"
-run-name: "Test Case 4: CI/CD Deployment & Live E2E Testing (Phase 7)"
+name: "04. Web App - Test Case 4: CI/CD Deployment & Route Inventory"
+run-name: "04. Web App - Test Case 4: CI/CD Deployment & Route Inventory (Phase 7)"
 
 on:
   push:
@@ -10,8 +10,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
   actions: write
 
 jobs:
@@ -30,15 +28,15 @@ jobs:
       - name: "Stage 3: Publish CI/CD Deployment Summary"
         if: always()
         run: |
-          echo "# 🚀 Test Case 4: CI/CD Deployment & Live E2E Testing Results" >> $GITHUB_STEP_SUMMARY
+          echo "# 🚀 04. Web App - Test Case 4: CI/CD Deployment & Live E2E Testing Results" >> $GITHUB_STEP_SUMMARY
           echo "* **Live Application URL**: \`https://mottimivikaschowdary.github.io/MICROSUN-MANAGEMENT/\`" >> $GITHUB_STEP_SUMMARY
           echo "* **Deployment Status**: \`SUCCESS (HTTP 200 OK ✅)\`" >> $GITHUB_STEP_SUMMARY
           echo "* **Discovered API Endpoints**: \`15 Routes Audited\`" >> $GITHUB_STEP_SUMMARY
           echo "* **Overall Build Status**: \`100% GREEN CHECKMARK ✅\`" >> $GITHUB_STEP_SUMMARY
 
-      - name: "Stage 4: Upload Test Case 4 Excel Report Artifact"
+      - name: "Stage 4: Upload Web App Test Case 4 Excel Report Artifact"
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: "Test-Case-4-API-Endpoint-Inventory.xlsx"
+          name: "04-Web-App-TestCase-4-API-Endpoint-Inventory.xlsx"
           path: "Vulnerability Test Results/endpoint-inventory.xlsx"
