@@ -1,0 +1,32 @@
+{
+  "name": "microsun-selenium-e2e-tests",
+  "version": "2.0.0",
+  "description": "MICROSUN MANAGEMENT - Automated Selenium End-to-End Test Suite",
+  "main": "run_all_selenium_tests.js",
+  "scripts": {
+    "test": "node run_all_selenium_tests.js",
+    "test:auth": "node test_01_auth_onboarding.js",
+    "test:planter": "node test_02_planter_ai.js",
+    "test:armor": "node test_03_banana_armor_ai.js",
+    "test:climate": "node test_04_sky_intel_ai.js",
+    "test:renting": "node test_05_rentrox_ai.js",
+    "test:yexa": "node test_06_yexa_ai.js",
+    "test:market": "node test_07_market_and_b2c.js",
+    "test:profile": "node test_08_profile_and_region.js",
+    "test:i18n": "node test_09_multilingual_engine.js",
+    "test:e2e": "node test_10_master_e2e_journey.js"
+  },
+  "keywords": [
+    "selenium",
+    "webdriver",
+    "e2e-testing",
+    "microsun",
+    "agritech",
+    "automated-tests"
+  ],
+  "author": "MICROSUN AI Engineering",
+  "license": "ISC",
+  "dependencies": {
+    "selenium-webdriver": "^4.47.0"
+  }
+}

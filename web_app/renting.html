@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MICROSUN MANAGEMENT - Renting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=20260814">
+    <link rel="stylesheet" href="renting.css?v=20260814">
+</head>
+<body>
+
+    <!-- Background Overlay -->
+    <div class="bg-overlay"></div>
+
+
+
+    <!-- Admin Mode Toggle Switch -->
+    <div class="admin-toggle-wrapper" style="position: absolute; top: 20px; right: 220px; z-index: 20; display: flex; align-items: center; gap: 8px;">
+        <label for="admin-toggle" style="font-size: 0.95rem; font-weight: 700; color: #000000; cursor: pointer; user-select: none;">Admin Mode</label>
+        <input type="checkbox" id="admin-toggle" onchange="toggleAdminMode(this.checked)" style="width: 18px; height: 18px; cursor: pointer;">
+    </div>
+
+
+
+    <!-- Sidebar hamburger -->
+    <button id="menuToggle" class="hamburger-btn" style="position: absolute; top: 20px; left: 20px; z-index: 60;">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </button>
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <div class="layout-wrapper">
+        <!-- Sidebar -->
+        <aside id="mainSidebar" class="sidebar">
+            <div class="sidebar-header" data-i18n="appTitle">MICROSUN MANAGEMENT</div>
+            <ul class="menu-list">
+                <li class="menu-item" onclick="window.location.href='dashboard.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🌱</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_new_crop">PLANTER AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='climate_risk.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">⛅</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_weather">SKY INTEL AI</span>
+                </li>
+                <li class="menu-item active" onclick="window.location.href='renting.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🚜</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_equipment">RENTROX AI</span>
+                </li>
+
+                <li class="menu-item has-submenu" id="bananaArmorToggle" onclick="window.location.href='pest_watch_guidance.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🍌</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_banana_armor">BANANA ARMOR AI</span>
+                </li>
+                <ul class="submenu-list" id="bananaArmorSubmenu" style="display: none;">
+                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=pest-watch'">
+                        <span class="submenu-icon">🐛</span>
+                        <span data-i18n="submenu_pest_watch">Pest Watch</span>
+                    </li>
+                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=disease-scan'">
+                        <span class="submenu-icon">🦠</span>
+                        <span data-i18n="submenu_disease_scan">Disease Scan</span>
+                    </li>
+                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=nutrient-care'">
+                        <span class="submenu-icon">🌱</span>
+                        <span data-i18n="submenu_nutrient_care">Nutrient Care</span>
+                    </li>
+                </ul>
+
+                <li class="menu-item" onclick="window.location.href='analytics.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📉</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_expense">YEXA AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='market.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">💰</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_market">MARKETX AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='b2c_selling.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📦</span></div>
+                    <span class="menu-text" data-i18n="menu_direct">B2C Produce Selling</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='profile.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">👤</span></div>
+                    <span class="menu-text" data-i18n="menu_profile">User Profile</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='main_hub.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🏠</span></div>
+                    <span class="menu-text" data-i18n="menu_back_hub">Back to Main Hub</span>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" style="padding-top: 80px;">
+            <div class="container" style="display: flex; justify-content: center; width: 100%;">
+                <div class="card glass renting-card">
+                    
+                    <!-- Title Section -->
+                    <div class="renting-header">
+                        <h2 class="notranslate" translate="no" data-i18n="rentingTitle">RENTROX AI</h2>
+                        <p data-i18n="rentingSubtitle">Rent high-precision machinery or hire certified farm labor</p>
+                    </div>
+
+                    <!-- RENTAL AI Smart Advisor Card -->
+                    <div id="rental-ai-advisor" class="rental-ai-card">
+                        <!-- Populated dynamically by JS -->
+                    </div>
+
+                    <!-- Segmented View Toggle Buttons (Like CoFarmz Mode) -->
+                    <div class="segmented-switch" style="max-width: 600px;">
+                        <button id="btn-tab-equipment" class="active" onclick="switchRentingTab('equipment')" data-i18n="tabRentEquip">Rent Machinery</button>
+                        <button id="btn-tab-list" onclick="switchRentingTab('list')" data-i18n="tabListEquip">Machine/ worker's</button>
+                        <button id="btn-tab-manpower" onclick="switchRentingTab('manpower')" data-i18n="tabManpower">Hire worker's</button>
+                    </div>
+
+                    <!-- Category Filter Pills (Visible when in Rent Machinery tab) -->
+                    <div class="category-filters-container" id="equip-filters">
+                        <button class="filter-pill active" onclick="filterCategory('all')" data-i18n="filterAll">All</button>
+                        <button class="filter-pill" onclick="filterCategory('tillage')" data-i18n="filterTillage">Tillage & Land Prep</button>
+                        <button class="filter-pill" onclick="filterCategory('sowing')" data-i18n="filterSowing">Sowing & Planting</button>
+                        <button class="filter-pill" onclick="filterCategory('care')" data-i18n="filterCare">Crop Care & Spraying</button>
+                        <button class="filter-pill" onclick="filterCategory('harvesting')" data-i18n="filterHarvesting">Harvesting & Processing</button>
+                    </div>
+
+                    <!-- View Views Container -->
+                    <div class="renting-views-container">
+                        
+                        <!-- 1. Equipment Tab View -->
+                        <div id="equipment-view" class="renting-view active">
+                            <!-- Search Bar -->
+                            <div class="search-bar-container">
+                                <input type="text" id="txt-search-equip" placeholder="Search tractors, tools, implements..." data-i18n-placeholder="searchPlaceholder" oninput="handleSearchInput(this.value)">
+                            </div>
+                            
+                            <!-- Rentable Equipment Grid (Rendered Dynamically via JS) -->
+                            <div class="renting-grid" id="equip-grid">
+                                <!-- Cards injected dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- 2. List Your Machine Tab View -->
+                        <div id="list-machine-view" class="renting-view">
+                            <div class="list-form-container">
+                                <h3 id="list-form-title" data-i18n="listFormTitle">List Your Machinery / Worker's for Rent</h3>
+                                
+                                <form id="frm-list-machine" onsubmit="handleListMachineSubmit(event)">
+                                    <!-- Listing Type Card Toggle Selector -->
+                                    <div class="listing-type-container">
+                                        <label class="listing-type-label" data-i18n="lblListType">What would you like to list?</label>
+                                        <div class="listing-type-toggle">
+                                            <div class="listing-type-option active" id="type-opt-machine" onclick="selectListingType('machine')">
+                                                <span class="option-icon">🚜</span>
+                                                <span class="option-text" data-i18n="optListMachine">List Machinery</span>
+                                            </div>
+                                            <div class="listing-type-option" id="type-opt-worker" onclick="selectListingType('worker')">
+                                                <span class="option-icon">👥</span>
+                                                <span class="option-text" data-i18n="optListWorker">List Worker / Crew</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="lst-name" id="lbl-name" data-i18n="lblMachineName">Machine Name / Model</label>
+                                            <input type="text" id="lst-name" placeholder="e.g. Mahindra Arjun 555 DI" oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s\-\(\)\/]/g, '').replace(/\s{2,}/g, ' ')" required>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="lst-category" id="lbl-category" data-i18n="lblCategory">Equipment Category</label>
+                                            <select id="lst-category" required>
+                                                <!-- Populated dynamically via Javascript based on type selection -->
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="lst-rate" id="lbl-rate" data-i18n="lblRate">Reasonable Rental Rate (₹ / hour)</label>
+                                            <div class="rate-input-row" style="display: flex; gap: 8px; width: 100%; align-items: center;">
+                                                <input type="text" id="lst-rate" placeholder="e.g. 350" oninput="this.value = this.value.replace(/[^0-9]/g, '')" style="flex: 1.2; width: 100%;" required>
+                                                <div class="rate-unit-toggle" id="rate-unit-toggle-container" style="flex: 1.8; display: flex;">
+                                                    <button type="button" class="rate-unit-btn active" data-unit="hr" id="btn-unit-hr">Hour</button>
+                                                    <button type="button" class="rate-unit-btn" data-unit="day" id="btn-unit-day">Day</button>
+                                                    <button type="button" class="rate-unit-btn" data-unit="acre" id="btn-unit-acre">Acre</button>
+                                                </div>
+                                                <select id="lst-rate-unit" style="display: none;">
+                                                    <option value="hr" data-i18n="optUnitHr">/ hour</option>
+                                                    <option value="day" data-i18n="optUnitDay">/ day</option>
+                                                    <option value="acre" data-i18n="optUnitAcre">/ acre</option>
+                                                </select>
+                                            </div>
+                                            <div id="ai-rate-suggestion" class="ai-suggestion-text" style="display: none;"></div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="lst-owner" id="lbl-owner" data-i18n="lblOwnerName">Owner / Provider Name</label>
+                                            <input type="text" id="lst-owner" placeholder="e.g. Ramesh Patel" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '').replace(/\s{2,}/g, ' ')" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="lst-phone" data-i18n="lblPhone">Contact Phone Number</label>
+                                            <input type="tel" id="lst-phone" placeholder="e.g. 9876543210" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="10" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="lst-distance" data-i18n="lblLocation">Your Location Distance (km)</label>
+                                            <input type="text" id="lst-distance" placeholder="e.g. 2.5" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); if(this.value.split('.').length > 2) this.value = this.value.substring(0, this.value.length - 1);" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Mockup Image Upload -->
+                                    <div class="file-upload-box" onclick="triggerFileInput()">
+                                        <span style="font-size: 2.2rem;" id="upload-icon">🚜</span>
+                                        <span id="lbl-upload-text" data-i18n="lblUpload">Drag & drop machinery photo here or click to browse</span>
+                                        <input type="file" id="lst-image-file" style="display: none;" accept="image/*" onchange="handleFileSelect(event)">
+                                        <div id="upload-preview-container" style="display:none; margin-top: 10px;">
+                                            <img id="upload-preview" src="" style="max-height: 80px; border-radius: 8px;">
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="submit-list-btn" data-i18n="btnSubmitListing">Submit Listing</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- 3. Manpower Tab View (Labor) -->
+                        <div id="manpower-view" class="renting-view">
+                            <!-- Manpower labor hiring Grid (Rendered Dynamically via JS) -->
+                            <div class="renting-grid" id="labor-grid">
+                                <!-- Cards injected dynamically -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Status Notification HUD -->
+                    <div id="booking-success-alert" class="renting-success-notice">
+                        <span style="font-size: 1.5rem;">🎉</span>
+                        <span id="booking-success-message">Booking Confirmed! Details synced with dashboard alerts.</span>
+                    </div>
+
+                    <!-- CoFarmz Style Booking Modal Overlay -->
+                    <div id="bookingModal" class="modal-overlay" onclick="closeBookingModal(event)">
+                        <div class="modal-card" onclick="event.stopPropagation()">
+                            <button class="close-modal-btn" onclick="closeBookingModal(event)">✕</button>
+                            <h3 id="modal-title">Book Equipment</h3>
+                            <p id="modal-owner-info"></p>
+                            
+                            <div class="modal-img-container">
+                                <img id="modal-img" src="" alt="Equipment">
+                            </div>
+                            
+                            <form id="frm-book-rental" onsubmit="handleBookingSubmit(event)">
+                                <input type="hidden" id="modal-item-id">
+                                <input type="hidden" id="modal-item-type">
+                                <input type="hidden" id="modal-item-key">
+                                <input type="hidden" id="modal-item-rate">
+                                
+                                <div class="form-group">
+                                    <label data-i18n="lblBookingDate">Select Date</label>
+                                    <input type="date" id="book-date" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label data-i18n="lblBookingTime">Start Time</label>
+                                    <input type="time" id="book-time" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label id="lbl-duration-unit" data-i18n="lblDurationHr">Duration (Hours)</label>
+                                    <input type="text" id="book-duration" value="4" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value === '') this.value = '1'; updateModalCost();" required>
+                                </div>
+
+                                <div class="modal-cost-summary">
+                                    <span class="cost-summary-label" data-i18n="estCostLabel">Estimated Cost</span>
+                                    <span class="cost-summary-value" id="modal-total-cost">₹0</span>
+                                </div>
+
+                                <button type="submit" class="confirm-booking-btn" data-i18n="btnConfirmBooking">Confirm Booking</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts Links -->
+    <script src="translations.js"></script>
+    <script src="dashboard_translations.js"></script>
+    <script src="hub_features_translations.js"></script>
+    <script src="renting_translations.js"></script>
+    <script src="renting.js?v=20260814_2"></script>
+    <script src="script.js?v=20260814_2"></script>
+    <script src="sidebar.js?v=20260814_2"></script>
+</body>
+</html>
+
+
+

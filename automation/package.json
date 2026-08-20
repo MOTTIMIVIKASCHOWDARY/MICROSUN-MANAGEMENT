@@ -1,0 +1,26 @@
+{
+  "name": "microsun-enterprise-live-selenium-framework",
+  "version": "3.0.0",
+  "description": "MICROSUN MANAGEMENT - Enterprise Live GitHub Pages CI/CD & E2E Selenium Automation Framework",
+  "main": "runner.js",
+  "scripts": {
+    "test": "node runner.js",
+    "test:live": "cross-env BASE_URL=https://unite-dev.github.io/PDD/ node runner.js",
+    "test:headless": "node runner.js --headless",
+    "generate-reports": "node utils/ReportGenerator.js"
+  },
+  "keywords": [
+    "selenium",
+    "page-object-model",
+    "e2e-testing",
+    "github-pages-testing",
+    "ci-cd",
+    "qa-automation",
+    "enterprise-grade"
+  ],
+  "author": "MICROSUN QA & DevOps Engineering",
+  "license": "ISC",
+  "dependencies": {
+    "selenium-webdriver": "^4.47.0"
+  }
+}

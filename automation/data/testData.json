@@ -1,0 +1,27 @@
+{
+  "auth": {
+    "valid": {
+      "phone": "9876543210",
+      "password": "Password@123"
+    },
+    "invalidPhone": "12345",
+    "invalidPassword": "wrong",
+    "empty": ""
+  },
+  "modules": [
+    { "id": "01", "name": "Auth & Login", "path": "index.html" },
+    { "id": "02", "name": "Welcome Splash", "path": "welcome.html" },
+    { "id": "03", "name": "Farmer Central Hub", "path": "main_hub.html" },
+    { "id": "04", "name": "Planter AI", "path": "dashboard.html" },
+    { "id": "05", "name": "Banana Armor AI", "path": "pest_watch_guidance.html" },
+    { "id": "06", "name": "Sky Intel AI", "path": "climate_risk.html" },
+    { "id": "07", "name": "Rentrox AI Machinery", "path": "renting.html" },
+    { "id": "08", "name": "Yexa AI Yield Calculator", "path": "analytics.html" },
+    { "id": "09", "name": "MarketX AI APMC Mandi", "path": "market.html" },
+    { "id": "10", "name": "B2C Produce Selling", "path": "b2c_selling.html" },
+    { "id": "11", "name": "Farmer Profile & Agri-Pass", "path": "profile.html" },
+    { "id": "12", "name": "Regional Soil Advisory", "path": "region.html" }
+  ],
+  "languages": ["en", "hi", "te", "ta", "kn", "mr", "bn", "gu", "ur", "or", "ml", "pa"],
+  "varieties": ["grand_naine", "kaveri_sugantham", "yelakki", "red_banana", "robusta", "nendran", "rasthali", "poovan"]
+}

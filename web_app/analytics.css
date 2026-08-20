@@ -1,0 +1,313 @@
+/* analytics.css */
+
+.analytics-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    color: var(--text-main);
+    z-index: 10;
+    position: relative;
+}
+
+/* KPI Visual Dashboard Grid */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.kpi-card {
+    background: rgba(255, 255, 255, 0.22) !important;
+    backdrop-filter: blur(30px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
+    border: 2px solid rgba(255, 255, 255, 0.45) !important;
+    border-radius: 20px;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.6) !important;
+}
+
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-green);
+}
+
+.kpi-card.total-cost::before { background: #E53935; }
+.kpi-card.est-yield::before { background: var(--banana-yellow); }
+.kpi-card.net-profit::before { background: #4CAF50; }
+.kpi-card.roi::before { background: linear-gradient(90deg, var(--banana-yellow), #4CAF50); }
+
+.kpi-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.kpi-value {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #000000;
+    line-height: 1.1;
+}
+
+.kpi-subtext {
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.kpi-subtext.positive { color: #2E7D32; }
+.kpi-subtext.negative { color: #C62828; }
+.kpi-subtext.info { color: #1D4ED8; }
+
+/* Columns Split Layout */
+.analytics-split {
+    display: grid;
+    grid-template-columns: 1.1fr 1.2fr;
+    gap: 30px;
+    width: 100%;
+}
+
+/* Glassmorphism Section Board Card */
+.analytics-board {
+    background: rgba(255, 255, 255, 0.22) !important;
+    backdrop-filter: blur(30px) !important;
+    -webkit-backdrop-filter: blur(30px) !important;
+    border: 2px solid rgba(255, 255, 255, 0.45) !important;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12), inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.analytics-board h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+    padding-bottom: 12px;
+    margin: 0;
+}
+
+/* Calculator Form Controls */
+.calculator-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.calculator-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.calculator-group label {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #000000;
+}
+
+.calculator-value-badge {
+    font-size: 1.1rem;
+    font-weight: 800;
+    background: rgba(0, 0, 0, 0.06);
+    color: #000000;
+    padding: 6px 14px;
+    border-radius: 12px;
+    min-width: 110px;
+    text-align: right;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+}
+
+/* Beautiful Interactive Custom Slider styling */
+.slider-input {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.08);
+    outline: none;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slider-input:focus {
+    background: rgba(46, 125, 50, 0.15);
+}
+
+.slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--primary-green);
+    border: 3px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: var(--primary-green-light);
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
+}
+
+.slider-input::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--primary-green);
+    border: 3px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+
+.slider-input::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    background: var(--primary-green-light);
+}
+
+/* Selection list dropdowns */
+.analytics-select-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.analytics-select-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.analytics-select-item label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.analytics-select {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1.5px solid rgba(0,0,0,0.15);
+    background: rgba(255, 255, 255, 0.65);
+    font-size: 1rem;
+    font-weight: 700;
+    color: #000000;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.analytics-select:focus {
+    border-color: var(--primary-green);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.08);
+}
+
+/* Buttons style */
+.btn-reset-analytics {
+    background: linear-gradient(135deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.08) 100%);
+    border: 1.5px solid rgba(0,0,0,0.08);
+    border-radius: 14px;
+    color: #000000;
+    font-size: 1.05rem;
+    font-weight: 800;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-reset-analytics:hover {
+    background: rgba(0,0,0,0.12);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+/* Charts card styling */
+.chart-container-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ROI Status Visual meter */
+.roi-visual-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.roi-visual-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.roi-visual-fill.high { background: linear-gradient(90deg, #81C784, #2E7D32); }
+.roi-visual-fill.medium { background: linear-gradient(90deg, #FFE082, #FBC02D); }
+.roi-visual-fill.low { background: linear-gradient(90deg, #E57373, #D32F2F); }
+
+/* Responsive adjustments */
+@media (max-width: 1000px) {
+    .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .analytics-split {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .kpi-grid {
+        grid-template-columns: 1fr;
+    }
+    .analytics-select-group {
+        grid-template-columns: 1fr;
+    }
+}
