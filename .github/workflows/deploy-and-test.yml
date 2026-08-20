@@ -11,25 +11,20 @@ permissions:
   contents: read
   actions: write
 
-env:
-  ACTIONS_RUNNER_FORCE_ACTIONS_NODE20: 'true'
-  ACTIONS_SUPPRESS_DEPRECATION_WARNINGS: 'true'
-
 jobs:
   build-and-test:
     name: "1. Build, E2E Selenium Testing & Excel Reporting"
     runs-on: ubuntu-latest
-    env:
-      ACTIONS_RUNNER_FORCE_ACTIONS_NODE20: 'true'
-      ACTIONS_SUPPRESS_DEPRECATION_WARNINGS: 'true'
     steps:
       - name: "Stage 1: Repository Checkout"
-        uses: actions/checkout@v4
+        run: |
+          git clone --depth=1 https://github.com/MOTTIMIVIKASCHOWDARY/MICROSUN-MANAGEMENT.git .
 
-      - name: "Stage 2: Setup Node.js Runtime"
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+      - name: "Stage 2: Node.js Runtime Verification"
+        run: |
+          echo "Verifying preinstalled Node.js runtime environment..."
+          node -v
+          npm -v
 
       - name: "Stage 3: Build & Package Static Web Application"
         run: |
@@ -50,20 +45,16 @@ jobs:
         run: |
           if [ -d "selenium_tests" ]; then
             cd selenium_tests
-            npm install || true
+            npm install --no-audit || true
             node run_all_selenium_tests.js || true
           fi
 
-      - name: "Stage 6: Upload E2E Test Evidence & Excel Reports as Artifacts"
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: "microsun-selenium-e2e-excel-reports"
-          retention-days: 30
-          path: |
-            MICROSUN_OFFICIAL_TEST_REPORT.xlsx
-            Test Results/
-            selenium_tests/
+      - name: "Stage 6: Package E2E Test Evidence & Excel Reports"
+        run: |
+          echo "Packaging test reports and evidence..."
+          mkdir -p dist_artifacts
+          cp -r MICROSUN_OFFICIAL_TEST_REPORT.xlsx dist_artifacts/ 2>/dev/null || true
+          cp -r "Test Results" dist_artifacts/ 2>/dev/null || true
 
       - name: "Stage 7: Publish Live Execution Summary to GitHub Actions"
         if: always()
