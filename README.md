@@ -52,10 +52,16 @@ For academic evaluation, all test case results and audit findings are organized 
 ```text
 MICROSUN-MANAGEMENT/
 ├── .github/
-│   └── workflows/
-│       ├── deploy-and-test.yml         # CI/CD Build, Web App Validation & E2E Pipeline
-│       └── security-review.yml         # DevSecOps, SAST, SCA & Automated Security Audit
-├── web_app/                            # Complete Web Application Source Code & Assets
+│   └── workflows/                      # CI/CD Workflows for Web, Security & Android
+├── android_app/                        # Native Android Studio Mobile App (Kotlin / Jetpack Compose)
+│   ├── app/                            # Android Source Code (Kotlin, Assets, Manifest)
+│   ├── build.gradle.kts                # Gradle Build Configuration
+│   └── Banana-web/                     # Embedded PWA Assets
+├── appium_tests/                       # Appium Mobile Automation Test Suite
+│   ├── tests/                          # Mobile E2E Test Scripts
+│   ├── config/                         # Appium Drivers & Capability Configurations
+│   └── runners/                        # Appium Suite Test Runners
+├── web_app/                            # Full Web Application Source Code & Assets
 │   ├── index.html                      # Authentication & Onboarding
 │   ├── main_hub.html                   # Central Navigation & AI Modules Hub
 │   ├── dashboard.html                  # Core Farmer Dashboard

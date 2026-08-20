@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "982179351673",
+    "project_id": "microsun-management",
+    "storage_bucket": "microsun-management.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982179351673:android:7ac89a74ded74b50f218a8",
+        "android_client_info": {
+          "package_name": "com.example.microsunmanagement"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZVZoTh6yf7Xhi05Y25RcJTFVm_XU346k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982179351673:android:7ac89a74ded74b50f218a8",
+        "android_client_info": {
+          "package_name": "microsun.management"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZVZoTh6yf7Xhi05Y25RcJTFVm_XU346k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

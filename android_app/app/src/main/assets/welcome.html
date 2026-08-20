@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function() {
+        var meta = document.querySelector('meta[name="viewport"]');
+        var content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+        if (meta) { meta.setAttribute('content', content); }
+        else {
+            meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = content;
+            document.head.appendChild(meta);
+        }
+    })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="bg.png" as="image">
+    <link rel="prefetch" href="main_hub.html">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .celebration-text {
+            text-align: center;
+            color: white;
+            z-index: 10;
+            margin-bottom: 200px;
+            position: relative;
+            animation: textGoOut 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .celebration-text::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.4) 0%, rgba(0,0,0,0) 50%);
+            z-index: -1;
+            pointer-events: none;
+            animation: pulseGlowBg 2s infinite alternate;
+        }
+
+        .celebration-text h1 {
+            font-size: 4.5rem;
+            margin: 0;
+            text-shadow: 0 0 15px rgba(129, 199, 132, 0.8), 0 4px 15px rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .celebration-text h1 span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: floatUpLetter 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            will-change: transform, opacity;
+        }
+
+        .celebration-text h1 span.space {
+            width: 1rem;
+        }
+
+        .celebration-text p {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            opacity: 0;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+            animation: fadeIn 0.4s ease forwards 0.8s, pulseGlow 1.2s infinite ease-in-out 1s;
+            color: #E8F5E9;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .run-wrapper {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            margin-left: -175px;
+            z-index: 5;
+            animation: comeInAndGo 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .bounce-wrapper {
+            animation: moveY 0.25s infinite alternate ease-in-out;
+        }
+
+        .character-img {
+            width: 350px;
+            height: auto;
+            transform: rotate(5deg);
+        }
+
+        @keyframes comeInAndGo {
+            0% { transform: scale(0) rotate(-180deg); opacity: 0; filter: drop-shadow(0 0 0 rgba(0,0,0,0)); }
+            20% { transform: scale(1.1) rotate(10deg); opacity: 1; filter: drop-shadow(0 30px 40px rgba(0,0,0,0.6)); }
+            30% { transform: scale(1) rotate(0deg); opacity: 1; filter: drop-shadow(0 15px 20px rgba(0,0,0,0.4)); }
+            65% { transform: scale(1) rotate(0deg); opacity: 1; filter: drop-shadow(0 15px 20px rgba(0,0,0,0.4)); }
+            80% { transform: scale(0) rotate(180deg); opacity: 0; filter: drop-shadow(0 0 0 rgba(0,0,0,0)); }
+            100% { transform: scale(0) rotate(180deg); opacity: 0; }
+        }
+
+        @keyframes pulseGlowBg {
+            0% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.9); }
+            100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        @keyframes moveY {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-30px); }
+        }
+
+        @keyframes floatUpLetter {
+            0% { 
+                opacity: 0; 
+                transform: translateY(50px) scale(0.8); 
+            }
+            60% { 
+                opacity: 1;
+                transform: translateY(-10px) scale(1.05); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.7; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
+            50% { opacity: 1; text-shadow: 0 0 15px rgba(255,255,255,0.8), 0 2px 5px rgba(0,0,0,0.8); color: white; }
+        }
+
+        @keyframes textGoOut {
+            0% { transform: scale(1); opacity: 1; }
+            65% { transform: scale(1); opacity: 1; }
+            80% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+    </style>
+    <link rel="stylesheet" href="mobile-fix.css">
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+
+    <div class="celebration-text">
+        <h1 id="welcomeText">WELCOME TO MICROSUN BIO PLANT</h1>
+        <p>Loading your dashboard...</p>
+    </div>
+
+    <div class="run-wrapper">
+        <div class="bounce-wrapper">
+            <img src="vecteezy_3d-cute-banana-cartoon-character-happy-fruit_60006792.png" alt="Cool Banana Character" class="character-img">
+        </div>
+    </div>
+
+    <script>
+        const fullText = "WELCOME TO MICROSUN BIO PLANT";
+        const welcomeText = document.getElementById('welcomeText');
+        welcomeText.innerHTML = '';
+        
+        fullText.split('').forEach((char, index) => {
+            const span = document.createElement('span');
+            if (char === ' ') {
+                span.innerHTML = '&nbsp;';
+                span.className = 'space';
+            } else {
+                span.innerText = char;
+            }
+            span.style.animationDelay = `${index * 0.025}s`;
+            welcomeText.appendChild(span);
+        });
+
+        // Pre-cache background and main hub assets instantly
+        const bgPreload = new Image();
+        bgPreload.src = 'bg.png';
+
+        // Smooth balanced redirect to Main Hub
+        setTimeout(() => {
+            window.location.href = 'main_hub.html';
+        }, 1600);
+    </script>
+</body>
+</html>

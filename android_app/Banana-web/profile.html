@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function() {
+        var meta = document.querySelector('meta[name="viewport"]');
+        var content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+        if (meta) { meta.setAttribute('content', content); }
+        else {
+            meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = content;
+            document.head.appendChild(meta);
+        }
+    })();
+    </script>
+    <title>User Profile - Master Farmer & Agri-Enterprise Control | MICROSUN AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="market.css">
+    <style>
+        /* User Profile Specific White Glass Styling */
+        body {
+            background: url('bg.png') no-repeat center center/cover fixed;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #000000;
+        }
+
+        .prof-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 1.2rem 1rem;
+            box-sizing: border-box;
+        }
+
+        .prof-header {
+            text-align: center;
+            margin-bottom: 1.4rem;
+        }
+
+        .prof-header h1 {
+            font-size: 1.65rem;
+            font-weight: 900;
+            color: #000000;
+            margin: 0 0 6px 0;
+            text-transform: uppercase;
+            letter-spacing: -0.3px;
+            line-height: 1.25;
+        }
+
+        .prof-header p {
+            font-size: 0.92rem;
+            color: #1b5e20;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1.35;
+        }
+
+        /* Top 4 Hero Banner Stat Cards */
+        .prof-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .prof-stat-card {
+            background: rgba(255, 255, 255, 0.32) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1.8px solid rgba(255, 255, 255, 0.65) !important;
+            border-radius: 16px;
+            padding: 10px 8px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            box-sizing: border-box;
+        }
+
+        .prof-stat-val {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #2e7d32;
+            margin-bottom: 2px;
+            line-height: 1.2;
+        }
+
+        .prof-stat-lbl {
+            font-size: 0.76rem;
+            font-weight: 800;
+            color: #111111;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            line-height: 1.2;
+        }
+
+        /* Studio Card Layout */
+        .prof-main-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        .studio-card {
+            background: rgba(255, 255, 255, 0.32) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 2px solid rgba(255, 255, 255, 0.65) !important;
+            border-radius: 20px;
+            padding: 1.4rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Title Centered in Middle of Box */
+        .studio-title {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #000000;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 8px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+            padding-bottom: 8px;
+        }
+
+        /* Navigation Tab Bar */
+        .prof-tab-bar {
+            display: flex !important;
+            gap: 8px !important;
+            background: rgba(255, 255, 255, 0.45) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            border: 1.8px solid rgba(255, 255, 255, 0.75) !important;
+            border-radius: 16px !important;
+            padding: 6px 8px !important;
+            margin-bottom: 1.2rem !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            -webkit-overflow-scrolling: touch !important;
+            scrollbar-width: none !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .prof-tab-bar::-webkit-scrollbar {
+            display: none !important;
+        }
+
+        .prof-tab-btn {
+            flex: 0 0 auto !important; /* CRITICAL: Never shrink or squash buttons */
+            min-width: max-content !important;
+            width: auto !important;
+            padding: 9px 15px !important;
+            border: none !important;
+            border-radius: 12px !important;
+            background: rgba(255, 255, 255, 0.65) !important;
+            color: #000000 !important;
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 0.84rem !important;
+            font-weight: 800 !important;
+            cursor: pointer !important;
+            transition: all 0.25s !important;
+            white-space: nowrap !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 6px !important;
+            box-sizing: border-box !important;
+        }
+
+        .prof-tab-btn:hover {
+            background: rgba(255, 255, 255, 0.9) !important;
+        }
+
+        .prof-tab-btn.active {
+            background: linear-gradient(135deg, #2e7d32, #1b5e20) !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.4) !important;
+        }
+
+        /* Avatar Box Card */
+        .prof-avatar-box-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 1.4rem;
+        }
+
+        .prof-avatar-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.2rem;
+            background: rgba(255, 255, 255, 0.32) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-radius: 20px;
+            padding: 0.9rem 1.4rem;
+            border: 1.8px solid rgba(255, 255, 255, 0.65) !important;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            width: fit-content;
+            box-sizing: border-box;
+        }
+
+        /* Form Controls */
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-grp {
+            margin-bottom: 0.6rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-grp label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: #1b5e20;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .form-grp input, .form-grp select, .form-grp textarea {
+            width: 100%;
+            height: 40px;
+            box-sizing: border-box;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.85) !important;
+            backdrop-filter: blur(10px) !important;
+            border: 1.5px solid rgba(0, 0, 0, 0.15) !important;
+            border-radius: 10px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.86rem;
+            font-weight: 800;
+            color: #000000 !important;
+            outline: none;
+            transition: all 0.25s;
+        }
+
+        .form-grp input:focus, .form-grp select:focus {
+            background: #ffffff !important;
+            border-color: #2e7d32 !important;
+            box-shadow: 0 0 8px rgba(46, 125, 50, 0.3);
+        }
+
+        /* Digital Pass Identity Card */
+        .digital-pass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(232,245,233,0.95)) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 2px solid #2e7d32 !important;
+            border-radius: 20px;
+            padding: 1.2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            margin-top: 1.2rem;
+            box-sizing: border-box;
+        }
+
+        .btn-save-profile {
+            width: 100%;
+            height: 44px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 900;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.35);
+            transition: all 0.25s;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-save-profile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.5);
+            filter: brightness(1.05);
+        }
+
+        .btn-action-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 1.2rem;
+        }
+
+        /* Modal Overlay Styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.5rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            box-sizing: border-box;
+        }
+
+        /* Bulletproof Fixed Sidebar & Hamburger Styling */
+        .hamburger-btn {
+            position: fixed !important;
+            top: 20px !important;
+            left: 20px !important;
+            z-index: 100000 !important;
+            background: rgba(20, 30, 20, 0.75) !important;
+            backdrop-filter: blur(15px) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+            border-radius: 12px !important;
+            padding: 12px !important;
+            cursor: pointer !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 5px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        .hamburger-line {
+            width: 24px !important;
+            height: 3px !important;
+            background-color: #ffffff !important;
+            border-radius: 3px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .hamburger-btn.open .hamburger-line:nth-child(1) {
+            transform: translateY(8px) rotate(45deg) !important;
+        }
+        .hamburger-btn.open .hamburger-line:nth-child(2) {
+            opacity: 0 !important;
+        }
+        .hamburger-btn.open .hamburger-line:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg) !important;
+        }
+
+        .sidebar {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            height: 100vh !important;
+            width: 310px !important;
+            background: rgba(18, 28, 18, 0.96) !important;
+            backdrop-filter: blur(25px) !important;
+            -webkit-backdrop-filter: blur(25px) !important;
+            border-right: 1.8px solid rgba(255, 255, 255, 0.3) !important;
+            z-index: 99999 !important;
+            transform: translateX(-100%);
+            transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+            overflow-y: auto !important;
+            box-shadow: 10px 0 40px rgba(0,0,0,0.5) !important;
+        }
+
+        .sidebar.open {
+            transform: translateX(0) !important;
+        }
+
+        .sidebar-overlay {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background: rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(5px) !important;
+            z-index: 99998 !important;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease !important;
+        }
+
+        .sidebar-overlay.open {
+            display: block !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        /* Responsive Breakpoints for Android & Mobile */
+        @media (max-width: 990px) {
+            .prof-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            .form-row-3 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .prof-container {
+                padding: 10px 8px 35px 8px !important;
+                padding-top: 55px !important; /* Clears fixed circular hamburger cleanly */
+            }
+            .prof-header h1 {
+                font-size: 1.25rem !important;
+            }
+            .prof-header p {
+                font-size: 0.8rem !important;
+            }
+            .prof-stats-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 6px !important;
+            }
+            .prof-stat-card {
+                padding: 8px 4px !important;
+            }
+            .prof-stat-val {
+                font-size: 1.1rem !important;
+            }
+            .prof-stat-lbl {
+                font-size: 0.68rem !important;
+            }
+            .studio-card {
+                padding: 12px 10px !important;
+                border-radius: 16px !important;
+            }
+            .studio-title {
+                font-size: 1.05rem !important;
+            }
+            .form-row-3, .form-row-2 {
+                grid-template-columns: 1fr !important;
+                gap: 6px !important;
+            }
+            .btn-action-row {
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
+            .btn-save-profile {
+                font-size: 0.85rem !important;
+                height: 40px !important;
+            }
+            .digital-pass-card {
+                padding: 12px 10px !important;
+            }
+            .pass-grid-4 {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 6px !important;
+            }
+            .agri-pass-content-box {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="mobile-fix.css">
+</head>
+<body>
+    <div class="bg-overlay"></div>
+
+    <button id="menuToggle" class="hamburger-btn">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </button>
+
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <div class="layout-wrapper">
+        
+        <!-- Sidebar Navigation (Matching exact white glass design system) -->
+        <aside id="mainSidebar" class="sidebar">
+            <div class="sidebar-header" data-i18n="appTitle">MICROSUN MANAGEMENT</div>
+            <ul class="menu-list">
+                <li class="menu-item" onclick="window.location.href='dashboard.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🌱</span></div>
+                    <span class="menu-text notranslate" translate="no">PLANTER AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='climate_risk.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">⛅</span></div>
+                    <span class="menu-text notranslate" translate="no">SKY INTEL AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='renting.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🚜</span></div>
+                    <span class="menu-text notranslate" translate="no">RENTROX AI</span>
+                </li>
+                <li class="menu-item has-submenu" id="bananaArmorToggle" onclick="window.location.href='pest_watch_guidance.html'">
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🍌</span></div>
+                            <span class="menu-text notranslate" translate="no">BANANA ARMOR AI</span>
+                        </div>
+                        <span class="submenu-indicator" style="font-size: 0.8rem; margin-right: 12px; color: #ffffff;">▼</span>
+                    </div>
+                </li>
+                <ul class="submenu-list" id="bananaArmorSubmenu" style="display: none; list-style: none; padding: 4px 0 8px 65px; margin: 0;">
+                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=pest-watch'" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
+                        <span class="submenu-icon">🐛</span>
+                        <span>Pest Watch</span>
+                    </li>
+                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=disease-scan'" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
+                        <span class="submenu-icon">🦠</span>
+                        <span>Disease Scan</span>
+                    </li>
+                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=nutrient-care'" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
+                        <span class="submenu-icon">🌱</span>
+                        <span>Nutrient Care</span>
+                    </li>
+                </ul>
+                <li class="menu-item" onclick="window.location.href='analytics.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📈</span></div>
+                    <span class="menu-text notranslate" translate="no">YEXA AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='market.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">💰</span></div>
+                    <span class="menu-text notranslate" translate="no">MARKETX AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='b2c_selling.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📦</span></div>
+                    <span class="menu-text">B2C Produce Selling</span>
+                </li>
+                <li class="menu-item active" onclick="window.location.href='profile.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">👤</span></div>
+                    <span class="menu-text">User Profile</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='main_hub.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🏠</span></div>
+                    <span class="menu-text">Back to Main Hub</span>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Workspace -->
+        <main class="main-content" style="padding: 1rem 1.5rem;">
+            <header class="top-bar">
+                <div class="logo-spacer"></div>
+                <div class="language-selector">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10z"></path></svg>
+                    <select id="lang-switch">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी (Hindi)</option>
+                        <option value="bn">বাংলা (Bengali)</option>
+                        <option value="mr">मराठी (Marathi)</option>
+                        <option value="te">తెలుగు (Telugu)</option>
+                        <option value="ta">தமிழ் (Tamil)</option>
+                        <option value="gu">ગુજરાતી (Gujarati)</option>
+                        <option value="ur">اردو (Urdu)</option>
+                        <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                        <option value="or">ଓଡ଼ିଆ (Odia)</option>
+                        <option value="ml">മലയാളം (Malayalam)</option>
+                        <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                    </select>
+                </div>
+            </header>
+            <div class="prof-container">
+
+                <!-- Header Title -->
+                <div class="prof-header">
+                    <h1>🧑‍🌾 Farmer & Agri-Enterprise Master Profile</h1>
+                    <p>Manage your Farm Credentials, Land Records, Machinery Fleet, Escrow Accounts & Direct Market Verification</p>
+                </div>
+
+                <!-- Compact Profile Avatar & Upload Card (Centered) -->
+                <div class="prof-avatar-box-wrapper">
+                    <div class="prof-avatar-box">
+                        <div style="position: relative; width: 68px; height: 68px; flex-shrink: 0;">
+                            <img id="profAvatarImg" src="3d_farmer.png" alt="User Profile Photo" style="width: 68px; height: 68px; border-radius: 50%; object-fit: cover; border: 2.5px solid #ffffff; box-shadow: 0 4px 14px rgba(0,0,0,0.18);">
+                            <label for="profPhotoInput" title="Upload New Profile Photo" style="position: absolute; bottom: -2px; right: -2px; background: #1b5e20; color: #ffffff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.25);">
+                                <span style="font-size: 0.75rem;">📷</span>
+                            </label>
+                            <input type="file" id="profPhotoInput" accept="image/*" style="display: none;" onchange="handleProfilePhotoUpload(event)">
+                        </div>
+                        <div>
+                            <h2 style="font-size: 1.2rem; color: #000000; margin: 0 0 0.15rem 0; font-weight: 900;" id="headerUserName">Ramesh Kumar</h2>
+                            <p style="font-size: 0.84rem; color: #1b5e20; font-weight: 800; margin: 0 0 0.4rem 0;" id="headerUserTitle">🌾 Verified Farmer & Enterprise Owner</p>
+                            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                                <label for="profPhotoInput" style="display: inline-flex; align-items: center; gap: 5px; background: #ffffff; color: #1b5e20; font-size: 0.76rem; font-weight: 800; padding: 5px 12px; border-radius: 12px; cursor: pointer; box-shadow: 0 3px 8px rgba(0,0,0,0.1); border: 1px solid rgba(46,125,50,0.3);">
+                                    📷 Upload Photo
+                                </label>
+                                <button type="button" onclick="window.location.href='index.html'" style="display: inline-flex; align-items: center; gap: 5px; background: linear-gradient(135deg, #d32f2f, #b71c1c); color: #ffffff; font-size: 0.76rem; font-weight: 800; padding: 5px 12px; border-radius: 12px; cursor: pointer; border: none; box-shadow: 0 3px 8px rgba(211,47,47,0.35);">🚪 Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top 4 Glass Stat Cards -->
+                <div class="prof-stats-grid">
+                    <div class="prof-stat-card">
+                        <div class="prof-stat-val" id="statValFarmerId" style="color: #2e7d32;">IND-TN-98421</div>
+                        <div class="prof-stat-lbl">Verified Farmer ID</div>
+                    </div>
+                    <div class="prof-stat-card">
+                        <div class="prof-stat-val" id="statValFarm" style="color: #1565c0;">12.5 Acres</div>
+                        <div class="prof-stat-lbl">Registered Plantation</div>
+                    </div>
+                    <div class="prof-stat-card">
+                        <div class="prof-stat-val" id="statValRating" style="color: #ef6c00;">4.9 / 5.0 ⭐</div>
+                        <div class="prof-stat-lbl">Escrow Rating (Tier-1)</div>
+                    </div>
+                    <div class="prof-stat-card">
+                        <div class="prof-stat-val" id="statValInsurance" style="color: #6a1b9a;">Active 2026</div>
+                        <div class="prof-stat-lbl">Agri-Insurance Coverage</div>
+                    </div>
+                </div>
+
+                <div class="prof-main-grid">
+
+                    <!-- Main Full-Width Studio Card: User Profile Settings -->
+                    <div class="studio-card">
+                        
+                        <!-- Header Title Centered in Middle of Box -->
+                        <div class="studio-title">
+                            <span>👤 User Profile & Agri-Enterprise Control</span>
+                        </div>
+
+                        <!-- 4 Core Tab Bar Options -->
+                        <div class="prof-tab-bar">
+                            <button type="button" class="prof-tab-btn active" data-target="secPersonal">
+                                👨‍🌾 Personal & Contact
+                            </button>
+                            <button type="button" class="prof-tab-btn" data-target="secLand">
+                                🌾 Land & Plantation
+                            </button>
+                            <button type="button" class="prof-tab-btn" data-target="secEscrow">
+                                💳 Escrow & Bank Payout
+                            </button>
+                            <button type="button" class="prof-tab-btn" data-target="secCert">
+                                📜 GI Tags & Quality
+                            </button>
+                        </div>
+
+                        <!-- Form Workspace -->
+                        <form id="userProfileForm" onsubmit="saveUserProfile(event)">
+                            
+                            <!-- TAB 1: Personal & Contact -->
+                            <div id="secPersonal" class="prof-tab-section">
+                                <div class="form-row-3">
+                                    <div class="form-grp">
+                                        <label>👤 Full Name / Enterprise Title</label>
+                                        <input type="text" id="profFullName" placeholder="e.g. Ramesh Kumar" value="Ramesh Kumar" required oninput="updateDigitalPassportCard()">
+                                    </div>
+                                    <div class="form-grp">
+                                        <label>🌾 Role / Entity Category</label>
+                                        <select id="profUserRole" onchange="updateDigitalPassportCard()" required>
+                                            <option value="Farmer">🌾 Farmer (Agricultural Producer / Grower)</option>
+                                            <option value="Hotels & Resorts Association">🏨 Hotels & Resorts Association</option>
+                                            <option value="Chips & Snack Processors">🍟 Chips & Snack Processors</option>
+                                            <option value="Gulf & Middle East Agro Exporters">🚢 Gulf & Middle East Agro Exporters</option>
+                                            <option value="Fresh / Smart Bazaar">🏬 Fresh / Smart Bazaar</option>
+                                            <option value="Hotel Supply Network">🍲 Hotel Supply Network</option>
+                                            <option value="Verified Buyers">🛒 Verified Buyers (Bulk Trader / Wholesaler)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-grp">
+                                        <label>📱 Mobile Number (Country Code)</label>
+                                        <div style="display: flex; gap: 6px;">
+                                            <select id="profCountryCode" style="width: 90px; flex-shrink: 0; padding: 6px 4px; font-size: 0.82rem;" onchange="updateDigitalPassportCard()">
+                                                <option value="+91">🇮🇳 +91</option>
+                                                <option value="+971">🇦🇪 +971</option>
+                                                <option value="+966">🇸🇦 +966</option>
+                                                <option value="+65">🇸🇬 +65</option>
+                                                <option value="+1">🇺🇸 +1</option>
+                                                <option value="+44">🇬🇧 +44</option>
+                                            </select>
+                                            <input type="tel" id="profMobileNumber" placeholder="9842109876" value="9842109876" pattern="[0-9]{10}" required oninput="updateDigitalPassportCard()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row-3">
+                                    <div class="form-grp">
+                                        <label>🌐 Preferred App Language</label>
+                                        <select id="profLang">
+                                            <option value="en">English (Global Standard)</option>
+                                            <option value="hi">हिन्दी (Hindi)</option>
+                                            <option value="ta">தமிழ் (Tamil)</option>
+                                            <option value="te">తెలుగు (Telugu)</option>
+                                            <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                                            <option value="ml">മലയാളം (Malayalam)</option>
+                                            <option value="mr">मराठी (Marathi)</option>
+                                            <option value="bn">বাংলা (Bengali)</option>
+                                            <option value="gu">ગુજરાતી (Gujarati)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-grp">
+                                        <label>📍 Farm Location State (16 States)</label>
+                                        <select id="profState" onchange="updateDigitalPassportCard()" required>
+                                            <option value="Tamil Nadu">Tamil Nadu (Trichy / Madurai Hub)</option>
+                                            <option value="Andhra Pradesh">Andhra Pradesh (Anantapur / Guntur)</option>
+                                            <option value="Maharashtra">Maharashtra (Jalgaon / Solapur)</option>
+                                            <option value="Karnataka">Karnataka (Theni / Bengaluru)</option>
+                                            <option value="Kerala">Kerala (Thrissur / Wayanad)</option>
+                                            <option value="Gujarat">Gujarat (Anand / Bharuch)</option>
+                                            <option value="Uttar Pradesh">Uttar Pradesh (Gorakhpur / Varanasi)</option>
+                                            <option value="Bihar">Bihar (Vaishali / Hajipur)</option>
+                                            <option value="West Bengal">West Bengal (Nadia / Hooghly)</option>
+                                            <option value="Odisha">Odisha (Cuttack / Khordha)</option>
+                                            <option value="Telangana">Telangana (Khammam / Nizamabad)</option>
+                                            <option value="Punjab">Punjab (Abohar / Bathinda)</option>
+                                            <option value="Haryana">Haryana (Yamunanagar / Sirsa)</option>
+                                            <option value="Madhya Pradesh">Madhya Pradesh (Burhanpur / Indore)</option>
+                                            <option value="Rajasthan">Rajasthan (Banswara / Chittorgarh)</option>
+                                            <option value="Assam">Assam (Kamrup / Barpeta)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-grp">
+                                        <label>🗺️ District & Tehsil / Mandal</label>
+                                        <input type="text" id="profDistrict" placeholder="e.g. Trichy / Lalgudi Block" value="Trichy / Lalgudi Block" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TAB 2: Land & Plantation -->
+                            <div id="secLand" class="prof-tab-section" style="display: none;">
+                                <div class="form-row-3">
+                                    <div class="form-grp">
+                                        <label>📏 Farm Plantation Size (Acres)</label>
+                                        <input type="number" id="profFarmSize" step="0.5" placeholder="12.5" value="12.5" required oninput="updateDigitalPassportCard()">
+                                    </div>
+                                    <div class="form-grp">
+                                        <label>🍌 Primary Banana Variety (24 Varieties)</label>
+                                        <select id="profCropVariety" onchange="updateDigitalPassportCard()" required>
+                                            <option value="Grand Naine (G9)">🍌 Grand Naine (G9) [Export Standard]</option>
+                                            <option value="Robusta (Harichhal)">🍌 Robusta (Harichhal) [Commercial Leader]</option>
+                                            <option value="Nendran (Ethakkaya)">🍌 Nendran (Ethakkaya) [Chips Grade]</option>
+                                            <option value="Red Banana (Seevazhai)">🍌 Red Banana (Seevazhai) [Premium Superfood]</option>
+                                            <option value="Poovan (Mysore)">🍌 Poovan (Mysore) [Traditional Table]</option>
+                                            <option value="Rasthali (Silk)">🍌 Rasthali (Silk) [Sweet Aromatic]</option>
+                                            <option value="Yelakki (Yelakkibale)">🍌 Yelakki (Yelakkibale) [Mini Table]</option>
+                                            <option value="Monthan (Raw Banana)">🍌 Monthan (Raw Banana) [Cooking Grade]</option>
+                                            <option value="Karpuravalli">🍌 Karpuravalli [High Sugar]</option>
+                                            <option value="Pachanadan">🍌 Pachanadan [Drought Tolerant]</option>
+                                            <option value="Sirumalai Hill Banana">🍌 Sirumalai Hill GI Banana [GI Tag Certified]</option>
+                                            <option value="Giant Governor">🍌 Giant Governor [High Yield]</option>
+                                            <option value="Ney Poovan">🍌 Ney Poovan (Elakki Bale) [Aromatic Fragrance]</option>
+                                            <option value="Matti Banana">🍌 Matti Banana [Kanyakumari GI Tag]</option>
+                                            <option value="Champa Banana">🍌 Champa (Desi Banana) [Eastern Desi]</option>
+                                            <option value="Srimanti">🍌 Srimanti [Tissue Culture]</option>
+                                            <option value="Kanthali">🍌 Kanthali [Regional Favorite]</option>
+                                            <option value="Dwarf Cavendish">🍌 Dwarf Cavendish [Global Benchmark]</option>
+                                            <option value="Malbhog">🍌 Malbhog [Bihar GI Special]</option>
+                                            <option value="Grand Naine Class A+">🍌 Grand Naine Export Class A+ [Class A+ Export]</option>
+                                            <option value="Virupakshi">🍌 Virupakshi (Kodaikanal Hill) [Kodaikanal GI Tag]</option>
+                                            <option value="Kamalapur Red Banana">🍌 Kamalapur Red Banana [Karnataka GI Tag]</option>
+                                            <option value="Nanjanagud Rasabale">🍌 Nanjanagud Rasabale [Heritage GI Tag]</option>
+                                            <option value="Chengalikodan Nendran">🍌 Chengalikodan Nendran [Thrissur GI Tag]</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-grp">
+                                        <label>🪴 Soil Type Classification</label>
+                                        <select id="profSoilType">
+                                            <option value="clay_loam">Clay Loam (High Retention)</option>
+                                            <option value="sandy_loam">Sandy Loam (Optimal Drainage)</option>
+                                            <option value="alluvial">Alluvial Soil (River Basin)</option>
+                                            <option value="black_cotton">Black Cotton Soil (Regur)</option>
+                                            <option value="red_laterite">Red Laterite Soil</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row-3">
+                                    <div class="form-grp">
+                                        <label>💧 Irrigation Facility</label>
+                                        <select id="profIrrigation">
+                                            <option value="drip">Automated Precision Drip</option>
+                                            <option value="canal">Canal Gravity Flow</option>
+                                            <option value="borewell">Solar Borewell Pump</option>
+                                            <option value="sprinkler">Overhead Micro-Sprinkler</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-grp">
+                                        <label>📅 Planting Date</label>
+                                        <input type="date" id="profPlantingDate" value="2025-10-15" required>
+                                    </div>
+                                    <div class="form-grp">
+                                        <label>🔮 Target Harvest Readiness</label>
+                                        <input type="date" id="profHarvestDate" value="2026-08-01" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TAB 3: Escrow & Bank Payout -->
+                            <div id="secEscrow" class="prof-tab-section" style="display: none;">
+                                <div class="form-row-2">
+                                    <div class="form-grp">
+                                        <label>⚡ Direct UPI ID (Instant Payout)</label>
+                                        <input type="text" id="profUpiId" placeholder="e.g. ramesh.farmer@upi" value="ramesh.farmer@upi" required oninput="updateDigitalPassportCard()">
+                                    </div>
+                                    <div class="form-grp">
+                                        <label>🏦 Bank Account Number</label>
+                                        <input type="text" id="profBankAcc" placeholder="918237465012" value="918237465012" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row-2">
+                                    <div class="form-grp">
+                                        <label>🏛️ Bank IFSC Code</label>
+                                        <input type="text" id="profIfsc" placeholder="SBIN0004812" value="SBIN0004812" required>
+                                    </div>
+                                    <div class="form-grp">
+                                        <label>🏬 Bank Name & Branch</label>
+                                        <input type="text" id="profBankName" placeholder="State Bank of India - Trichy Main" value="State Bank of India - Trichy Main" required>
+                                    </div>
+                                </div>
+
+                                <div style="background: rgba(46, 125, 50, 0.15); border: 1.5px solid #2e7d32; border-radius: 12px; padding: 10px 14px; margin-top: 6px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <span style="font-size: 1.3rem;">🔒</span>
+                                        <div>
+                                            <div style="font-size: 0.88rem; font-weight: 900; color: #1b5e20;">Escrow Direct Payout Verification: ACTIVE</div>
+                                            <div style="font-size: 0.74rem; font-weight: 800; color: #333333;">100% Funds Auto-Settled via RBI Compliant Escrow Partner Gateway</div>
+                                        </div>
+                                    </div>
+                                    <span style="background: #2e7d32; color: #fff; font-size: 0.72rem; font-weight: 900; padding: 3px 8px; border-radius: 6px;">VERIFIED TIER-1</span>
+                                </div>
+                            </div>
+
+                            <!-- TAB 4: Certifications & GI Tags -->
+                            <div id="secCert" class="prof-tab-section" style="display: none;">
+                                <div class="form-row-2">
+                                    <div class="form-grp">
+                                        <label>🏷️ GI Tag Certification Status</label>
+                                        <select id="profGiTag">
+                                            <option value="Sirumalai Hill GI Tag">Sirumalai Hill GI Tag Certified</option>
+                                            <option value="Virupakshi Kodaikanal GI Tag">Virupakshi (Kodaikanal Hill) GI Tag</option>
+                                            <option value="Kamalapur Red GI Tag">Kamalapur Red GI Tag</option>
+                                            <option value="Nanjanagud Rasabale GI Tag">Nanjanagud Rasabale GI Tag</option>
+                                            <option value="Chengalikodan Nendran GI Tag">Chengalikodan Nendran GI Tag</option>
+                                            <option value="None">Commercial Non-GI Grade</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-grp">
+                                        <label>🌱 Organic & Quality Standard</label>
+                                        <select id="profOrganicCert">
+                                            <option value="APEDA Organic Certified">APEDA Certified Organic Producer</option>
+                                            <option value="Export Class A+ Standard">Export Class A+ Standard</option>
+                                            <option value="Zero Budget Natural Farming">Zero Budget Natural Farming (ZBNF)</option>
+                                            <option value="GAP Certified">Global GAP Certified</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row-2">
+                                    <div class="form-grp">
+                                        <label>📜 FSSAI License Number</label>
+                                        <input type="text" id="profFssai" placeholder="10020042000123" value="10020042000123">
+                                    </div>
+                                    <div class="form-grp">
+                                        <label>📦 Default Packaging Standard</label>
+                                        <select id="profPackaging">
+                                            <option value="Export Corrugated Cartons (13.5 Kg)">Export Corrugated Cartons (13.5 Kg)</option>
+                                            <option value="Returnable Plastic Crates (20 Kg)">Returnable Plastic Crates (20 Kg)</option>
+                                            <option value="Raw Bunch Loose Loading">Raw Bunch Loose Loading</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Save Profile Action Button -->
+                            <div class="btn-action-row" style="margin-top: 1.2rem;">
+                                <button type="submit" class="btn-save-profile" style="width: 100%; justify-content: center; font-size: 1rem; padding: 12px; border-radius: 14px; background: linear-gradient(135deg, #2e7d32, #1b5e20); color: #ffffff; font-weight: 900; box-shadow: 0 4px 15px rgba(46, 125, 50, 0.4); border: none; cursor: pointer;">
+                                    💾 Save Profile
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                    <!-- Digital Farmer Identity Passport Live Card -->
+                    <div class="digital-pass-card">
+                        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px dashed rgba(46,125,50,0.3); padding-bottom: 10px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <img id="passAvatarImg" src="3d_farmer.png" alt="Avatar" style="width: 48px; height: 48px; border-radius: 50%; border: 2.5px solid #2e7d32; object-fit: cover; box-shadow: 0 3px 8px rgba(0,0,0,0.12);">
+                                <div>
+                                    <h3 id="passName" style="margin: 0; font-size: 1.1rem; font-weight: 900; color: #000000; line-height: 1.2;">Ramesh Kumar</h3>
+                                    <div id="passRole" style="font-size: 0.78rem; font-weight: 800; color: #1b5e20;">🌾 Farmer • Verified Enterprise</div>
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <span style="background: #2e7d32; color: #fff; font-size: 0.72rem; font-weight: 900; padding: 3px 8px; border-radius: 6px;">GOLD VERIFIED PASS</span>
+                                <div style="font-size: 0.72rem; font-weight: 800; color: #555; margin-top: 2px;">ID: IND-TN-98421098</div>
+                            </div>
+                        </div>
+
+                        <div class="pass-grid-4" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center;">
+                            <div style="background: rgba(255,255,255,0.85); padding: 6px 8px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.06);">
+                                <span style="font-size: 0.68rem; font-weight: 800; color: #555; text-transform: uppercase; display: block;">📱 Mobile</span>
+                                <span id="passMobile" style="font-size: 0.82rem; font-weight: 900; color: #000;">+91 9842109876</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.85); padding: 6px 8px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.06);">
+                                <span style="font-size: 0.68rem; font-weight: 800; color: #555; text-transform: uppercase; display: block;">📍 Location</span>
+                                <span id="passState" style="font-size: 0.82rem; font-weight: 900; color: #000;">Tamil Nadu</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.85); padding: 6px 8px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.06);">
+                                <span style="font-size: 0.68rem; font-weight: 800; color: #555; text-transform: uppercase; display: block;">📏 Plantation</span>
+                                <span id="passFarm" style="font-size: 0.82rem; font-weight: 900; color: #000;">12.5 Acres</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.85); padding: 6px 8px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.06);">
+                                <span style="font-size: 0.68rem; font-weight: 800; color: #555; text-transform: uppercase; display: block;">💳 UPI Payout</span>
+                                <span id="passUpi" style="font-size: 0.78rem; font-weight: 900; color: #1b5e20;">ramesh.farmer@upi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Receipt Confirmation -->
+    <div id="profileSavedModal" class="modal-overlay">
+        <div class="modal-box">
+            <div style="font-size: 3rem; margin-bottom: 8px;">✅</div>
+            <h2 style="margin: 0 0 10px 0; font-size: 1.6rem; font-weight: 900; color: #1b5e20;">Profile Saved & Synced Live!</h2>
+            <p style="font-size: 0.95rem; font-weight: 800; color: #333333; margin-bottom: 1.5rem;">
+                Your Master Farmer Profile, Escrow Payout Accounts, and Crop Plantation Records have been updated successfully and synced across all MICROSUN AI modules.
+            </p>
+            <button type="button" class="btn-save-profile" onclick="closeProfileModal()">
+                👍 OK, Continue
+            </button>
+        </div>
+    </div>
+
+    <!-- Digital Agri-Pass Passport Certificate Modal -->
+    <div id="agriPassModal" class="modal-overlay" style="z-index: 10000;">
+        <div class="modal-box" style="max-width: 650px; padding: 2rem; background: linear-gradient(135deg, #ffffff, #f1f8e9); border: 2.5px solid #2e7d32; border-radius: 24px; text-align: left;">
+            
+            <!-- Header -->
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #2e7d32; padding-bottom: 12px; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 2.2rem;">🇮🇳</span>
+                    <div>
+                        <h2 style="margin: 0; font-size: 1.35rem; font-weight: 900; color: #1b5e20; text-transform: uppercase;">MICROSUN AI • DIGITAL AGRI-PASS</h2>
+                        <div style="font-size: 0.8rem; font-weight: 800; color: #555;">Government Compliant Agricultural Producer Credential</div>
+                    </div>
+                </div>
+                <span style="background: #2e7d32; color: #ffffff; font-size: 0.76rem; font-weight: 900; padding: 5px 12px; border-radius: 20px;">VERIFIED TIER-1</span>
+            </div>
+
+            <!-- Certificate Content -->
+            <div style="display: flex; gap: 18px; margin-bottom: 16px; background: rgba(255,255,255,0.95); border: 1.5px solid rgba(46,125,50,0.3); border-radius: 16px; padding: 16px;">
+                <div style="text-align: center;">
+                    <img id="certAvatarImg" src="3d_farmer.png" style="width: 90px; height: 90px; border-radius: 50%; border: 3px solid #2e7d32; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" alt="Farmer Photo">
+                    <div style="font-size: 0.72rem; font-weight: 900; color: #1b5e20; margin-top: 6px;">ID: IND-TN-98421098</div>
+                </div>
+
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 6px; font-size: 0.88rem; font-weight: 800; color: #222;">
+                    <div>👤 <strong>Full Name:</strong> <span id="certName" style="color: #000; font-weight: 900;">Ramesh Kumar</span></div>
+                    <div>🌾 <strong>Agri Entity Role:</strong> <span id="certRole" style="color: #1b5e20; font-weight: 900;">Farmer</span></div>
+                    <div>📱 <strong>Mobile Contact:</strong> <span id="certMobile" style="color: #000; font-weight: 900;">🇮🇳 +91 9842109876</span></div>
+                    <div>📍 <strong>Registered State:</strong> <span id="certState" style="color: #000; font-weight: 900;">Tamil Nadu (Trichy)</span></div>
+                    <div>📏 <strong>Registered Farm Land:</strong> <span id="certLand" style="color: #000; font-weight: 900;">12.5 Acres</span></div>
+                    <div>🍌 <strong>Banana Crop Variety:</strong> <span id="certVariety" style="color: #1b5e20; font-weight: 900;">Grand Naine (G9)</span></div>
+                    <div>💳 <strong>Verified UPI Escrow:</strong> <span id="certUpi" style="color: #0d47a1; font-weight: 900;">ramesh.farmer@upi</span></div>
+                </div>
+            </div>
+
+            <!-- Footer Verification Seal & Buttons -->
+            <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px dashed rgba(0,0,0,0.15); padding-top: 12px;">
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 800; color: #1b5e20;">
+                    <span style="font-size: 1.4rem;">🔒</span>
+                    <span>Cryptographically Signed by MICROSUN AI Escrow Core</span>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" onclick="printAgriPassPDF()" style="background: linear-gradient(135deg, #2e7d32, #1b5e20); color: #ffffff; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 900; font-size: 0.88rem; cursor: pointer;">🖨️ Print / Download PDF</button>
+                    <button type="button" onclick="closeAgriPassModal()" style="background: rgba(0,0,0,0.6); color: #ffffff; border: none; padding: 10px 14px; border-radius: 10px; font-weight: 900; font-size: 0.88rem; cursor: pointer;">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="hub_features_translations.js"></script>
+    <script src="profile.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>

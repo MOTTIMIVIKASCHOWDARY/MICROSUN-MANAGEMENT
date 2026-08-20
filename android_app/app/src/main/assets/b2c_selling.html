@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function() {
+        var meta = document.querySelector('meta[name="viewport"]');
+        var content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+        if (meta) { meta.setAttribute('content', content); }
+        else {
+            meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = content;
+            document.head.appendChild(meta);
+        }
+    })();
+    </script>
+    <title>B2C Produce Selling - Direct Farmgate Marketplace | MICROSUN AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="market.css">
+    <style>
+        /* B2C Produce Selling Specific White Glass Styling */
+        body {
+            background: url('bg.png') no-repeat center center/cover fixed;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            color: #000000;
+        }
+
+        .b2c-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 1.2rem 1rem;
+            box-sizing: border-box;
+        }
+
+        .b2c-header {
+            text-align: center;
+            margin-bottom: 1.4rem;
+        }
+
+        .b2c-header h1 {
+            font-size: 1.65rem;
+            font-weight: 900;
+            color: #000000;
+            margin: 0 0 6px 0;
+            text-transform: uppercase;
+            letter-spacing: -0.3px;
+            line-height: 1.25;
+        }
+
+        .b2c-header p {
+            font-size: 0.92rem;
+            color: #1b5e20;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1.35;
+        }
+
+        /* Hero Banner Stats */
+        .b2c-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .b2c-stat-card {
+            background: rgba(255, 255, 255, 0.32) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1.8px solid rgba(255, 255, 255, 0.65) !important;
+            border-radius: 16px;
+            padding: 10px 8px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            box-sizing: border-box;
+        }
+
+        .b2c-stat-val {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #2e7d32;
+            margin-bottom: 2px;
+            line-height: 1.2;
+        }
+
+        .b2c-stat-lbl {
+            font-size: 0.76rem;
+            font-weight: 800;
+            color: #111111;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            line-height: 1.2;
+        }
+
+        /* 1-Column Stacked Layout */
+        .b2c-main-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        /* Full Width Studio Card */
+        .studio-card {
+            background: rgba(255, 255, 255, 0.32) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 2px solid rgba(255, 255, 255, 0.65) !important;
+            border-radius: 20px;
+            padding: 1.4rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .studio-title {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #000000;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 8px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+            padding-bottom: 8px;
+        }
+
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1.2fr;
+            gap: 12px;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-row-4 {
+            display: grid;
+            grid-template-columns: 1.6fr 1.2fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-row-logistics {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1.4fr;
+            gap: 12px;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-grp {
+            margin-bottom: 0.6rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-grp label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: #1b5e20;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .form-grp input, .form-grp select, .form-grp textarea {
+            width: 100%;
+            height: 40px;
+            box-sizing: border-box;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.85) !important;
+            backdrop-filter: blur(10px) !important;
+            border: 1.5px solid rgba(0, 0, 0, 0.15) !important;
+            border-radius: 10px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.86rem;
+            font-weight: 800;
+            color: #000000 !important;
+            outline: none;
+            transition: all 0.25s;
+        }
+
+        .form-grp input:focus, .form-grp select:focus {
+            background: #ffffff !important;
+            border-color: #2e7d32 !important;
+            box-shadow: 0 0 8px rgba(46, 125, 50, 0.3);
+        }
+
+        .btn-create-list {
+            width: 100%;
+            height: 44px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 900;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.35);
+            transition: all 0.25s;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-top: 6px;
+        }
+
+        .btn-create-list:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.5);
+            filter: brightness(1.05);
+        }
+
+        /* Right Buyer Marketplace */
+        .buyers-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .filter-bar {
+            background: rgba(255, 255, 255, 0.32) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1.8px solid rgba(255, 255, 255, 0.65) !important;
+            border-radius: 16px;
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            box-sizing: border-box;
+        }
+
+        .buyer-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 14px;
+        }
+
+        .buyer-card {
+            background: rgba(255, 255, 255, 0.35) !important;
+            backdrop-filter: blur(20px) !important;
+            border: 1.8px solid rgba(255, 255, 255, 0.7) !important;
+            border-radius: 18px;
+            padding: 1.1rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .buyer-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
+            border-color: #ffffff !important;
+        }
+
+        .buyer-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .buyer-avatar {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1.8px solid rgba(46, 125, 50, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+        }
+
+        .buyer-name {
+            font-size: 0.98rem;
+            font-weight: 900;
+            color: #000000;
+            margin: 0 0 2px 0;
+            line-height: 1.2;
+        }
+
+        .buyer-tag {
+            display: inline-block;
+            background: rgba(46, 125, 50, 0.15);
+            color: #1b5e20;
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 5px;
+            text-transform: uppercase;
+        }
+
+        .price-badge {
+            background: #2e7d32;
+            color: #ffffff;
+            font-weight: 900;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.92rem;
+            box-shadow: 0 3px 10px rgba(46, 125, 50, 0.3);
+            white-space: nowrap;
+        }
+
+        .buyer-details {
+            font-size: 0.84rem;
+            font-weight: 800;
+            color: #000000;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.78) !important;
+            backdrop-filter: blur(12px) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.9) !important;
+            padding: 10px 12px;
+            border-radius: 14px;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.03);
+            box-sizing: border-box;
+        }
+
+        .btn-sell-direct {
+            width: 100%;
+            height: 38px;
+            padding: 8px 12px;
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 900;
+            font-size: 0.86rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-sell-direct:hover {
+            background: #2e7d32;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.4);
+        }
+
+        /* Responsive Breakpoints for Android & Mobile */
+        @media (max-width: 990px) {
+            .b2c-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            .form-row-3, .form-row-4, .form-row-logistics {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .b2c-container {
+                padding: 10px 8px 35px 8px !important;
+                padding-top: 55px !important; /* Clears fixed circular hamburger cleanly */
+            }
+            .b2c-header h1 {
+                font-size: 1.25rem !important;
+            }
+            .b2c-header p {
+                font-size: 0.8rem !important;
+            }
+            .b2c-stats-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 6px !important;
+            }
+            .b2c-stat-card {
+                padding: 8px 4px !important;
+            }
+            .b2c-stat-val {
+                font-size: 1.1rem !important;
+            }
+            .b2c-stat-lbl {
+                font-size: 0.68rem !important;
+            }
+            .studio-card {
+                padding: 12px 10px !important;
+                border-radius: 16px !important;
+            }
+            .studio-title {
+                font-size: 1.05rem !important;
+            }
+            .form-row-3, .form-row-4, .form-row-logistics {
+                grid-template-columns: 1fr !important;
+                gap: 6px !important;
+            }
+            .filter-bar {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 8px !important;
+                padding: 10px 12px !important;
+            }
+            .buyer-card-grid {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="mobile-fix.css">
+</head>
+<body>
+
+    <button id="menuToggle" class="hamburger-btn">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </button>
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <div class="layout-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside id="mainSidebar" class="sidebar">
+            <div class="sidebar-header" data-i18n="appTitle">MICROSUN MANAGEMENT</div>
+            <ul class="menu-list">
+                <li class="menu-item" onclick="window.location.href='dashboard.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🌱</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_new_crop">PLANTER AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='climate_risk.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">⛅</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_weather">SKY INTEL AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='renting.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🚜</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_equipment">RENTROX AI</span>
+                </li>
+
+                <li class="menu-item has-submenu" id="bananaArmorToggle" onclick="window.location.href='pest_watch_guidance.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🍌</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_banana_armor">BANANA ARMOR AI</span>
+                </li>
+                <ul class="submenu-list" id="bananaArmorSubmenu">
+                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=pest-watch'">
+                        <span class="submenu-icon">🐛</span>
+                        <span data-i18n="submenu_pest_watch">Pest Watch</span>
+                    </li>
+                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=disease-scan'">
+                        <span class="submenu-icon">🦠</span>
+                        <span data-i18n="submenu_disease_scan">Disease Scan</span>
+                    </li>
+                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=nutrient-care'">
+                        <span class="submenu-icon">🌱</span>
+                        <span data-i18n="submenu_nutrient_care">Nutrient Care</span>
+                    </li>
+                </ul>
+
+                <li class="menu-item" onclick="window.location.href='analytics.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📈</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_expense">YEXA AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='market.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">💰</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_market">MARKETX AI</span>
+                </li>
+                <li class="menu-item active" onclick="window.location.href='b2c_selling.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📦</span></div>
+                    <span class="menu-text" data-i18n="menu_direct">B2C Produce Selling</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='profile.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">👨‍🌾</span></div>
+                    <span class="menu-text" data-i18n="menu_profile">User Profile</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='main_hub.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🏠</span></div>
+                    <span class="menu-text" data-i18n="menu_back_hub">Back to Main Hub</span>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content" style="padding: 1rem 1.5rem;">
+            <header class="top-bar">
+                <div class="logo-spacer"></div>
+                <div class="language-selector">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10z"></path></svg>
+                    <select id="lang-switch">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी (Hindi)</option>
+                        <option value="bn">বাংলা (Bengali)</option>
+                        <option value="mr">मराठी (Marathi)</option>
+                        <option value="te">తెలుగు (Telugu)</option>
+                        <option value="ta">தமிழ் (Tamil)</option>
+                        <option value="gu">ગુજરાતી (Gujarati)</option>
+                        <option value="ur">اردو (Urdu)</option>
+                        <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                        <option value="or">ଓଡ଼ିଆ (Odia)</option>
+                        <option value="ml">മലയാളം (Malayalam)</option>
+                        <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                    </select>
+                </div>
+            </header>
+            <div class="b2c-container">
+                
+                <!-- Page Title Header -->
+                <div class="b2c-header">
+                    <h1>📦 B2C Produce Selling — Direct Farmgate Marketplace</h1>
+                    <p>Sell directly to Supermarkets, Hotel Chains & Bulk Consumers — 0% APMC Broker Commission</p>
+                </div>
+
+                <!-- 4 Live Platform Stats -->
+                <div class="b2c-stats-grid">
+                    <div class="b2c-stat-card">
+                        <div class="b2c-stat-val">₹ 36.50 / Kg</div>
+                        <div class="b2c-stat-lbl">Avg B2C Direct Farmgate Price</div>
+                    </div>
+                    <div class="b2c-stat-card">
+                        <div class="b2c-stat-val" style="color: #1565c0;">1,420+ Tons</div>
+                        <div class="b2c-stat-lbl">Verified Active Buyer Demand</div>
+                    </div>
+                    <div class="b2c-stat-card">
+                        <div class="b2c-stat-val" style="color: #e65100;">+ 18.5% Net Profit</div>
+                        <div class="b2c-stat-lbl">Direct Selling vs APMC Brokers</div>
+                    </div>
+                    <div class="b2c-stat-card">
+                        <div class="b2c-stat-val" style="color: #6a1b9a;">⚡ Instant Escrow</div>
+                        <div class="b2c-stat-lbl">Guaranteed UPI / Bank Payout</div>
+                    </div>
+                </div>
+
+                <!-- Main Studio & Buyers Grid -->
+                <div class="b2c-main-grid">
+                    
+                    <!-- Top Full-Width Studio Card: Create Direct B2C Harvest -->
+                    <div class="studio-card">
+                        <div class="studio-title">
+                            <span>🚜 Create Direct B2C Harvest</span>
+                        </div>
+                        
+                        <!-- 2 Switching Options: BUY / SELL -->
+                        <div class="mode-toggle-container" style="display: flex; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px); border: 1.8px solid rgba(255, 255, 255, 0.7); border-radius: 14px; padding: 4px; margin-bottom: 1.4rem; gap: 6px;">
+                            <button type="button" id="btnModeSell" class="mode-toggle-btn active" onclick="switchTradeMode('SELL')" style="flex: 1; padding: 12px; border: none; border-radius: 10px; background: linear-gradient(135deg, #2e7d32, #1b5e20); color: #ffffff; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 900; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(46, 125, 50, 0.4);">
+                                🚜 SELL (Publish Harvest)
+                            </button>
+                            <button type="button" id="btnModeBuy" class="mode-toggle-btn" onclick="switchTradeMode('BUY')" style="flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent; color: #000000; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 900; cursor: pointer; transition: all 0.3s;">
+                                🛒 BUY (Procure Harvest)
+                            </button>
+                        </div>
+
+                        <form id="b2cListingForm" onsubmit="handleCreateListing(event)">
+                            
+                            <!-- Row 1: Who You Are, Name, Mobile Number -->
+                            <div class="form-row-3">
+                                <div class="form-grp">
+                                    <label>👤 Who You Are (Select Role)</label>
+                                    <select id="selUserRole" onchange="handleRoleChange()" style="border: 2px solid #2e7d32 !important; background: rgba(232, 245, 233, 0.95) !important;" required>
+                                        <option value="Farmer">🌾 Farmer (Agricultural Producer / Grower)</option>
+                                        <option value="Hotels & Resorts Association">🏨 Hotels & Resorts Association (ITC & Taj)</option>
+                                        <option value="Chips & Snack Processors">🍟 Chips & Snack Processors</option>
+                                        <option value="Gulf & Middle East Agro Exporters">🚢 Gulf & Middle East Agro Exporters</option>
+                                        <option value="Fresh / Smart Bazaar">🏬 Fresh / Smart Bazaar (Reliance Retail)</option>
+                                        <option value="Hotel Supply Network">🍲 Hotel Supply Network (Saravana Bhavan)</option>
+                                        <option value="Verified Buyers">🛒 Verified Buyers (Bulk Trader / Wholesaler)</option>
+                                    </select>
+                                </div>
+                                <div class="form-grp">
+                                    <label id="lblContactName">📝 Name of Seller</label>
+                                    <input type="text" id="inpContactName" placeholder="e.g. Ramesh Kumar" value="Ramesh Kumar (Farmer)" required>
+                                </div>
+                                <div class="form-grp">
+                                    <label>📱 Mobile Number (Country Code)</label>
+                                    <div style="display: flex; gap: 6px;">
+                                        <select id="selCountryCode" style="width: 90px; flex-shrink: 0; background: rgba(255,255,255,0.85) !important; font-size: 0.82rem; font-weight: 800; padding: 6px 4px;">
+                                            <option value="+91">🇮🇳 +91</option>
+                                            <option value="+971">🇦🇪 +971</option>
+                                            <option value="+966">🇸🇦 +966</option>
+                                            <option value="+65">🇸🇬 +65</option>
+                                            <option value="+1">🇺🇸 +1</option>
+                                            <option value="+44">🇬🇧 +44</option>
+                                        </select>
+                                        <input type="tel" id="inpMobileNumber" placeholder="9876543210" value="9842109876" pattern="[0-9]{10}" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Row 2: Variety, Quality Grade, Quantity, Direct Price -->
+                            <div class="form-row-4">
+                                <!-- 🍌 Variety Selection Dropdown (100% Bulletproof Native Select) -->
+                                <div class="form-grp">
+                                    <label>🍌 Banana Crop Variety (24 Varieties)</label>
+                                    <select id="selCropVariety" style="border: 2px solid #2e7d32 !important; background: rgba(255, 255, 255, 0.95) !important; font-weight: 800 !important; color: #000000 !important;" required>
+                                        <option value="Grand Naine (G9)">🍌 Grand Naine (G9) [Export Standard]</option>
+                                        <option value="Robusta (Harichhal)">🍌 Robusta (Harichhal) [Commercial Leader]</option>
+                                        <option value="Nendran (Ethakkaya)">🍌 Nendran (Ethakkaya) [Chips Grade]</option>
+                                        <option value="Red Banana (Seevazhai)">🍌 Red Banana (Seevazhai) [Premium Superfood]</option>
+                                        <option value="Poovan (Mysore)">🍌 Poovan (Mysore) [Traditional Table]</option>
+                                        <option value="Rasthali (Silk)">🍌 Rasthali (Silk) [Sweet Aromatic]</option>
+                                        <option value="Yelakki (Yelakkibale)">🍌 Yelakki (Yelakkibale) [Mini Table]</option>
+                                        <option value="Monthan (Raw Banana)">🍌 Monthan (Raw Banana) [Cooking Grade]</option>
+                                        <option value="Karpuravalli">🍌 Karpuravalli [High Sugar]</option>
+                                        <option value="Pachanadan">🍌 Pachanadan [Drought Tolerant]</option>
+                                        <option value="Sirumalai Hill Banana">🍌 Sirumalai Hill GI Banana [GI Tag Certified]</option>
+                                        <option value="Giant Governor">🍌 Giant Governor [High Yield]</option>
+                                        <option value="Ney Poovan">🍌 Ney Poovan (Elakki Bale) [Aromatic Fragrance]</option>
+                                        <option value="Matti Banana">🍌 Matti Banana [Kanyakumari GI Tag]</option>
+                                        <option value="Champa Banana">🍌 Champa (Desi Banana) [Eastern Desi]</option>
+                                        <option value="Srimanti">🍌 Srimanti [Tissue Culture]</option>
+                                        <option value="Kanthali">🍌 Kanthali [Regional Favorite]</option>
+                                        <option value="Dwarf Cavendish">🍌 Dwarf Cavendish [Global Benchmark]</option>
+                                        <option value="Malbhog">🍌 Malbhog [Bihar GI Special]</option>
+                                        <option value="Grand Naine Class A+">🍌 Grand Naine Export Class A+ [Class A+ Export]</option>
+                                        <option value="Virupakshi">🍌 Virupakshi (Kodaikanal Hill) [Kodaikanal GI Tag]</option>
+                                        <option value="Kamalapur Red Banana">🍌 Kamalapur Red Banana [Karnataka GI Tag]</option>
+                                        <option value="Nanjanagud Rasabale">🍌 Nanjanagud Rasabale [Heritage GI Tag]</option>
+                                        <option value="Chengalikodan Nendran">🍌 Chengalikodan Nendran [Thrissur GI Tag]</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-grp">
+                                    <label>Harvest Quality Grade</label>
+                                    <select id="selQualityGrade" required>
+                                        <option value="Grade A+ (Export Premium - Organic)">Grade A+ (Export Premium - Organic)</option>
+                                        <option value="Grade A (Supermarket Ready)">Grade A (Supermarket Ready)</option>
+                                        <option value="Grade B (Hotel / Food Processing Grade)">Grade B (Hotel / Food Processing Grade)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-grp">
+                                    <label id="lblQuantity">Available Qty (Tons)</label>
+                                    <input type="number" id="inpQuantityTons" min="0.5" step="0.5" value="5.0" required>
+                                </div>
+
+                                <div class="form-grp">
+                                    <label id="lblDirectPrice">Direct Price (₹ / Ton)</label>
+                                    <input type="number" id="inpDirectPriceTon" min="10000" step="500" value="38500" required>
+                                </div>
+                            </div>
+
+                            <!-- Row 3: Logistics Option, Date, Location State -->
+                            <div class="form-row-logistics">
+                                <div class="form-grp">
+                                    <label>🚚 Logistics & Pickup Option</label>
+                                    <select id="selLogisticsMode" required>
+                                        <!-- Dynamically populated in JS for BUY / SELL mode -->
+                                    </select>
+                                </div>
+                                <div class="form-grp">
+                                    <label id="lblDate">Harvest Readiness Date</label>
+                                    <input type="date" id="inpHarvestDate" required>
+                                </div>
+                                <div class="form-grp">
+                                    <label id="lblState">Farm Location State (16 States)</label>
+                                    <select id="selStateLocation" required>
+                                        <option value="Tamil Nadu">Tamil Nadu (Trichy / Koyambedu Hub)</option>
+                                        <option value="Karnataka">Karnataka (Bengaluru / Mysuru Hub)</option>
+                                        <option value="Telangana">Telangana (Hyderabad Kothapet Hub)</option>
+                                        <option value="Andhra Pradesh">Andhra Pradesh (Guntur / Vijayawada)</option>
+                                        <option value="Maharashtra">Maharashtra (Solapur / Jalgaon / Mumbai)</option>
+                                        <option value="Kerala">Kerala (Kochi / Trivandrum)</option>
+                                        <option value="Gujarat">Gujarat (Surat / Vadodara)</option>
+                                        <option value="West Bengal">West Bengal (Kolkata Koley)</option>
+                                        <option value="Uttar Pradesh">Uttar Pradesh (Lucknow / Varanasi)</option>
+                                        <option value="Bihar">Bihar (Patna / Hajipur)</option>
+                                        <option value="Madhya Pradesh">Madhya Pradesh (Indore / Burhanpur)</option>
+                                        <option value="Odisha">Odisha (Bhubaneswar / Cuttack)</option>
+                                        <option value="Assam & North East">Assam & North East (Guwahati)</option>
+                                        <option value="Punjab & Haryana">Punjab & Haryana (Ludhiana / Karnal)</option>
+                                        <option value="Rajasthan">Rajasthan (Jaipur / Kota)</option>
+                                        <option value="Delhi NCR">Delhi NCR (Azadpur Hub)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="btnSubmitForm" class="btn-create-list" style="margin-top: 6px; padding: 14px; font-size: 1.05rem; font-weight: 900;">🚀 Publish Batch to Verified Buyers</button>
+                        </form>
+                    </div>
+
+                    <!-- Bottom Marketplace Section: Live Verified Buyer Orders (Stacked Below Studio Card) -->
+                    <div class="buyers-panel">
+                        
+                        <!-- Filter Bar -->
+                        <div class="filter-bar">
+                            <div style="font-weight: 900; font-size: 1.1rem; color: #000000;">
+                                🛒 Live Verified Buyer Requirements (<span id="buyerCount">6</span> Active)
+                            </div>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <select id="selFilterCategory" onchange="filterBuyers()" style="padding: 8px 12px; border-radius: 10px; font-weight: 800; border: 1.5px solid rgba(255,255,255,0.8);">
+                                    <option value="ALL">All Verified Buyer Types</option>
+                                    <option value="Supermarket">Supermarket Chains</option>
+                                    <option value="Hotel Chain">5-Star Hotels & Catering</option>
+                                    <option value="Processing">Chips & Snack Factories</option>
+                                    <option value="Exporter">Gulf & Middle East Exporters</option>
+                                    <option value="Farmer Live Offer">Farmer Live Offers</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Buyer Cards Grid -->
+                        <div id="buyerCardsGrid" class="buyer-card-grid">
+                            <!-- Injected dynamically via JS -->
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- ==========================================
+         WHITE GLASS VARIETY PICKER MODAL (24 Varieties)
+         ========================================== -->
+    <div id="varietyModal" class="modal-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem;">
+        <div class="modal-card" style="background: rgba(255, 255, 255, 0.95) !important; backdrop-filter: blur(25px) !important; border: 2px solid rgba(255, 255, 255, 0.9) !important; border-radius: 24px; width: 100%; max-width: 680px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.4);">
+            <div class="modal-header" style="padding: 1.2rem 1.5rem; border-bottom: 1.5px solid rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="margin: 0; font-size: 1.3rem; font-weight: 900; color: #000000;">🍌 Select Banana Variety (24 Options)</h3>
+                <button type="button" onclick="closeVarietyModal()" style="background: rgba(0,0,0,0.1); border: none; border-radius: 50%; width: 32px; height: 32px; font-weight: 900; font-size: 1.1rem; cursor: pointer;">✕</button>
+            </div>
+            <div class="modal-body" style="padding: 1.2rem 1.5rem; overflow-y: auto; flex: 1;">
+                <input type="text" id="varietySearchInput" onkeyup="filterVarietyGrid()" placeholder="🔍 Search banana variety by name, region, or GI tag..." style="width: 100%; box-sizing: border-box; padding: 12px 16px; background: #ffffff !important; border: 2px solid #2e7d32 !important; border-radius: 12px; font-size: 0.95rem; font-weight: 800; margin-bottom: 1.2rem; outline: none;">
+                <div id="varietyGridContainer" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                    <!-- Injected dynamically via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         LIVE ORDER CONFIRMATION RECEIPT MODAL
+         ========================================== -->
+    <div id="orderReceiptModal" class="modal-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(12px); z-index: 1100; display: none; align-items: center; justify-content: center; padding: 1rem;">
+        <div class="modal-card" style="background: rgba(255, 255, 255, 0.96) !important; backdrop-filter: blur(25px) !important; border: 2.5px solid #2e7d32 !important; border-radius: 24px; width: 100%; max-width: 520px; padding: 2rem; box-shadow: 0 25px 60px rgba(0,0,0,0.5); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 10px;">🎉</div>
+            <h2 id="rcptTitle" style="font-size: 1.6rem; font-weight: 900; color: #1b5e20; margin: 0 0 10px 0; text-transform: uppercase;">Direct Order Placed Live!</h2>
+            <p id="rcptSubtitle" style="font-weight: 800; color: #333; margin-bottom: 1.2rem;">Your transaction is live on the B2C Produce Marketplace</p>
+
+            <div id="rcptDetailsBox" style="background: rgba(232, 245, 233, 0.9); border: 1.5px solid #a5d6a7; border-radius: 16px; padding: 1.2rem; text-align: left; font-size: 0.92rem; font-weight: 800; color: #000; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 8px;">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <button type="button" onclick="closeReceiptModal()" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #2e7d32, #1b5e20); color: #fff; border: none; border-radius: 12px; font-weight: 900; font-size: 1.05rem; cursor: pointer; text-transform: uppercase; box-shadow: 0 6px 20px rgba(46,125,50,0.4);">
+                ✅ View Live Order on Marketplace
+            </button>
+        </div>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="b2c_selling.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date();
+            today.setDate(today.getDate() + 3);
+            const dateStr = today.toISOString().split('T')[0];
+            document.getElementById('inpHarvestDate').value = dateStr;
+
+            const menuToggle = document.getElementById('menuToggle');
+            const mainSidebar = document.getElementById('mainSidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            if (menuToggle && mainSidebar && sidebarOverlay) {
+                menuToggle.addEventListener('click', () => {
+                    menuToggle.classList.toggle('open');
+                    mainSidebar.classList.toggle('open');
+                    sidebarOverlay.classList.toggle('open');
+                });
+                sidebarOverlay.addEventListener('click', () => {
+                    menuToggle.classList.remove('open');
+                    mainSidebar.classList.remove('open');
+                    sidebarOverlay.classList.remove('open');
+                });
+            }
+        });
+    </script>
+    <script src="translations.js"></script>
+    <script src="hub_features_translations.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>

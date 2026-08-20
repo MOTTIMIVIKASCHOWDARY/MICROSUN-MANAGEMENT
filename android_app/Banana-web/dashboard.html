@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    (function() {
+        var meta = document.querySelector('meta[name="viewport"]');
+        var content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+        if (meta) { meta.setAttribute('content', content); }
+        else {
+            meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = content;
+            document.head.appendChild(meta);
+        }
+    })();
+    </script>
+    <title>MICROSUN MANAGEMENT - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile-fix.css">
+</head>
+<body>
+    
+    <!-- Background Overlay -->
+    <div class="bg-overlay"></div>
+
+    <!-- Top Bar & Menu Controls -->
+    <button id="menuToggle" class="hamburger-btn">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </button>
+
+    
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <div class="layout-wrapper">
+        <!-- Sidebar -->
+        <aside id="mainSidebar" class="sidebar">
+            <div class="sidebar-header" data-i18n="appTitle">MICROSUN MANAGEMENT</div>
+            <ul class="menu-list">
+                <li class="menu-item active" onclick="window.location.href='dashboard.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🌱</span></div>
+                    <span class="menu-text notranslate" translate="no">PLANTER AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='climate_risk.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">⛅</span></div>
+                    <span class="menu-text notranslate" translate="no">SKY INTEL AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='renting.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🚜</span></div>
+                    <span class="menu-text notranslate" translate="no">RENTROX AI</span>
+                </li>
+
+                <!-- BANANA ARMOR AI Submenu -->
+                <li class="menu-item has-submenu" id="bananaArmorToggle" onclick="window.location.href='pest_watch_guidance.html'">
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🍌</span></div>
+                            <span class="menu-text notranslate" translate="no">BANANA ARMOR AI</span>
+                        </div>
+                        <span class="submenu-indicator" style="font-size: 0.8rem; margin-right: 12px; color: #ffffff;">▼</span>
+                    </div>
+                </li>
+                <ul class="submenu-list" id="bananaArmorSubmenu" style="display: none; list-style: none; padding: 4px 0 8px 65px; margin: 0;">
+                    <li class="submenu-item" onclick="event.stopPropagation(); window.location.href='pest_watch_guidance.html?view=pest-watch'" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
+                        <span class="submenu-icon">🐛</span>
+                        <span>Pest Watch</span>
+                    </li>
+                    <li class="submenu-item" onclick="event.stopPropagation(); window.location.href='pest_watch_guidance.html?view=disease-scan'" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
+                        <span class="submenu-icon">🦠</span>
+                        <span>Disease Scan</span>
+                    </li>
+                    <li class="submenu-item" onclick="event.stopPropagation(); window.location.href='pest_watch_guidance.html?view=nutrient-care'" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
+                        <span class="submenu-icon">🌱</span>
+                        <span>Nutrient Care</span>
+                    </li>
+                </ul>
+
+                <li class="menu-item" onclick="window.location.href='analytics.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📈</span></div>
+                    <span class="menu-text notranslate" translate="no">YEXA AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='market.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">💰</span></div>
+                    <span class="menu-text notranslate" translate="no">MARKETX AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='b2c_selling.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📦</span></div>
+                    <span class="menu-text">B2C Produce Selling</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='profile.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">👤</span></div>
+                    <span class="menu-text">User Profile</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='main_hub.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🏠</span></div>
+                    <span class="menu-text">Back to Main Hub</span>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="logo-spacer"></div>
+                <div class="language-selector">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    <select id="lang-switch">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी (Hindi)</option>
+                        <option value="bn">বাংলা (Bengali)</option>
+                        <option value="mr">मराठी (Marathi)</option>
+                        <option value="te">తెలుగు (Telugu)</option>
+                        <option value="ta">தமிழ் (Tamil)</option>
+                        <option value="gu">ગુજરાતી (Gujarati)</option>
+                        <option value="ur">اردو (Urdu)</option>
+                        <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                        <option value="or">ଓଡ଼ିଆ (Odia)</option>
+                        <option value="ml">മലയാളം (Malayalam)</option>
+                        <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                    </select>
+                </div>
+            </header>
+
+    <!-- Main Container -->
+    <main class="container">
+        <div class="card glass dashboard-card">
+            
+            <div class="dashboard-header">
+                <h2 data-i18n="dashboardTitle">Select Banana Variant</h2>
+                <p data-i18n="dashboardSubtitle">Choose the crop variant you are farming</p>
+            </div>
+
+            <div class="variant-grid">
+                <!-- Variant Cards -->
+                <div class="variant-card" data-variant="grand_naine">
+                    <img src="grand_naine.png" alt="Grand Naine (G9)">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_grand_naine">Grand Naine (G9)</h4>
+                </div>
+                
+                <div class="variant-card" data-variant="kaveri_sugantham">
+                    <img src="rasthali.png" alt="Kaveri Sugantham">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_kaveri_sugantham">Kaveri Sugantham</h4>
+                </div>
+
+                <div class="variant-card" data-variant="kaveri_haritha">
+                    <img src="yelakki.png" alt="Kaveri Haritha">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_kaveri_haritha">Kaveri Haritha</h4>
+                </div>
+
+                <div class="variant-card" data-variant="kaveri_saba">
+                    <img src="nendran.png" alt="Kaveri Saba">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_kaveri_saba">Kaveri Saba</h4>
+                </div>
+
+                <div class="variant-card" data-variant="udhayam">
+                    <img src="nendran.png" alt="Udhayam">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_udhayam">Udhayam</h4>
+                </div>
+
+                <div class="variant-card" data-variant="kaveri_poovan">
+                    <img src="poovan.png" alt="Kaveri Poovan">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_kaveri_poovan">Kaveri Poovan</h4>
+                </div>
+
+                <div class="variant-card" data-variant="matti">
+                    <img src="yelakki.png" alt="Matti">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_matti">Matti</h4>
+                </div>
+
+                <div class="variant-card" data-variant="semmatti">
+                    <img src="rasthali.png" alt="Semmatti">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_semmatti">Semmatti</h4>
+                </div>
+
+                <div class="variant-card" data-variant="kaveri_kanchan">
+                    <img src="rasthali.png" alt="Kaveri Kanchan">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_kaveri_kanchan">Kaveri Kanchan</h4>
+                </div>
+
+                <div class="variant-card" data-variant="bhatmanohar">
+                    <img src="poovan.png" alt="Bhatmanohar">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_bhatmanohar">Bhatmanohar</h4>
+                </div>
+
+                <div class="variant-card" data-variant="borkal_baista">
+                    <img src="nendran.png" alt="Borkal Baista">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_borkal_baista">Borkal Baista</h4>
+                </div>
+
+                <div class="variant-card" data-variant="nrcb_selection_19">
+                    <img src="nendran.png" alt="NRCB Selection 19">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_nrcb_selection_19">NRCB Selection 19</h4>
+                </div>
+
+                <div class="variant-card" data-variant="yelakki">
+                    <img src="yelakki.png" alt="Yelakki">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_yelakki">Yelakki</h4>
+                </div>
+
+                <div class="variant-card" data-variant="red_banana">
+                    <img src="red_banana.png" alt="Red Banana">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_red_banana">Red Banana</h4>
+                </div>
+
+                <div class="variant-card" data-variant="karpooravalli">
+                    <img src="poovan.png" alt="Karpooravalli">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_karpooravalli">Karpooravalli</h4>
+                </div>
+
+                <div class="variant-card" data-variant="robusta">
+                    <img src="grand_naine.png" alt="Robusta">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_robusta">Robusta</h4>
+                </div>
+
+                <div class="variant-card" data-variant="dwarf_cavendish">
+                    <img src="grand_naine.png" alt="Dwarf Cavendish">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_dwarf_cavendish">Dwarf Cavendish</h4>
+                </div>
+
+                <div class="variant-card" data-variant="nendran">
+                    <img src="nendran.png" alt="Nendran">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_nendran">Nendran</h4>
+                </div>
+
+                <div class="variant-card" data-variant="njalipoovan">
+                    <img src="rasthali.png" alt="Njalipoovan">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_njalipoovan">Njalipoovan</h4>
+                </div>
+
+                <div class="variant-card" data-variant="safed_velchi">
+                    <img src="rasthali.png" alt="Safed Velchi">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_safed_velchi">Safed Velchi</h4>
+                </div>
+
+                <div class="variant-card" data-variant="kaveri_kanya">
+                    <img src="grand_naine.png" alt="Kaveri Kanya">
+                    <h4 class="notranslate" translate="no" data-i18n="variant_kaveri_kanya">Kaveri Kanya</h4>
+                </div>
+
+            </div>
+
+
+
+            <div class="dashboard-footer">
+                <button id="continueBtn" class="btn primary-btn disabled" disabled data-i18n="continueBtn">Continue</button>
+            </div>
+
+        </div>
+        </main>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="dashboard_translations.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>
+
+
+
