@@ -24,7 +24,7 @@ jobs:
       - name: "2. Setup Node.js Runtime Environment"
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: "3. Run Gitleaks Secrets Detection Scan"
         uses: gitleaks/gitleaks-action@v2
