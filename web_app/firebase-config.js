@@ -1,5 +1,5 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyAmTAo_KD4qoI-GkjX9bu9FY59yuV9go9U",
+    apiKey: localStorage.getItem('firebase_api_key') || "DEMO_KEY",
     authDomain: "microsun-management.firebaseapp.com",
     projectId: "microsun-management",
     storageBucket: "microsun-management.firebasestorage.app",

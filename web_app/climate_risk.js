@@ -1,4 +1,4 @@
-const API_KEY = '73fa75c5e590652016239baeb225f788';
+const API_KEY = localStorage.getItem('weather_api_key') || '';
 const BASE_URL = 'https://api.weatherapi.com/v1';
 
 let currentUnit = 'c'; // 'c' or 'f'

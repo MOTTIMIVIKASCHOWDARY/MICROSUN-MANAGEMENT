@@ -1112,7 +1112,7 @@ async function initAIOutbreakPredictor() {
     const alertBox = document.getElementById('ai-alert-box');
 
     const userDistrict = localStorage.getItem('microsun_user_district') || 'Chennai';
-    const apiKey = '73fa75c5e590652016239baeb225f788';
+    const apiKey = localStorage.getItem('weather_api_key') || '';
 
     let temp = 33;
     let humidity = 78;
