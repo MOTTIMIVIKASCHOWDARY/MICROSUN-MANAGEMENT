@@ -7,6 +7,9 @@ on:
     branches: [ "main", "master" ]
   workflow_dispatch:
 
+env:
+  ACTIONS_SUPPRESS_DEPRECATION_WARNINGS: 'true'
+
 jobs:
   devsecops-audit:
     name: "Automated Security & QA Pipeline"
@@ -21,7 +24,7 @@ jobs:
       - name: "2. Setup Node.js Runtime Environment"
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '20'
 
       - name: "3. Framework & Technology Stack Discovery"
         run: |
