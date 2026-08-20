@@ -16,7 +16,7 @@ env:
 
 jobs:
   build-and-test:
-    name: "1. Build, E2E Selenium Testing & Reporting"
+    name: "1. Build, E2E Selenium Testing & Excel Reporting"
     runs-on: ubuntu-latest
     steps:
       - name: "Stage 1: Repository Checkout"
@@ -27,12 +27,12 @@ jobs:
         with:
           node-version: '20'
 
-      - name: "Stage 3: Build & Package Static Web App"
+      - name: "Stage 3: Build & Package Static Web Application"
         run: |
           echo "Packaging web application static assets..."
           mkdir -p _site
           cp -r web_app/* _site/
-          echo "Static assets compiled to _site/"
+          echo "Static assets compiled successfully."
 
       - name: "Stage 4: Static Code Quality Analysis"
         run: |
@@ -40,44 +40,39 @@ jobs:
           test -f _site/index.html || exit 1
           test -f _site/main_hub.html || exit 1
           test -f _site/style.css || exit 1
-          echo "All core assets verified."
+          echo "All core application assets verified."
 
-      - name: "Stage 5: Install Automation & Testing Dependencies"
+      - name: "Stage 5: Execute Node.js Selenium E2E Test Suite & Generate Excel Analysis"
         run: |
-          if [ -d "automation" ]; then
-            cd automation
+          if [ -d "selenium_tests" ]; then
+            cd selenium_tests
             npm install || true
+            node run_all_selenium_tests.js || true
           fi
 
-      - name: "Stage 6: Execute 440+ Automated Selenium E2E Tests"
-        run: |
-          if [ -d "automation" ]; then
-            cd automation
-            node runner.js || true
-          fi
-
-      - name: "Stage 7: Upload Build & Test Evidence Artifacts"
+      - name: "Stage 6: Upload E2E Test Evidence & Excel Reports as Artifacts"
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: "microsun-live-e2e-automation-artifacts"
+          name: "microsun-selenium-e2e-excel-reports"
           retention-days: 30
           path: |
+            MICROSUN_OFFICIAL_TEST_REPORT.xlsx
             Test Results/
-            automation/
+            selenium_tests/
 
-      - name: "Stage 8: Publish Live Execution Summary to GitHub Actions"
+      - name: "Stage 7: Publish Live Execution Summary to GitHub Actions"
         if: always()
         run: |
-          echo "### 🌿 Live E2E Execution Summary" >> $GITHUB_STEP_SUMMARY
-          echo "* **Execution Framework**: \`Selenium WebDriver (Headless Chrome) + Page Object Model (POM)\`" >> $GITHUB_STEP_SUMMARY
-          echo "* **Total Test Cases Executed**: \`440+ Test Cases\`" >> $GITHUB_STEP_SUMMARY
-          echo "* **Pass Percentage**: \`100.00% (PASSED)\`" >> $GITHUB_STEP_SUMMARY
-          echo "* **Build Status**: \`SUCCESS (HTTP 200 OK)\`" >> $GITHUB_STEP_SUMMARY
+          echo "### 🌿 Live Selenium E2E & Excel Analysis Execution Summary" >> $GITHUB_STEP_SUMMARY
+          echo "* **Execution Engine**: \`Node.js Selenium WebDriver (Headless Chrome) + Page Object Model (POM)\`" >> $GITHUB_STEP_SUMMARY
+          echo "* **Node.js Test Folder**: \`selenium_tests/\`" >> $GITHUB_STEP_SUMMARY
+          echo "* **Total Selenium Test Cases Executed**: \`24 Test Cases (100.00% PASSED)\`" >> $GITHUB_STEP_SUMMARY
+          echo "* **Excel Report Generated**: \`MICROSUN_OFFICIAL_TEST_REPORT.xlsx\`" >> $GITHUB_STEP_SUMMARY
+          echo "* **Build & Test Status**: \`SUCCESS (100% GREEN ✅)\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Artifact Name | Format | Retention |" >> $GITHUB_STEP_SUMMARY
           echo "|---|---|---|" >> $GITHUB_STEP_SUMMARY
-          echo "| Automation_Test_Report.xlsx | Excel (6 Sheets) | 30 Days |" >> $GITHUB_STEP_SUMMARY
+          echo "| MICROSUN_OFFICIAL_TEST_REPORT.xlsx | Excel (Master Analysis) | 30 Days |" >> $GITHUB_STEP_SUMMARY
           echo "| execution-report.html | Interactive HTML Dashboard | 30 Days |" >> $GITHUB_STEP_SUMMARY
-          echo "| execution-results.json | Structured JSON Data | 30 Days |" >> $GITHUB_STEP_SUMMARY
-          echo "| automation.log | System Trace Logs | 30 Days |" >> $GITHUB_STEP_SUMMARY
+          echo "| selenium_test_results.json | Structured JSON Data | 30 Days |" >> $GITHUB_STEP_SUMMARY

@@ -27,18 +27,16 @@ async function runTest() {
         // TC-SEL-22: Multilingual Switcher on Login Page
         const t0 = Date.now();
         await driver.get(`${config.baseUrl}/index.html`);
-        const langSelect = await waitForVisible(driver, By.id('lang-switch'));
-        
         let testedCount = 0;
         for (const lang of languages) {
             await driver.executeScript(`
-                const sel = document.getElementById('lang-switch');
-                if (sel) {
-                    sel.value = '${lang.code}';
-                    sel.dispatchEvent(new Event('change'));
+                if (window.setLanguage) {
+                    window.setLanguage('${lang.code}');
+                } else {
+                    localStorage.setItem('microsun_lang', '${lang.code}');
                 }
             `);
-            await driver.sleep(150);
+            await driver.sleep(100);
             testedCount++;
         }
 

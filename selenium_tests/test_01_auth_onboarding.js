@@ -31,12 +31,12 @@ async function runTest() {
 
         // TC-SEL-02: Form Input Verification
         const t1 = Date.now();
-        const phoneInput = await waitForVisible(driver, By.id('si-phone'));
+        const emailInput = await waitForVisible(driver, By.id('si-email'));
         const passInput = await waitForVisible(driver, By.id('si-pass'));
-        await phoneInput.sendKeys('9876543210');
+        await emailInput.sendKeys('farmer@microsun.org');
         await passInput.sendKeys('password123');
-        const valPhone = await phoneInput.getAttribute('value');
-        assert.strictEqual(valPhone, '9876543210', 'Phone input value verified');
+        const valEmail = await emailInput.getAttribute('value');
+        assert.strictEqual(valEmail, 'farmer@microsun.org', 'Email input value verified');
         results.push({
             id: 'TC-SEL-02',
             name: 'Authentication Form Input & Validation',

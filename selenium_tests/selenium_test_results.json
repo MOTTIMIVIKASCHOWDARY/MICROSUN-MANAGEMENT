@@ -1,19 +1,19 @@
 {
   "platform": "MICROSUN MANAGEMENT",
   "testType": "Selenium Automated End-to-End (E2E) Testing",
-  "timestamp": "2026-08-14T05:30:17.652Z",
+  "timestamp": "2026-08-20T11:54:11.176Z",
   "totalTests": 24,
   "passed": 24,
   "failed": 0,
   "passRate": "100.00%",
-  "durationSeconds": 29.36,
+  "durationSeconds": 23.2,
   "tests": [
     {
       "id": "TC-SEL-01",
       "name": "Login Page Load & Platform Branding",
       "category": "Authentication",
       "status": "PASSED",
-      "durationMs": 1236,
+      "durationMs": 578,
       "details": "Page loaded with title: \"MICROSUN MANAGEMENT - Login\". Header text: \"🌿\nMICROSUN MANAGEMENT\""
     },
     {
@@ -21,7 +21,7 @@
       "name": "Authentication Form Input & Validation",
       "category": "Authentication",
       "status": "PASSED",
-      "durationMs": 78,
+      "durationMs": 198,
       "details": "Mobile input and password fields accepted sanitized user inputs"
     },
     {
@@ -29,7 +29,7 @@
       "name": "Auth Modal & Tab View Switching",
       "category": "Authentication",
       "status": "PASSED",
-      "durationMs": 875,
+      "durationMs": 955,
       "details": "Seamless toggle between Sign In and Sign Up views verified"
     },
     {
@@ -37,7 +37,7 @@
       "name": "Welcome Splash & Onboarding Screen",
       "category": "Onboarding",
       "status": "PASSED",
-      "durationMs": 434,
+      "durationMs": 208,
       "details": "Animated splash onboarding successfully rendered"
     },
     {
@@ -45,7 +45,7 @@
       "name": "Planter AI Dashboard Loading",
       "category": "Planter AI",
       "status": "PASSED",
-      "durationMs": 1171,
+      "durationMs": 450,
       "details": "Dashboard rendered with header: \"Select Banana Variant\nChoose the crop variant you are farming\""
     },
     {
@@ -53,7 +53,7 @@
       "name": "Banana Crop Variant Selection (Grand Naine G9)",
       "category": "Planter AI",
       "status": "PASSED",
-      "durationMs": 46,
+      "durationMs": 103,
       "details": "Found 21 distinct banana crop varieties; successfully selected Grand Naine"
     },
     {
@@ -61,7 +61,7 @@
       "name": "Farmer Central Command Hub Navigation",
       "category": "Navigation",
       "status": "PASSED",
-      "durationMs": 45,
+      "durationMs": 61,
       "details": "Central Hub active with command center title: \"Farmer Central Hub\""
     },
     {
@@ -69,7 +69,7 @@
       "name": "Banana Armor AI Platform Load",
       "category": "Banana Armor AI",
       "status": "PASSED",
-      "durationMs": 2627,
+      "durationMs": 579,
       "details": "Page loaded successfully with title: \"BANANA ARMOR AI - Pest Watch & Disease Guidance\""
     },
     {
@@ -77,7 +77,7 @@
       "name": "3D AI Disease Diagnostic Scanner View",
       "category": "Banana Armor AI",
       "status": "PASSED",
-      "durationMs": 544,
+      "durationMs": 554,
       "details": "Disease scan module active with visual diagnostic engine"
     },
     {
@@ -85,7 +85,7 @@
       "name": "Pest Watch & Chemical Treatment Advisories",
       "category": "Banana Armor AI",
       "status": "PASSED",
-      "durationMs": 536,
+      "durationMs": 560,
       "details": "Pest advisory, organic spray remedies, and chemical dosage schedules verified"
     },
     {
@@ -93,7 +93,7 @@
       "name": "Crop Nutrient Deficiency & Soil Care Guidance",
       "category": "Banana Armor AI",
       "status": "PASSED",
-      "durationMs": 582,
+      "durationMs": 645,
       "details": "Macronutrient / micronutrient diagnosis cards rendered properly"
     },
     {
@@ -101,7 +101,7 @@
       "name": "Sky Intel AI Climate Risk Dashboard",
       "category": "Sky Intel AI",
       "status": "PASSED",
-      "durationMs": 1246,
+      "durationMs": 2114,
       "details": "Climate intelligence module loaded with 10-year risk projections"
     },
     {
@@ -109,7 +109,7 @@
       "name": "District Agro-Climate Risk Query & Charting",
       "category": "Sky Intel AI",
       "status": "PASSED",
-      "durationMs": 6,
+      "durationMs": 13,
       "details": "Weather forecasting and historical monsoon charts initialized"
     },
     {
@@ -117,7 +117,7 @@
       "name": "Rentrox AI Equipment & Labor Marketplace",
       "category": "Rentrox AI",
       "status": "PASSED",
-      "durationMs": 1224,
+      "durationMs": 683,
       "details": "Machinery catalog and labor rental marketplace initialized"
     },
     {
@@ -125,7 +125,7 @@
       "name": "Farm Machinery Catalog & Labor Crew Booking",
       "category": "Rentrox AI",
       "status": "PASSED",
-      "durationMs": 12,
+      "durationMs": 19,
       "details": "Tractors, Harvesters, Tillers, and Skilled Labor booking options verified"
     },
     {
@@ -133,7 +133,7 @@
       "name": "Yexa AI Financial Yield Calculator Load",
       "category": "Yexa AI",
       "status": "PASSED",
-      "durationMs": 1178,
+      "durationMs": 584,
       "details": "Yield projections and cost-benefit analysis engine initialized"
     },
     {
@@ -141,15 +141,15 @@
       "name": "Dynamic Financial Sliders & Profit / ROI Projections",
       "category": "Yexa AI",
       "status": "PASSED",
-      "durationMs": 6,
-      "details": "Validated 12 dynamic sliders (plant density, bunch weight, fertilizer, labor, water)"
+      "durationMs": 10,
+      "details": "Validated 11 dynamic sliders (plant density, bunch weight, fertilizer, labor, water)"
     },
     {
       "id": "TC-SEL-18",
       "name": "MarketX AI APMC Live Mandi Rates Load",
       "category": "MarketX AI",
       "status": "PASSED",
-      "durationMs": 1260,
+      "durationMs": 502,
       "details": "Live mandi commodity pricing and B2B auction interface active"
     },
     {
@@ -157,7 +157,7 @@
       "name": "B2C Direct Farmgate Marketplace Load",
       "category": "B2C Selling",
       "status": "PASSED",
-      "durationMs": 131,
+      "durationMs": 244,
       "details": "Direct supermarket buyer portal with 0% middleman APMC fee calculation"
     },
     {
@@ -165,7 +165,7 @@
       "name": "Master Farmer Profile & Digital Agri-Pass",
       "category": "User Profile",
       "status": "PASSED",
-      "durationMs": 1357,
+      "durationMs": 698,
       "details": "Farmer profile credentials, land records, and verified badge loaded"
     },
     {
@@ -173,7 +173,7 @@
       "name": "Regional Soil & Agro-Climatic Advisory",
       "category": "Regional Advisory",
       "status": "PASSED",
-      "durationMs": 1056,
+      "durationMs": 369,
       "details": "District-level soil fertility mapping and crop suitability advisory active"
     },
     {
@@ -181,7 +181,7 @@
       "name": "12-Language Multilingual Switcher Validation",
       "category": "Localization",
       "status": "PASSED",
-      "durationMs": 3481,
+      "durationMs": 1638,
       "details": "Successfully tested dynamic real-time DOM translation switching across 8 Indian languages"
     },
     {
@@ -189,7 +189,7 @@
       "name": "Master End-to-End Multi-Module User Journey",
       "category": "End-to-End",
       "status": "PASSED",
-      "durationMs": 4013,
+      "durationMs": 2594,
       "details": "Traversed all 13 application modules without unhandled navigation exceptions"
     },
     {
@@ -198,7 +198,7 @@
       "category": "System Quality",
       "status": "PASSED",
       "durationMs": 2,
-      "details": "Zero unhandled JavaScript runtime crashes detected (3 severe errors)"
+      "details": "Zero unhandled JavaScript runtime crashes detected (1 severe errors)"
     }
   ]
 }
