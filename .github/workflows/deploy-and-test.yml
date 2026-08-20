@@ -12,12 +12,16 @@ permissions:
   actions: write
 
 env:
+  ACTIONS_RUNNER_FORCE_ACTIONS_NODE20: 'true'
   ACTIONS_SUPPRESS_DEPRECATION_WARNINGS: 'true'
 
 jobs:
   build-and-test:
     name: "1. Build, E2E Selenium Testing & Excel Reporting"
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_RUNNER_FORCE_ACTIONS_NODE20: 'true'
+      ACTIONS_SUPPRESS_DEPRECATION_WARNINGS: 'true'
     steps:
       - name: "Stage 1: Repository Checkout"
         uses: actions/checkout@v4
@@ -25,7 +29,7 @@ jobs:
       - name: "Stage 2: Setup Node.js Runtime"
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '20'
 
       - name: "Stage 3: Build & Package Static Web Application"
         run: |

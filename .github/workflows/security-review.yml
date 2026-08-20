@@ -8,12 +8,16 @@ on:
   workflow_dispatch:
 
 env:
+  ACTIONS_RUNNER_FORCE_ACTIONS_NODE20: 'true'
   ACTIONS_SUPPRESS_DEPRECATION_WARNINGS: 'true'
 
 jobs:
   devsecops-audit:
     name: "Automated Security & QA Pipeline"
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_RUNNER_FORCE_ACTIONS_NODE20: 'true'
+      ACTIONS_SUPPRESS_DEPRECATION_WARNINGS: 'true'
 
     steps:
       - name: "1. Checkout Source Code Repository"
@@ -24,7 +28,7 @@ jobs:
       - name: "2. Setup Node.js Runtime Environment"
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: '20'
 
       - name: "3. Run Gitleaks Secrets Detection Scan"
         uses: gitleaks/gitleaks-action@v2
