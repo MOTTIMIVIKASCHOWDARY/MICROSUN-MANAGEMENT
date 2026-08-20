@@ -10,11 +10,11 @@
 As required by the faculty evaluation rubric, the MICROSUN Agricultural AI platform was subjected to rigorous **Baseline/Load Testing** under normal to peak expected concurrent workloads.
 
 * **Virtual Users**: **100 concurrent virtual users**
-* **Duration**: **60.09 seconds (1 Minute Continuous)**
-* **Total Requests Handled**: **3,52,434 requests**
+* **Duration**: **60.03 seconds (1 Minute Continuous)**
+* **Total Requests Handled**: **5,24,619 requests**
 * **Success Rate**: **100% (0 Errors)**
-* **Requests Per Second (RPS)**: **5864.8 req/sec**
-* **Average Response Time**: **16.93 ms**
+* **Requests Per Second (RPS)**: **8738.8 req/sec**
+* **Average Response Time**: **11.35 ms**
 
 ---
 
@@ -23,14 +23,14 @@ As required by the faculty evaluation rubric, the MICROSUN Agricultural AI platf
 | Performance Metric | Faculty Requirement / Benchmark | Observed Test Result | Verdict |
 |---|---|---|---|
 | **Virtual Users (VU)** | 100 users concurrent | **100 Virtual Users** | Passed |
-| **Duration** | 1 Minute continuous | **60.09 seconds** | Passed |
-| **Total Requests** | Thousands of requests | **3,52,434 requests** | Passed |
-| **Requests per Second (RPS)** | Expected: ~120+ req/sec | **5864.8 req/sec** | Exceeded |
-| **Average Response Time** | Expected: ~250ms | **16.93 ms** | Ultra-Fast |
-| **Fastest Response Time (Min)** | Expected: ~50ms | **0.38 ms** | Ultra-Fast |
-| **Slowest Response Time (Max)** | Expected: ~1500ms | **172.58 ms** | Optimal |
+| **Duration** | 1 Minute continuous | **60.03 seconds** | Passed |
+| **Total Requests** | Thousands of requests | **5,24,619 requests** | Passed |
+| **Requests per Second (RPS)** | Expected: ~120+ req/sec | **8738.8 req/sec** | Exceeded |
+| **Average Response Time** | Expected: ~250ms | **11.35 ms** | Ultra-Fast |
+| **Fastest Response Time (Min)** | Expected: ~50ms | **0.22 ms** | Ultra-Fast |
+| **Slowest Response Time (Max)** | Expected: ~1500ms | **106.2 ms** | Optimal |
 | **Error Rate** | 0.00% | **0% (0 failed)** | Zero Errors |
-| **Total Transferred Data** | - | **10668.74 MB** (177.54 MB/s) | High Throughput |
+| **Total Transferred Data** | - | **15881.52 MB** (264.54 MB/s) | High Throughput |
 
 ---
 
@@ -38,34 +38,34 @@ As required by the faculty evaluation rubric, the MICROSUN Agricultural AI platf
 
 | Percentile Metric | Latency (ms) | Description |
 |---|---|---|
-| **Min (Fastest)** | **0.38 ms** | Fastest recorded server round-trip |
-| **Median (50th %ile)** | **10.43 ms** | 50% of all requests completed faster than this |
-| **Average (Mean)** | **16.93 ms** | Arithmetic mean of all 3,52,434 requests |
-| **90th Percentile (p90)** | **39.41 ms** | 90% of requests completed under this time |
-| **95th Percentile (p95)** | **50.87 ms** | 95% of requests completed under this time |
-| **99th Percentile (p99)** | **66.05 ms** | 99% of requests completed under this time |
-| **Max (Slowest)** | **172.58 ms** | Worst-case single request time |
+| **Min (Fastest)** | **0.22 ms** | Fastest recorded server round-trip |
+| **Median (50th %ile)** | **5.77 ms** | 50% of all requests completed faster than this |
+| **Average (Mean)** | **11.35 ms** | Arithmetic mean of all 5,24,619 requests |
+| **90th Percentile (p90)** | **28.11 ms** | 90% of requests completed under this time |
+| **95th Percentile (p95)** | **45.71 ms** | 95% of requests completed under this time |
+| **99th Percentile (p99)** | **66.07 ms** | 99% of requests completed under this time |
+| **Max (Slowest)** | **106.2 ms** | Worst-case single request time |
 
 ---
 
 ## ðŸ—‚ï¸ Per-Module & Endpoint Performance Breakdown
 
 | Module / Endpoint | Total Requests | HTTP 200 OK | Errors | Avg Response Time | Endpoint RPS |
-|---|---|---|---|---|---|| **Module 01: Auth and Login (index.html)** | 23,499 | 23,499 | 0 | **16.41 ms** | **391 req/s** |
-| **Module 02: Welcome Splash (welcome.html)** | 23,504 | 23,504 | 0 | **15.75 ms** | **391.1 req/s** |
-| **Module 03: Farmer Central Hub (main_hub.html)** | 23,498 | 23,498 | 0 | **16.62 ms** | **391 req/s** |
-| **Module 04: Planter AI Selector (dashboard.html)** | 23,500 | 23,500 | 0 | **16.35 ms** | **391.1 req/s** |
-| **Module 05: Banana Armor AI (pest_watch_guidance.html)** | 23,495 | 23,495 | 0 | **23.03 ms** | **391 req/s** |
-| **Module 06: Sky Intel AI (climate_risk.html)** | 23,493 | 23,493 | 0 | **16.67 ms** | **390.9 req/s** |
-| **Module 07: Rentrox AI (renting.html)** | 23,492 | 23,492 | 0 | **16.38 ms** | **390.9 req/s** |
-| **Module 08: Yexa AI Yield (analytics.html)** | 23,493 | 23,493 | 0 | **16.31 ms** | **390.9 req/s** |
-| **Module 09: MarketX AI APMC (market.html)** | 23,497 | 23,497 | 0 | **16.42 ms** | **391 req/s** |
-| **Module 10: B2C Produce Selling (b2c_selling.html)** | 23,498 | 23,498 | 0 | **17.58 ms** | **391 req/s** |
-| **Module 11: Farmer Profile (profile.html)** | 23,492 | 23,492 | 0 | **17.95 ms** | **390.9 req/s** |
-| **Module 12: Regional Advisory (region.html)** | 23,493 | 23,493 | 0 | **16.43 ms** | **390.9 req/s** |
-| **Design System: Core CSS (style.css)** | 23,491 | 23,491 | 0 | **16.77 ms** | **390.9 req/s** |
-| **Localization Engine (translations.js)** | 23,492 | 23,492 | 0 | **17.07 ms** | **390.9 req/s** |
-| **System API Health Check (/api/health)** | 23,497 | 23,497 | 0 | **14.18 ms** | **391 req/s** |
+|---|---|---|---|---|---|| **Module 01: Auth and Login (index.html)** | 34,972 | 34,972 | 0 | **11.01 ms** | **582.5 req/s** |
+| **Module 02: Welcome Splash (welcome.html)** | 34,974 | 34,974 | 0 | **10.51 ms** | **582.6 req/s** |
+| **Module 03: Farmer Central Hub (main_hub.html)** | 34,977 | 34,977 | 0 | **11.05 ms** | **582.6 req/s** |
+| **Module 04: Planter AI Selector (dashboard.html)** | 34,975 | 34,975 | 0 | **10.9 ms** | **582.6 req/s** |
+| **Module 05: Banana Armor AI (pest_watch_guidance.html)** | 34,971 | 34,971 | 0 | **15.85 ms** | **582.5 req/s** |
+| **Module 06: Sky Intel AI (climate_risk.html)** | 34,972 | 34,972 | 0 | **11.35 ms** | **582.5 req/s** |
+| **Module 07: Rentrox AI (renting.html)** | 34,976 | 34,976 | 0 | **10.98 ms** | **582.6 req/s** |
+| **Module 08: Yexa AI Yield (analytics.html)** | 34,974 | 34,974 | 0 | **10.75 ms** | **582.6 req/s** |
+| **Module 09: MarketX AI APMC (market.html)** | 34,976 | 34,976 | 0 | **10.94 ms** | **582.6 req/s** |
+| **Module 10: B2C Produce Selling (b2c_selling.html)** | 34,978 | 34,978 | 0 | **11.8 ms** | **582.6 req/s** |
+| **Module 11: Farmer Profile (profile.html)** | 34,979 | 34,979 | 0 | **12.13 ms** | **582.7 req/s** |
+| **Module 12: Regional Advisory (region.html)** | 34,976 | 34,976 | 0 | **10.92 ms** | **582.6 req/s** |
+| **Design System: Core CSS (style.css)** | 34,975 | 34,975 | 0 | **11.37 ms** | **582.6 req/s** |
+| **Localization Engine (translations.js)** | 34,973 | 34,973 | 0 | **11.46 ms** | **582.6 req/s** |
+| **System API Health Check (/api/health)** | 34,971 | 34,971 | 0 | **9.18 ms** | **582.5 req/s** |
 
 ---
 
@@ -77,4 +77,4 @@ As required by the faculty evaluation rubric, the MICROSUN Agricultural AI platf
 4. **Faculty Test Case Compliance**: The system fully meets and exceeds every criteria specified in the Baseline/Load Testing rubric.
 
 ---
-*Report Generated Automatically by MICROSUN Automated Testing Suite | Timestamp: 2026-08-20 17:19:17*
+*Report Generated Automatically by MICROSUN Automated Testing Suite | Timestamp: 2026-08-20 18:02:23*
