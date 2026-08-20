@@ -1,4 +1,5 @@
 name: "01. Selenium E2E Test Suite (24 Test Cases)"
+run-name: "Execute 24 Selenium E2E Test Cases & Generate Excel Analysis"
 
 on:
   push:
@@ -63,9 +64,9 @@ jobs:
           echo "| TC-SEL-23 | Master End-to-End Multi-Module User Journey | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY
           echo "| TC-SEL-24 | Browser Runtime & Uncaught Exception Audit | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY
 
-      - name: "Stage 5: Upload Downloadable Master Excel Report Artifact"
+      - name: "Stage 5: Upload Excel Test Report Artifact"
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: "01-Selenium-E2E-Master-Test-Report-Excel"
+          name: "01-Selenium-E2E-Master-Test-Report.xlsx"
           path: MICROSUN_OFFICIAL_TEST_REPORT.xlsx

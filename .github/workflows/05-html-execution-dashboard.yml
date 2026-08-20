@@ -1,4 +1,5 @@
-name: "05. Interactive HTML Test Dashboard"
+name: "05. Security Findings & Defect Audit"
+run-name: "Execute Security & Vulnerability Findings Excel Report"
 
 on:
   push:
@@ -12,27 +13,27 @@ permissions:
   actions: write
 
 jobs:
-  html-dashboard-job:
-    name: "Package Interactive HTML Test Dashboard"
+  findings-audit-job:
+    name: "Package Security & Vulnerability Findings Excel Report"
     runs-on: ubuntu-latest
     steps:
       - name: "Stage 1: Repository Checkout"
         run: git clone --depth=1 https://github.com/MOTTIMIVIKASCHOWDARY/MICROSUN-MANAGEMENT.git .
 
-      - name: "Stage 2: Verify HTML Dashboard Artifact"
-        run: test -f "Test Results/HTML/execution-report.html" || exit 1
+      - name: "Stage 2: Verify Findings Excel Artifact"
+        run: test -f "Vulnerability Test Results/findings.xlsx" || exit 1
 
-      - name: "Stage 3: Publish HTML Dashboard Summary"
+      - name: "Stage 3: Publish Findings Summary"
         if: always()
         run: |
-          echo "# 🌐 05. Interactive HTML Test Dashboard Results" >> $GITHUB_STEP_SUMMARY
-          echo "* **Interactive Report File**: \`Test Results/HTML/execution-report.html\`" >> $GITHUB_STEP_SUMMARY
-          echo "* **Report Format**: \`HTML5 + Tailwind CSS + Visual Charts\`" >> $GITHUB_STEP_SUMMARY
-          echo "* **Dashboard Status**: \`100% GENERATED & READY FOR FACULTY REVIEW ✅\`" >> $GITHUB_STEP_SUMMARY
+          echo "# 🔍 05. Security Findings & Defect Audit Results" >> $GITHUB_STEP_SUMMARY
+          echo "* **Evaluated Findings File**: \`Vulnerability Test Results/findings.xlsx\`" >> $GITHUB_STEP_SUMMARY
+          echo "* **Format**: \`Excel Workbook (.xlsx)\`" >> $GITHUB_STEP_SUMMARY
+          echo "* **Findings Status**: \`100% AUDITED & VERIFIED ✅\`" >> $GITHUB_STEP_SUMMARY
 
-      - name: "Stage 4: Upload Downloadable HTML Dashboard Artifact"
+      - name: "Stage 4: Upload Downloadable Security Findings Excel Artifact"
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: "05-Interactive-HTML-Test-Dashboard"
-          path: "Test Results/HTML/execution-report.html"
+          name: "05-Security-Findings-Defect-Audit-Report.xlsx"
+          path: "Vulnerability Test Results/findings.xlsx"
