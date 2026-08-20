@@ -8,6 +8,31 @@
 
 Welcome to **MICROSUN MANAGEMENT**, an advanced, full-stack agricultural management and crop analytics platform built for modern smart farming. The platform integrates AI-driven crop disease diagnostics, real-time climate risk modeling, peer-to-peer equipment rental, mandi market price analytics, and comprehensive multilingual support.
 
+## 📊 Faculty Evaluation & Separate Test Reports Index
+
+For academic evaluation, all test case results and audit findings are organized into separate, dedicated files and spreadsheets:
+
+### 📄 Separate Excel Workbooks & Spreadsheets
+1. **Master Test Report**: [`MICROSUN_OFFICIAL_TEST_REPORT.xlsx`](./MICROSUN_OFFICIAL_TEST_REPORT.xlsx) — *6 Sheets containing 400+ Executed Test Cases*
+2. **Passed Test Cases**: [`Test Results/Excel/Passed_Test_Cases.xlsx`](./Test%20Results/Excel/Passed_Test_Cases.xlsx) — *All passing test cases*
+3. **Failed Test Cases**: [`Test Results/Excel/Failed_Test_Cases.xlsx`](./Test%20Results/Excel/Failed_Test_Cases.xlsx) — *Defect & remediation log (0 Failures)*
+4. **Endpoint Inventory**: [`Vulnerability Test Results/endpoint-inventory.xlsx`](./Vulnerability%20Test%20Results/endpoint-inventory.xlsx) — *API Route Inventory*
+5. **Security Findings**: [`Vulnerability Test Results/findings.xlsx`](./Vulnerability%20Test%20Results/findings.xlsx) — *OWASP Top 10 & CWE Findings*
+6. **Structured Test Cases**: [`Vulnerability Test Results/test-cases.xlsx`](./Vulnerability%20Test%20Results/test-cases.xlsx) — *Detailed Test Case Definitions*
+7. **Security Audit Master**: [`Vulnerability Test Results/MICROSUN_SECURITY_AUDIT_MASTER.xlsx`](./Vulnerability%20Test%20Results/MICROSUN_SECURITY_AUDIT_MASTER.xlsx) — *Security & QA Master Analysis*
+
+### 📝 Separate Audit Reports & Technical Documents
+1. **Executive Summary**: [`Vulnerability Test Results/executive-summary.md`](./Vulnerability%20Test%20Results/executive-summary.md) — *High-level Risk Rating & Score*
+2. **Backend Discovery Inventory**: [`Vulnerability Test Results/backend-inventory.md`](./Vulnerability%20Test%20Results/backend-inventory.md) — *Architecture & Tech Stack Analysis*
+3. **SAST/DAST Security Review**: [`Vulnerability Test Results/security-review.md`](./Vulnerability%20Test%20Results/security-review.md) — *OWASP Security Audit*
+4. **Dependency & Secrets Report**: [`Vulnerability Test Results/dependency-report.md`](./Vulnerability%20Test%20Results/dependency-report.md) — *Gitleaks & Trivy Scan Results*
+5. **Performance & 100 VU Load Report**: [`web_app/LOAD_TEST_REPORT.md`](./web_app/LOAD_TEST_REPORT.md) & [`Vulnerability Test Results/performance-report.md`](./Vulnerability%20Test%20Results/performance-report.md) — *RPS & Latency Metrics*
+6. **Remediation Guide**: [`Vulnerability Test Results/remediation-guide.md`](./Vulnerability%20Test%20Results/remediation-guide.md) — *Patch & Fix Recommendations*
+
+### 🌐 Interactive HTML & JSON Dashboards
+1. **Interactive Test Dashboard**: [`Test Results/HTML/execution-report.html`](./Test%20Results/HTML/execution-report.html)
+2. **JSON Execution Log**: [`Test Results/JSON/execution-results.json`](./Test%20Results/JSON/execution-results.json)
+
 ---
 
 ## 🚀 Key Features & Modules
