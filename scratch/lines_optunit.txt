@@ -1,0 +1,6 @@
+﻿    "optUnitHr": "/ hour",
+    "optUnitDay": "/ day",
+    "optUnitAcre": "/ acre",
+    "optUnitHr": "/ घंटा",
+    "optUnitDay": "/ दिन",
+    "optUnitAcre": "/ एकड़",

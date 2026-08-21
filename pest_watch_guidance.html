@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>BANANA ARMOR AI - Pest Watch & Disease Guidance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pest_watch_guidance.css">
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+
+    <!-- Top Bar Segmented View Switcher Pills (Centered at Top Bar) -->
+    <div style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 50; display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 5px 8px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
+        <button id="btn-tab-pest-watch" onclick="switchArmorView('pest-watch')" style="padding: 7px 18px; border-radius: 20px; font-weight: 800; font-size: 0.88rem; border: none; background: #ffffff; color: #111111; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.12); transition: all 0.2s ease;">
+            🐛 Pest Watch
+        </button>
+        <button id="btn-tab-disease-scan" onclick="switchArmorView('disease-scan')" style="padding: 7px 18px; border-radius: 20px; font-weight: 800; font-size: 0.88rem; border: none; background: transparent; color: #ffffff; cursor: pointer; transition: all 0.2s ease;">
+            🦠 Disease Scan
+        </button>
+        <button id="btn-tab-nutrient-care" onclick="switchArmorView('nutrient-care')" style="padding: 7px 18px; border-radius: 20px; font-weight: 800; font-size: 0.88rem; border: none; background: transparent; color: #ffffff; cursor: pointer; transition: all 0.2s ease;">
+            🌱 Nutrient Care
+        </button>
+    </div>
+
+    <!-- Sidebar hamburger -->
+    <button id="menuToggle" class="hamburger-btn">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </button>
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <div class="layout-wrapper">
+        <!-- Sidebar -->
+        <aside id="mainSidebar" class="sidebar">
+            <div class="sidebar-header" data-i18n="appTitle">MICROSUN MANAGEMENT</div>
+            <ul class="menu-list">
+                <li class="menu-item" onclick="window.location.href='dashboard.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🌱</span></div>
+                    <span class="menu-text notranslate" translate="no">PLANTER AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='climate_risk.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">⛅</span></div>
+                    <span class="menu-text notranslate" translate="no">SKY INTEL AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='renting.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🚜</span></div>
+                    <span class="menu-text notranslate" translate="no">RENTROX AI</span>
+                </li>
+
+                <!-- BANANA ARMOR AI Submenu -->
+                <li class="menu-item has-submenu active" id="bananaArmorToggle" onclick="toggleBananaArmorSubmenu(event)">
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🍌</span></div>
+                            <span class="menu-text notranslate" translate="no">BANANA ARMOR AI</span>
+                        </div>
+                        <span class="submenu-indicator" style="font-size: 0.8rem; margin-right: 12px; color: #ffffff;">▼</span>
+                    </div>
+                </li>
+                <ul class="submenu-list" id="bananaArmorSubmenu" style="display: block; list-style: none; padding: 4px 0 8px 65px; margin: 0;">
+                    <li class="submenu-item active" onclick="switchArmorView('pest-watch')" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(46, 125, 50, 0.4); margin-bottom: 4px;">
+                        <span class="submenu-icon">🐛</span>
+                        <span>Pest Watch</span>
+                    </li>
+                    <li class="submenu-item" onclick="switchArmorView('disease-scan')" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
+                        <span class="submenu-icon">🦠</span>
+                        <span>Disease Scan</span>
+                    </li>
+                    <li class="submenu-item" onclick="switchArmorView('nutrient-care')" style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; color: #ffffff; cursor: pointer; background: rgba(255, 255, 255, 0.1); margin-bottom: 4px;">
+                        <span class="submenu-icon">🌱</span>
+                        <span>Nutrient Care</span>
+                    </li>
+                </ul>
+
+                <li class="menu-item" onclick="window.location.href='analytics.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📈</span></div>
+                    <span class="menu-text notranslate" translate="no">YEXA AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='market.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">💰</span></div>
+                    <span class="menu-text notranslate" translate="no">MARKETX AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='b2c_selling.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📦</span></div>
+                    <span class="menu-text">B2C Produce Selling</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='profile.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">👤</span></div>
+                    <span class="menu-text">User Profile</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='main_hub.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🏠</span></div>
+                    <span class="menu-text">Back to Main Hub</span>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" style="padding-top: 80px;">
+            <div class="guidance-container">
+
+                <div id="pest-watch-view" class="armor-view active">
+                    <!-- Top Row: Left Timeline Track + Right AI Climate Predictor -->
+                    <div style="display: flex; gap: 2rem; align-items: stretch; margin-bottom: 2rem; width: 100%;">
+                        
+                        <!-- Left: Vertical 5-Stage Track Card -->
+                        <div class="timeline-track-card" id="timeline-track-card-id" style="width: 320px; min-width: 320px; min-height: 520px; margin-bottom: 0;">
+                            <div class="timeline-line"></div>
+                            <div class="timeline-progress-line" id="timelineProgress"></div>
+                            
+                            <div class="timeline-steps">
+                                <button class="step-node active" data-stage="0">
+                                    <div class="step-circle">1</div>
+                                    <div class="step-info">
+                                        <h4 data-i18n="stage0_title">Seedling Stage</h4>
+                                        <p data-i18n="stage0_months">Months 1 - 3</p>
+                                    </div>
+                                </button>
+     
+                                <button class="step-node" data-stage="1">
+                                    <div class="step-circle">2</div>
+                                    <div class="step-info">
+                                        <h4 data-i18n="stage1_title">Vegetative Stage</h4>
+                                        <p data-i18n="stage1_months">Months 4 - 6</p>
+                                    </div>
+                                </button>
+    
+                                <button class="step-node" data-stage="2">
+                                    <div class="step-circle">3</div>
+                                    <div class="step-info">
+                                        <h4 data-i18n="stage2_title">Flowering Stage</h4>
+                                        <p data-i18n="stage2_months">Months 7 - 9</p>
+                                    </div>
+                                </button>
+    
+                                <button class="step-node" data-stage="3">
+                                    <div class="step-circle">4</div>
+                                    <div class="step-info">
+                                        <h4 data-i18n="stage3_title">Fruiting Stage</h4>
+                                        <p data-i18n="stage3_months">Months 10 - 11</p>
+                                    </div>
+                                </button>
+    
+                                <button class="step-node" data-stage="4">
+                                    <div class="step-circle">5</div>
+                                    <div class="step-info">
+                                        <h4 data-i18n="stage4_title">Harvest Stage</h4>
+                                        <p data-i18n="stage4_months">Month 12</p>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right: AI Climate Outbreak Predictor Widget -->
+                        <div class="ai-predictor-card" id="ai-predictor-card-id" style="flex: 1; min-height: 520px; margin-bottom: 0; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div class="ai-pulse-indicator" id="ai-pulse"></div>
+                            <div class="ai-header-group" style="justify-content: center; text-align: center; width: 100%;">
+                                <h2 data-i18n="aiPredictorTitle" style="font-size: 1.6rem; font-weight: 800; color: #111; margin: 0 auto; text-align: center; width: 100%;">AI Climate Pest & Disease Predictor</h2>
+                            </div>
+                            
+                            <div class="ai-metrics-row">
+                                <div class="metric-item" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <div style="font-size: 1.8rem; margin-bottom: 4px;">🌡️</div>
+                                    <label data-i18n="canopyTemp">Canopy Temp</label>
+                                    <span id="temp-val">33°C</span>
+                                </div>
+                                <div class="metric-item" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <div style="font-size: 1.8rem; margin-bottom: 4px;">💧</div>
+                                    <label data-i18n="airHumidity">Air Humidity</label>
+                                    <span id="humidity-val">78%</span>
+                                </div>
+                                <div class="metric-item" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <div style="font-size: 1.8rem; margin-bottom: 4px;">🌧️</div>
+                                    <label data-i18n="rainLevel">Rain Level</label>
+                                    <span id="rain-val">12 mm</span>
+                                </div>
+                                <div class="metric-item" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                                    <div style="font-size: 1.8rem; margin-bottom: 4px;">💨</div>
+                                    <label data-i18n="windSpeed">Wind Speed</label>
+                                    <span id="wind-val">7.5 km/h</span>
+                                </div>
+                            </div>
+
+                            <div class="ai-verdict-box" id="ai-alert-box" style="background: rgba(211, 47, 47, 0.1); border: 1.5px solid rgba(211, 47, 47, 0.35); border-radius: 18px; padding: 1.4rem 1.8rem;">
+                                <div class="ai-verdict-title" id="ai-alert-title" style="color: #d32f2f; font-weight: 800; font-size: 1.35rem; margin-bottom: 0.5rem;">⚠️ HIGH RISK: Black Sigatoka & Panama Wilt Outbreak Warning</div>
+                                <div class="ai-verdict-desc" id="ai-alert-desc" style="color: #111111; font-weight: 600; font-size: 1.05rem; line-height: 1.5;">High atmospheric humidity (78%) & canopy moisture create prime fungal sporulation conditions. Immediate foliar Propiconazole or Mineral Oil spray is recommended.</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Middle Title Banner -->
+                    <h3 class="timeline-section-title" data-i18n="timelineTitle" style="margin-top: 1.5rem; margin-bottom: 1.8rem; text-align: center; color: #ffffff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.7) !important;">End-to-End Growth Stage Guidance</h3>
+
+                    <!-- Bottom Row: FULL WIDTH 100% Growth Stage Detail Card -->
+                    <div class="detail-display-card" id="detailDisplay" style="width: 100%; max-width: 100%; box-sizing: border-box;">
+                        <!-- Seedling Details (Active by default) -->
+                        <div class="detail-view active" id="view-stage-0">
+                            <div class="stage-title-banner">
+                                <h3>Seedling Stage (Establishment Phase)</h3>
+                                <span class="stage-time-badge">Months 1 - 3</span>
+                            </div>
+                            <div class="disease-list">
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-panama)"/>
+                                            <path d="M50 15 C65 25, 75 45, 75 75 C60 85, 40 85, 25 75 C25 45, 35 25, 50 15 Z" fill="url(#leaf-panama)" filter="url(#shadow-panama)"/>
+                                            <path d="M50 15 L50 80" stroke="#8d6e63" stroke-width="2" stroke-linecap="round"/>
+                                            <path d="M75 75 C68 70, 71 50, 68 35 C72 45, 74 60, 75 75 Z" fill="#ffd54f"/>
+                                            <path d="M25 75 C32 70, 29 50, 32 35 C28 45, 26 60, 25 75 Z" fill="#ffd54f"/>
+                                            <defs>
+                                                <linearGradient id="bg-panama" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#fff8e1"/>
+                                                    <stop offset="100%" stop-color="#ffecb3"/>
+                                                </linearGradient>
+                                                <linearGradient id="leaf-panama" x1="50" y1="15" x2="50" y2="85">
+                                                    <stop offset="0%" stop-color="#81c784"/>
+                                                    <stop offset="70%" stop-color="#4caf50"/>
+                                                    <stop offset="100%" stop-color="#a1887f"/>
+                                                </linearGradient>
+                                                <filter id="shadow-panama" x="-10%" y="-10%" width="120%" height="120%">
+                                                    <feDropShadow dx="2" dy="4" stdDeviation="3" flood-opacity="0.15"/>
+                                                </filter>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge">HIGH RISK</span>
+                                            <h4>🍂 Panama Wilt (Fusarium TR4 Fungus)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Sudden yellowing of lower leaf margins, vertical splitting of pseudostem bases, and dark brown discoloration of split corm fibers.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>No chemical cure exists for infected plants. For **preventive border protection** of healthy surrounding crops, drench soil with **Carbendazim 50% WP at 2g per Liter of water** directly at pseudostem base. Apply bio-agent **Trichoderma viride at 20g per plant** mixed with manure.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Apply **Muriate of Potash (MOP) at 50g per plant** to raise systemic tissue potassium. Avoid ammonium nitrogen feeds which trigger fungal growth.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-weevil)"/>
+                                            <circle cx="50" cy="50" r="30" fill="#d7ccc8" stroke="#a1887f" stroke-width="3"/>
+                                            <path d="M35 45 C42 42, 45 55, 55 50 C62 48, 65 62, 58 65" stroke="#5d4037" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+                                            <circle cx="35" cy="45" r="3.5" fill="#3e2723"/>
+                                            <circle cx="58" cy="65" r="3.5" fill="#3e2723"/>
+                                            <path d="M42 50 Q46 44 50 48 Q54 52 50 56 Q46 60 42 50" fill="#f5f5f5" stroke="#cfd8dc" stroke-width="1"/>
+                                            <circle cx="49" cy="48" r="1.2" fill="#ef6c00"/>
+                                            <defs>
+                                                <linearGradient id="bg-weevil" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#efebe9"/>
+                                                    <stop offset="100%" stop-color="#d7ccc8"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge" style="background:rgba(255,152,0,0.1);color:#ef6c00;">MODERATE RISK</span>
+                                            <h4>🐛 Banana Weevil Borer (Cosmopolites sordidus)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Small pinholes at stem base discharging jelly-like sap, inside root corm is heavily tunneled causing seedling Snapping.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Apply soil granules **Cartap Hydrochloride 4G at 15g per plant** at planting ring, or insert entomopathogenic nematodes around root crown.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Feed organic **Neem Cake at 250g per plant** around seedling pit to repel oviposition and encourage thick fibrous root branching.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-pythium)"/>
+                                            <path d="M15 70 L85 70" stroke="#8d6e63" stroke-width="4" stroke-linecap="round"/>
+                                            <path d="M50 70 Q40 50 25 35 Q40 25 55 40" fill="#a5d6a7" stroke="#66bb6a" stroke-width="1.5"/>
+                                            <path d="M42 55 Q38 48 30 42" stroke="#66bb6a" stroke-width="3" stroke-linecap="round"/>
+                                            <path d="M50 72 C48 78, 45 84, 46 88" stroke="#5d4037" stroke-width="2.5" stroke-linecap="round"/>
+                                            <path d="M52 72 C56 78, 62 82, 60 88" stroke="#3e2723" stroke-width="2.5" stroke-linecap="round"/>
+                                            <circle cx="50" cy="78" r="3" fill="#8d6e63" opacity="0.6"/>
+                                            <circle cx="55" cy="82" r="2.5" fill="#3e2723" opacity="0.6"/>
+                                            <defs>
+                                                <linearGradient id="bg-pythium" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#e8f5e9"/>
+                                                    <stop offset="100%" stop-color="#c8e6c9"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge" style="background:rgba(255,152,0,0.1);color:#ef6c00;">MODERATE RISK</span>
+                                            <h4>🍂 Pythium Damping-Off & Root Rot</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Waterlogged soil pathogen. Seedlings show sudden chlorosis of crown, soft brown rotting of the roots, and eventual tipping over at soil level.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Drench soil with **Metalaxyl 8% + Mancozeb 64% WP at 2g per Liter of water** around the pit collar twice at 10-day intervals.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Ensure strict soil drainage and elevated beds. Feed organic **Trichoderma harzianum (20g/L)** to suppress water molds and stimulate root branching.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-erwinia)"/>
+                                            <ellipse cx="50" cy="50" rx="35" ry="25" fill="#eefeeb" stroke="#a5d6a7" stroke-width="3"/>
+                                            <path d="M42 42 C35 48, 38 60, 48 58 C55 56, 62 62, 58 48 C55 42, 48 38, 42 42 Z" fill="#8d6e63" opacity="0.85"/>
+                                            <path d="M45 46 C41 49, 42 54, 48 53 C52 52, 56 55, 54 49 C52 46, 48 44, 45 46 Z" fill="#5d4037" opacity="0.9"/>
+                                            <circle cx="48" cy="46" r="2.5" fill="#ffb300"/>
+                                            <circle cx="53" cy="52" r="1.8" fill="#ffb300"/>
+                                            <defs>
+                                                <linearGradient id="bg-erwinia" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#f1f8e9"/>
+                                                    <stop offset="100%" stop-color="#dcedc8"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge">HIGH RISK</span>
+                                            <h4>🍂 Erwinia Corm Soft Rot (Tip-Over)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Sudden rotting of the root corm tissue accompanied by a distinct foul, putrid odor. Seedlings easily topple over in light winds.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Drench corm collar with **Streptocycline at 0.5g + Copper Oxychloride at 3g per Liter of water** immediately to stop bacterial colonization.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Avoid excessive nitrogen inputs which cause soft water-logged corm cell walls. Feed organic compost enriched with beneficial pseudomonas microbes.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-nematode)"/>
+                                            <path d="M25 80 C40 75, 45 60, 50 50 C55 40, 60 25, 75 20" stroke="#cfd8dc" stroke-width="4" stroke-linecap="round" opacity="0.3"/>
+                                            <path d="M15 45 C35 48, 55 42, 85 45" stroke="#f5f5f5" stroke-width="12" stroke-linecap="round"/>
+                                            <path d="M15 45 C35 48, 55 42, 85 45" stroke="#d7ccc8" stroke-width="8" stroke-linecap="round"/>
+                                            <path d="M30 47 Q35 44 42 49" stroke="#d32f2f" stroke-width="4" stroke-linecap="round"/>
+                                            <path d="M55 42 Q60 45 65 41" stroke="#d32f2f" stroke-width="4" stroke-linecap="round"/>
+                                            <path d="M72 45 C78 45, 83 45, 85 45" stroke="#3e2723" stroke-width="10" stroke-linecap="round"/>
+                                            <defs>
+                                                <linearGradient id="bg-nematode" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#eceff1"/>
+                                                    <stop offset="100%" stop-color="#cfd8dc"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge" style="background:rgba(255,152,0,0.1);color:#ef6c00;">MODERATE RISK</span>
+                                            <h4>🍂 Burrowing Nematode (Toppling Disease)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Reddish-brown cortical lesions in roots, blackening and decay of root tissue, plant toppling over easily under wind due to mechanical support failure.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Soil application of **Carbofuran 3G at 20g per plant** or drenching with **Fluensulfone 2% GR** around root zones to eliminate larvae.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Apply organic **Castor Cake or Neem Cake at 500g per plant** to promote root cell division and naturally suppress soil nematode populations.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vegetative Details -->
+                        <div class="detail-view" id="view-stage-1">
+                            <div class="stage-title-banner">
+                                <h3>Vegetative Stage (Rapid Canopy Phase)</h3>
+                                <span class="stage-time-badge">Months 4 - 6</span>
+                            </div>
+                            <div class="disease-list">
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-sigatoka-b)"/>
+                                            <path d="M15 50 C30 20, 70 20, 85 50 C70 80, 30 80, 15 50 Z" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/>
+                                            <path d="M15 50 L85 50" stroke="#81c784" stroke-width="2"/>
+                                            <path d="M30 50 L35 28" stroke="#81c784" stroke-width="1"/>
+                                            <path d="M45 50 L52 26" stroke="#81c784" stroke-width="1"/>
+                                            <path d="M60 50 L68 28" stroke="#81c784" stroke-width="1"/>
+                                            <path d="M30 50 L35 72" stroke="#81c784" stroke-width="1"/>
+                                            <path d="M45 50 L52 74" stroke="#81c784" stroke-width="1"/>
+                                            <path d="M60 50 L68 72" stroke="#81c784" stroke-width="1"/>
+                                            <path d="M33 33 L38 31" stroke="#212121" stroke-width="2" stroke-linecap="round"/>
+                                            <path d="M47 38 L50 37" stroke="#212121" stroke-width="2.5" stroke-linecap="round"/>
+                                            <path d="M49 60 L52 62" stroke="#212121" stroke-width="2" stroke-linecap="round"/>
+                                            <path d="M62 60 L65 59" stroke="#212121" stroke-width="2.5" stroke-linecap="round"/>
+                                            <path d="M60 38 L65 37" stroke="#3e2723" stroke-width="2" stroke-linecap="round"/>
+                                            <defs>
+                                                <linearGradient id="bg-sigatoka-b" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#f1f8e9"/>
+                                                    <stop offset="100%" stop-color="#dcedc8"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge">HIGH RISK</span>
+                                            <h4>🍂 Sigatoka Leaf Spot (Black Streak)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Dark brown rusty streaks parallel to leaf veins, coalescing into huge dry grey sheets in middle of canopy, choking respiration.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Spray foliar **Propiconazole 25% EC at 1 ml per Liter** combined with **10 ml per Liter of white mineral oil**, or spray copper oxychloride at **3g/L**.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Spray foliar mix of **Zinc Sulfate (0.5%) + Urea (1%)** monthly. Elevate soil Potassium MOP feedings to **100g per plant**.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-aphid)"/>
+                                            <path d="M35 15 C45 35, 45 65, 35 85" stroke="#a5d6a7" stroke-width="12" stroke-linecap="round"/>
+                                            <path d="M40 45 C55 48, 70 42, 85 30" stroke="#81c784" stroke-width="8" stroke-linecap="round"/>
+                                            <ellipse cx="42" cy="50" rx="3" ry="4.5" fill="#212121"/>
+                                            <line x1="42" y1="54" x2="45" y2="58" stroke="#212121" stroke-width="0.8"/>
+                                            <line x1="39" y1="50" x2="35" y2="50" stroke="#212121" stroke-width="0.8"/>
+                                            <ellipse cx="46" cy="46" rx="2.5" ry="3.5" fill="#212121"/>
+                                            <ellipse cx="38" cy="56" rx="2.2" ry="3" fill="#212121"/>
+                                            <ellipse cx="45" cy="55" rx="1.8" ry="2.5" fill="#212121"/>
+                                            <ellipse cx="52" cy="45" rx="2.2" ry="3" fill="#212121"/>
+                                            <defs>
+                                                <linearGradient id="bg-aphid" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#eceff1"/>
+                                                    <stop offset="100%" stop-color="#cfd8dc"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge" style="background:rgba(255,152,0,0.1);color:#ef6c00;">MODERATE RISK</span>
+                                            <h4>🐛 Banana Aphids (Bunchy Top Vector)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Rosette bunching of tiny leaves at crown with wavy borders, sticky honeydew attracting black ants around basal collar.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Systemic sprays of **Imidacloprid 17.8% SL at 0.3 ml per Liter of water** or **Dimethoate 30% EC at 1.5 ml per Liter** around the base.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Maintain balanced NPK feed ratios (20-10-10) to support structural growth without causing excess watery tissue which attracts sucking vectors.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-cordana)"/>
+                                            <path d="M10 50 C25 20, 75 20, 90 50 C75 80, 25 80, 10 50 Z" fill="#81c784"/>
+                                            <ellipse cx="50" cy="50" rx="24" ry="16" fill="#ffd54f" opacity="0.95"/>
+                                            <ellipse cx="50" cy="50" rx="18" ry="11" fill="#a1887f"/>
+                                            <ellipse cx="50" cy="50" rx="14" ry="8" fill="#8d6e63"/>
+                                            <ellipse cx="50" cy="50" rx="9" ry="5" fill="#5d4037"/>
+                                            <ellipse cx="50" cy="50" rx="4" ry="2" fill="#3e2723"/>
+                                            <defs>
+                                                <linearGradient id="bg-cordana" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#e8f5e9"/>
+                                                    <stop offset="100%" stop-color="#c8e6c9"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge" style="background:rgba(255,152,0,0.1);color:#ef6c00;">MODERATE RISK</span>
+                                            <h4>🍂 Cordana Leaf Spot (Cordana musae)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Large, diamond-shaped or oval brown lesions on older leaves, featuring distinct concentric ring bands surrounded by a bright neon yellow halo.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Foliar spray with **Carbendazim 50% WP at 1g per Liter of water** or **Mancozeb 75% WP at 2.5g per Liter** to arrest spore multiplication.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Increase spacing between plants and prune canopy suckers to optimize solar penetration. Feed Potassium MOP at **120g per plant**.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-sigatoka-y)"/>
+                                            <path d="M15 50 C30 20, 70 20, 85 50 C70 80, 30 80, 15 50 Z" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/>
+                                            <path d="M15 50 L85 50" stroke="#81c784" stroke-width="2"/>
+                                            <path d="M30 35 C34 34, 38 34, 42 35 C38 36, 34 36, 30 35 Z" fill="#ffeb3b" transform="rotate(15 36 35)"/>
+                                            <path d="M45 28 C49 27, 53 27, 57 28 C53 29, 49 29, 45 28 Z" fill="#ffeb3b" transform="rotate(15 51 28)"/>
+                                            <path d="M48 62 C52 61, 56 61, 60 62 C56 63, 52 63, 48 62 Z" fill="#ffeb3b" transform="rotate(-15 54 62)"/>
+                                            <path d="M60 65 C64 64, 68 64, 72 65 C68 66, 64 66, 60 65 Z" fill="#ffeb3b" transform="rotate(-15 66 65)"/>
+                                            <path d="M62 33 C66 32, 70 32, 74 33 C70 34, 66 34, 62 33 Z" fill="#ffeb3b" transform="rotate(15 68 33)"/>
+                                            <ellipse cx="36" cy="35" rx="3.5" ry="1.2" fill="#8d6e63" transform="rotate(15 36 35)"/>
+                                            <ellipse cx="51" cy="28" rx="4" ry="1.3" fill="#8d6e63" transform="rotate(15 51 28)"/>
+                                            <ellipse cx="54" cy="62" rx="3.5" ry="1.2" fill="#8d6e63" transform="rotate(-15 54 62)"/>
+                                            <ellipse cx="36" cy="35" rx="1.5" ry="0.6" fill="#cfd8dc" transform="rotate(15 36 35)"/>
+                                            <ellipse cx="51" cy="28" rx="2" ry="0.7" fill="#cfd8dc" transform="rotate(15 51 28)"/>
+                                            <defs>
+                                                <linearGradient id="bg-sigatoka-y" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#f1f8e9"/>
+                                                    <stop offset="100%" stop-color="#e8f5e9"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge">HIGH RISK</span>
+                                            <h4>🍂 Yellow Sigatoka Spot (Pseudocercospora musae)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Yellowish spindle-shaped streaks parallel to veins. Streaks mature into spots with grey dry necrotic centers and black rings.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Apply foliar **Chlorothalonil 75% WP at 2g per Liter**, or spray systemic **Hexaconazole 5% EC at 1.5 ml per Liter** of water.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Sanitize the field immediately by cutting off and burning highly infested lower leaves. Spray bio-control **Pseudomonas fluorescens (20g/L)**.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Flowering Details -->
+                        <div class="detail-view" id="view-stage-2">
+                            <div class="stage-title-banner">
+                                <h3>Flowering / Shooting Stage (Bunch Emergence)</h3>
+                                <span class="stage-time-badge">Months 7 - 9</span>
+                            </div>
+                            <div class="disease-list">
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-bunchy)"/>
+                                            <path d="M50 85 C45 60, 42 45, 30 25 C45 35, 48 55, 50 85 Z" fill="#81c784" opacity="0.8"/>
+                                            <path d="M50 85 C55 60, 58 45, 70 25 C55 35, 52 55, 50 85 Z" fill="#81c784" opacity="0.8"/>
+                                            <path d="M50 85 C48 60, 46 40, 42 15 C50 25, 50 50, 50 85 Z" fill="#4caf50"/>
+                                            <path d="M50 85 C52 60, 54 40, 58 15 C50 25, 50 50, 50 85 Z" fill="#4caf50"/>
+                                            <path d="M50 85 C46 65, 36 50, 22 35 C38 45, 45 60, 50 85 Z" fill="#a5d6a7" opacity="0.6"/>
+                                            <path d="M50 85 C54 65, 64 50, 78 35 C62 45, 55 60, 50 85 Z" fill="#a5d6a7" opacity="0.6"/>
+                                            <defs>
+                                                <linearGradient id="bg-bunchy" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#efebe9"/>
+                                                    <stop offset="100%" stop-color="#d7ccc8"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge">CRITICAL ALERT</span>
+                                            <h4>🍂 Banana Bunchy Top Disease (BBTD Virus)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Extremely stunted upright wavy leaves. Morse-code like dark green "dot-dash" streaks visible on leaf veins underneath.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>No chemical cure. Kill vector aphids using Imidacloprid (**0.3 ml/L**). Inject infected pseudo-stems with **4 ml of 10% 2,4-D herbicide** to eradicate viral source.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Foliar feeding of **Solubor Boron at 2g/L (0.2%) + Calcium Nitrate at 5g/L (0.5%)** to guarantee clean shooting without bud choking.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-thrips)"/>
+                                            <path d="M20 35 C40 25, 65 30, 80 50 C65 65, 40 60, 20 55 C15 45, 17 38, 20 35 Z" fill="#81c784" stroke="#4caf50" stroke-width="1.5"/>
+                                            <path d="M42 38 Q45 42 48 37 M44 41 Q47 45 50 40 M46 44 Q49 48 52 43" stroke="#a1887f" stroke-width="1.5" stroke-linecap="round"/>
+                                            <path d="M55 42 Q59 47 62 43 M57 45 Q61 50 64 46" stroke="#8d6e63" stroke-width="1.5" stroke-linecap="round"/>
+                                            <path d="M30 44 Q33 48 36 43 M32 47 Q35 51 38 46" stroke="#a1887f" stroke-width="1.5" stroke-linecap="round"/>
+                                            <defs>
+                                                <linearGradient id="bg-thrips" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#f5f5f5"/>
+                                                    <stop offset="100%" stop-color="#e0e0e0"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge" style="background:rgba(255,152,0,0.1);color:#ef6c00;">MODERATE RISK</span>
+                                            <h4>🐛 Bunch/Flower Thrips</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Silvery streaks on emerging bunch bracts turning into thick brown corky rusty scales on finger skins as hands open.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Bud injection or targeted spray around shoot with **Spinosad 45% SC at 0.3 ml per Liter** or **Fipronil 5% SC at 1.5 ml per Liter**.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Spray complete micronutrient mixture (Fe, Mn, Zn, B, Cu) to support metabolic strength in the flower bract vessels.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-cmv)"/>
+                                            <path d="M15 50 C30 20, 70 20, 85 50 C70 80, 30 80, 15 50 Z" fill="#4caf50" stroke="#2e7d32" stroke-width="1.5"/>
+                                            <path d="M15 50 L85 50" stroke="#81c784" stroke-width="2"/>
+                                            <path d="M28 35 L33 42 L25 45 Z" fill="#c8e6c9" opacity="0.9"/>
+                                            <path d="M36 28 L42 35 L35 38 Z" fill="#c8e6c9" opacity="0.9"/>
+                                            <path d="M50 25 L55 33 L47 35 Z" fill="#c8e6c9" opacity="0.9"/>
+                                            <path d="M32 60 L38 52 L42 62 Z" fill="#c8e6c9" opacity="0.9"/>
+                                            <path d="M48 65 L52 56 L58 64 Z" fill="#c8e6c9" opacity="0.9"/>
+                                            <path d="M62 60 L68 52 L72 62 Z" fill="#c8e6c9" opacity="0.9"/>
+                                            <path d="M62 35 L68 28 L72 38 Z" fill="#c8e6c9" opacity="0.9"/>
+                                            <defs>
+                                                <linearGradient id="bg-cmv" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#e8f5e9"/>
+                                                    <stop offset="100%" stop-color="#c8e6c9"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge" style="background:rgba(255,152,0,0.1);color:#ef6c00;">MODERATE RISK</span>
+                                            <h4>🍂 Cucumber Mosaic Virus (CMV / Infectious Chlorosis)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Intermittent yellow chlorotic bands and mosaic mottling on leaves. Emerging leaf heart rot collapses the inner growing bud.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>No direct chemical viral cure. Treat aphid vectors with foliar sprays of **Dimethoate 30% EC at 1.5 ml per Liter** of water.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Maintain weed-free boundaries. Clear alternate hosts (cucurbits, weeds). Spray foliage with zinc and iron micro-nutrients to build crop immunity.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-moko)"/>
+                                            <circle cx="50" cy="50" r="32" fill="#fff9c4" stroke="#fbc02d" stroke-width="2.5"/>
+                                            <circle cx="50" cy="50" r="22" stroke="#5d4037" stroke-width="4" stroke-dasharray="6 8" fill="none"/>
+                                            <circle cx="50" cy="50" r="22" stroke="#212121" stroke-width="2" stroke-dasharray="2 12" fill="none"/>
+                                            <circle cx="42" cy="40" r="3" fill="#ffb300"/>
+                                            <circle cx="40" cy="43" r="1.5" fill="#ffb300"/>
+                                            <defs>
+                                                <linearGradient id="bg-moko" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#fffde7"/>
+                                                    <stop offset="100%" stop-color="#fff59d"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge">CRITICAL ALERT</span>
+                                            <h4>🍂 Bacterial Moko Disease (Ralstonia solanacearum)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Rapid wilting and yellowing of the youngest leaves first. Inside pseudostem shows blackened vascular ring tissue, and bunch fingers rot internally.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>No chemical cure. Disinfect pruning tools with **20% formaldehyde** after every cut to prevent insect-vector bacterial transmission.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Isolate and destroy infected plants. Encircle the block with bleaching powder. Elevate potassium feedings to strengthen vascular cell walls.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fruiting Details -->
+                        <div class="detail-view" id="view-stage-3">
+                            <div class="stage-title-banner">
+                                <h3>Fruiting / Bunch Development (Finger Growth)</h3>
+                                <span class="stage-time-badge">Months 10 - 11</span>
+                            </div>
+                            <div class="disease-list">
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-anthracnose)"/>
+                                            <path d="M18 32 C38 22, 65 28, 82 50 C65 65, 38 60, 18 52 C12 42, 14 35, 18 32 Z" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1.5"/>
+                                            <ellipse cx="40" cy="38" rx="7" ry="4" fill="#212121"/>
+                                            <ellipse cx="40" cy="38" rx="4" ry="2.2" fill="#ff8a80"/>
+                                            <ellipse cx="58" cy="44" rx="8" ry="5.5" fill="#212121"/>
+                                            <ellipse cx="58" cy="44" rx="5" ry="3.2" fill="#ff8a80"/>
+                                            <ellipse cx="32" cy="44" rx="5" ry="3" fill="#212121"/>
+                                            <ellipse cx="32" cy="44" rx="2.5" ry="1.5" fill="#ff8a80"/>
+                                            <defs>
+                                                <linearGradient id="bg-anthracnose" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#fffde7"/>
+                                                    <stop offset="100%" stop-color="#fff59d"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge">HIGH RISK</span>
+                                            <h4>🍂 Anthracnose Finger Decay</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Sunken black spots on green fingers, developing bright orange/pink moist spores during humid warm cycles.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Spray **Carbendazim 50% WP at 1g per Liter** or **Chlorothalonil 75% WP at 2g per Liter** directly onto hands at 15-day intervals.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Foliar spray **Calcium Chloride at 10g per Liter (1%)** directly onto fingers to cross-link cell walls and toughen fruit skins.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-borer)"/>
+                                            <path d="M30 15 L30 85 L70 85 L70 15 Z" fill="#a5d6a7" stroke="#66bb6a" stroke-width="3"/>
+                                            <path d="M50 15 L50 85" stroke="#81c784" stroke-width="1.5" stroke-dasharray="10 5"/>
+                                            <circle cx="45" cy="40" r="5" fill="#3e2723"/>
+                                            <circle cx="56" cy="55" r="4.5" fill="#3e2723"/>
+                                            <path d="M45 42 Q42 50 40 54 Q44 54 45 42 Z" fill="#ffb74d" opacity="0.85"/>
+                                            <path d="M56 57 Q53 66 51 70 Q55 70 56 57 Z" fill="#ffb74d" opacity="0.85"/>
+                                            <defs>
+                                                <linearGradient id="bg-borer" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#e8f5e9"/>
+                                                    <stop offset="100%" stop-color="#c8e6c9"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge">CRITICAL WARNING</span>
+                                            <h4>🐛 Pseudostem Stem Borer (Odoiporus longicollis)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Pinholes along pseudo-stem secreting clear gum, extrusion of chewed brown wood fibers. Stems snap in wind.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Inject stem with **Triazophos 40% EC (4 ml dissolved in 350 ml water)** using stem syringe, or swab trunk with Chlorpyriphos EC at **2.5 ml/L**.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Distribute organic manure and high Potassium MOP feeds to encourage rapid trunk thickening and mechanical support.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-cigar)"/>
+                                            <path d="M15 35 C35 28, 60 32, 70 45 C60 52, 35 48, 15 45" stroke="#fbc02d" stroke-width="8" stroke-linecap="round" fill="none"/>
+                                            <path d="M70 45 C66 43, 62 43, 60 45 C62 47, 66 47, 70 45 Z" fill="#757575" stroke="#424242" stroke-width="1"/>
+                                            <path d="M70 45 C68 44, 66 44, 65 45 C66 46, 68 46, 70 45 Z" fill="#eeeeee"/>
+                                            <circle cx="60" cy="44" r="1.5" fill="#424242"/>
+                                            <circle cx="63" cy="47" r="1" fill="#424242"/>
+                                            <defs>
+                                                <linearGradient id="bg-cigar" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#f5f5f5"/>
+                                                    <stop offset="100%" stop-color="#e0e0e0"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge" style="background:rgba(255,152,0,0.1);color:#ef6c00;">MODERATE RISK</span>
+                                            <h4>🍂 Cigar End Rot (Verticillium theobromae)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Ash-grey dry tip rot starting from fruit tip, spreading backwards. Rotting skin shrinks and puckers, resembling burnt cigar ash.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Foliar spray bunch fingers with **Copper Oxychloride at 3g per Liter** or **Mancozeb at 2.5g per Liter** as soon as pistils drop.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Manually remove dry pistil tips right after hand emergence. Protect bunches with perforated polyethylene sleeves.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-freckle)"/>
+                                            <path d="M20 35 C40 25, 65 30, 80 50 C65 65, 40 60, 20 55 C15 45, 17 38, 20 35 Z" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1.5"/>
+                                            <circle cx="35" cy="38" r="1" fill="#212121"/><circle cx="38" cy="39" r="0.8" fill="#212121"/><circle cx="34" cy="42" r="1.1" fill="#212121"/>
+                                            <circle cx="45" cy="35" r="1.2" fill="#212121"/><circle cx="48" cy="37" r="0.9" fill="#212121"/><circle cx="43" cy="40" r="1.1" fill="#212121"/>
+                                            <circle cx="50" cy="42" r="1" fill="#212121"/><circle cx="53" cy="45" r="1.2" fill="#212121"/><circle cx="56" cy="41" r="0.9" fill="#212121"/>
+                                            <circle cx="62" cy="46" r="1" fill="#212121"/><circle cx="65" cy="44" r="0.8" fill="#212121"/><circle cx="60" cy="50" r="1.1" fill="#212121"/>
+                                            <circle cx="40" cy="46" r="0.9" fill="#212121"/><circle cx="46" cy="48" r="1.1" fill="#212121"/><circle cx="52" cy="49" r="0.8" fill="#212121"/>
+                                            <defs>
+                                                <linearGradient id="bg-freckle" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#fffde7"/>
+                                                    <stop offset="100%" stop-color="#fff59d"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge" style="background:rgba(255,152,0,0.1);color:#ef6c00;">MODERATE RISK</span>
+                                            <h4>🍂 Freckle Fruit & Leaf Spot (Phyllosticta musarum)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Tiny dark brown to black sand-paper freckles covering green fruit skins and older leaves, drastically reducing market value.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Foliar spray fingers with **Mancozeb 75% WP at 2.5g/L** or spray systemic **Hexaconazole 5% EC at 1.5 ml/L**.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Remove highly infested dry leaves to destroy ground inoculants. Maintain balanced nitrogen inputs to reduce skin thickness sensitivities.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Harvest Details -->
+                        <div class="detail-view" id="view-stage-4">
+                            <div class="stage-title-banner">
+                                <h3>Harvest & Market Maturity (Post-Harvest Phase)</h3>
+                                <span class="stage-time-badge">Month 12</span>
+                            </div>
+                            <div class="disease-list">
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-crown-rot)"/>
+                                            <!-- Banana stems branching from crown -->
+                                            <path d="M30 80 C 35 55, 20 40, 15 35" stroke="#7cb342" stroke-width="8" stroke-linecap="round" fill="none"/>
+                                            <path d="M45 80 C 45 55, 40 40, 38 30" stroke="#7cb342" stroke-width="8" stroke-linecap="round" fill="none"/>
+                                            <path d="M55 80 C 55 55, 60 40, 62 30" stroke="#7cb342" stroke-width="8" stroke-linecap="round" fill="none"/>
+                                            <path d="M70 80 C 65 55, 80 40, 85 35" stroke="#7cb342" stroke-width="8" stroke-linecap="round" fill="none"/>
+                                            
+                                            <!-- Rotting Crown Base -->
+                                            <path d="M25 80 C 35 75, 65 75, 75 80 L 70 90 C 60 92, 40 92, 30 90 Z" fill="#4e342e" stroke="#3e2723" stroke-width="2"/>
+                                            
+                                            <!-- Dark rot spreading up the pedicels -->
+                                            <path d="M28 80 C 32 65, 23 50, 19 45" stroke="#212121" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.8"/>
+                                            <path d="M44 80 C 44 68, 41 52, 39 42" stroke="#212121" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.8"/>
+                                            <path d="M56 80 C 56 68, 59 52, 61 42" stroke="#212121" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.8"/>
+                                            <path d="M72 80 C 68 65, 77 50, 81 45" stroke="#212121" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.8"/>
+                                            
+                                            <!-- Cut surface rot (black/dark brown) -->
+                                            <ellipse cx="50" cy="80" rx="25" ry="8" fill="#212121"/>
+                                            
+                                            <!-- White fuzzy mold / fungal spores -->
+                                            <circle cx="42" cy="79" r="4" fill="#ffffff" opacity="0.8"/>
+                                            <circle cx="50" cy="81" r="5" fill="#e0e0e0" opacity="0.85"/>
+                                            <circle cx="58" cy="78" r="3.5" fill="#ffffff" opacity="0.9"/>
+                                            <circle cx="35" cy="81" r="3" fill="#cfd8dc" opacity="0.7"/>
+                                            <circle cx="65" cy="80" r="3" fill="#cfd8dc" opacity="0.7"/>
+                                            
+                                            <defs>
+                                                <linearGradient id="bg-crown-rot" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#eceff1"/>
+                                                    <stop offset="100%" stop-color="#b0bec5"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge">HIGH RISK</span>
+                                            <h4>🍂 Post-Harvest Crown Rot</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Blackening and rotting of cut bunch hand crowns, spreading down fruit pedicels turning fruit black and soft during ripening.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Swab cut bunch crown surfaces immediately with **Alum (Aluminum potassium sulfate) paste**, or spray crowns with Carbendazim **1g/L**.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Cut off all soil Nitrogen applications 30 days before harvest to solidify rind thickness and prevent watery high-decay ripening.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-finger-rot)"/>
+                                            <!-- Banana body curved from top-left to bottom-right -->
+                                            <path d="M25 25 C 45 25, 75 40, 80 75 C 65 75, 45 55, 25 25" fill="#ffeb3b" stroke="#fbc02d" stroke-width="1.5"/>
+                                            <!-- Dark decayed stem-end (top-left neck) -->
+                                            <path d="M25 25 C 20 20, 15 15, 12 12 C 10 15, 15 22, 20 25 Z" fill="#212121"/>
+                                            <!-- Black rotting necrosis spreading down from the stalk -->
+                                            <path d="M25 25 C 33 25, 38 32, 42 40 C 35 42, 28 35, 25 25 Z" fill="#3e2723" opacity="0.9"/>
+                                            <path d="M25 25 C 30 25, 33 30, 35 35 C 30 37, 26 32, 25 25 Z" fill="#212121"/>
+                                            
+                                            <!-- Watery peel splitting -->
+                                            <path d="M38 38 L 52 52" stroke="#212121" stroke-width="2.5" stroke-linecap="round"/>
+                                            <path d="M43 45 L 48 55" stroke="#000000" stroke-width="1" stroke-linecap="round"/>
+                                            
+                                            <!-- Droplet of cytoplasmic decay fluid -->
+                                            <circle cx="50" cy="58" r="3" fill="#ffe082" opacity="0.9"/>
+                                            <path d="M50 55 L 50 64" stroke="#ffe082" stroke-width="2" stroke-linecap="round"/>
+                                            <circle cx="50" cy="65" r="2" fill="#ffd54f"/>
+                                            
+                                            <defs>
+                                                <linearGradient id="bg-finger-rot" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#fff3e0"/>
+                                                    <stop offset="100%" stop-color="#ffcc80"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge" style="background:rgba(255,152,0,0.1);color:#ef6c00;">MODERATE RISK</span>
+                                            <h4>🍂 Lasiodiplodia Finger Rot (Stem-End Rot)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Soft, rapid watery rot spreading from the finger stalk. Peel turns black and splits, exuding watery cytoplasm.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Treat harvested bunch stalk ends with **Benomyl 50% WP at 0.5g per Liter** or dip crowns in chlorine-treated washing water pools.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Maintain cool dry packaging house conditions. Prevent drop bruising during transportation. Keep humidity levels at a stable, ventilated 85%.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="disease-item">
+                                    <div class="disease-illustration">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="100" height="100" rx="16" fill="url(#bg-squirter)"/>
+                                            <!-- Outer yellow peel -->
+                                            <circle cx="50" cy="50" r="35" fill="#ffeb3b" stroke="#fbc02d" stroke-width="4"/>
+                                            <!-- Healthy inner pulp -->
+                                            <circle cx="50" cy="50" r="31" fill="#fffde7"/>
+                                            
+                                            <!-- Central gelatinous dark watery rot center -->
+                                            <circle cx="50" cy="50" r="14" fill="#3e2723" opacity="0.85"/>
+                                            <circle cx="50" cy="50" r="9" fill="#212121"/>
+                                            
+                                            <!-- Radiating/squirting rot beams -->
+                                            <path d="M50 50 L 50 25 M50 50 L 50 75 M50 50 L 25 50 M50 50 L 75 50" stroke="#5d4037" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+                                            <path d="M50 50 L 32 32 M50 50 L 68 68 M50 50 L 32 68 M50 50 L 68 32" stroke="#5d4037" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+                                            
+                                            <!-- Small gelatinous bubbles or droplets inside the core -->
+                                            <circle cx="47" cy="47" r="2.5" fill="#8d6e63" opacity="0.7"/>
+                                            <circle cx="53" cy="52" r="2" fill="#8d6e63" opacity="0.7"/>
+                                            <circle cx="49" cy="54" r="1.5" fill="#ffffff" opacity="0.5"/>
+                                            
+                                            <defs>
+                                                <linearGradient id="bg-squirter" x1="0" y1="0" x2="100" y2="100">
+                                                    <stop offset="0%" stop-color="#efebe9"/>
+                                                    <stop offset="100%" stop-color="#cfd8dc"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="disease-details">
+                                        <div class="disease-header">
+                                            <span class="disease-badge" style="background:rgba(255,152,0,0.1);color:#ef6c00;">MODERATE RISK</span>
+                                            <h4>🍂 Squirter Disease (Nigrospora sphaerica)</h4>
+                                        </div>
+                                        <p class="disease-symptoms"><strong>Symptom Check:</strong> Flesh inside ripening fruit turns into a dark, watery, gelatinous mass, while the outer rind looks normal and healthy.</p>
+                                        <div class="disease-treatment-row">
+                                            <div class="treatment-box pesticide">
+                                                <h5>🧪 Chemical & Pesticide Dosage</h5>
+                                                <p>Dip harvested bunches in **Guazatine at 0.5g/L** or spray systemic **Thiabendazole (1g/L)** before shipping to cool markets.</p>
+                                            </div>
+                                            <div class="treatment-box nutrient">
+                                                <h5>🌱 Fertilizer & Nutrient Care</h5>
+                                                <p>Avoid storing harvested bunches at temperatures below 12°C. Provide clean, well-ventilated corrugated packing crates.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="disease-scan-view" class="armor-view" style="display: none; flex-direction: column; justify-content: center; align-items: center; width: 100%; max-width: 1000px; min-height: calc(100vh - 120px); margin: 0 auto; padding-top: 0;">
+                    <style>
+                        @keyframes bounceUpload {
+                            0%, 100% { transform: translateY(0); }
+                            50% { transform: translateY(-6px); }
+                        }
+                        @keyframes pulseGlow {
+                            0% { opacity: 0.5; box-shadow: 0 0 0 0 rgba(76,175,80,0.4); }
+                            70% { opacity: 1; box-shadow: 0 0 0 10px rgba(76,175,80,0); }
+                            100% { opacity: 0.5; box-shadow: 0 0 0 0 rgba(76,175,80,0); }
+                        }
+                        
+                        /* Circular Glass Screen Viewport */
+                        .circular-viewport {
+                            width: 320px !important;
+                            height: 320px !important;
+                            border-radius: 50% !important;
+                            background: rgba(255, 255, 255, 0.14) !important;
+                            backdrop-filter: blur(25px) !important;
+                            -webkit-backdrop-filter: blur(25px) !important;
+                            border: 3.5px solid rgba(255, 255, 255, 0.5) !important;
+                            box-shadow: 
+                                0 20px 45px rgba(0, 0, 0, 0.16),
+                                inset 1.5px 1.5px 3px rgba(255, 255, 255, 0.6),
+                                0 0 35px rgba(76, 175, 80, 0.2) !important;
+                            position: relative;
+                            overflow: hidden;
+                            cursor: pointer;
+                            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                        .circular-viewport:hover {
+                            transform: scale(1.03);
+                            border-color: rgba(76, 175, 80, 0.65) !important;
+                            box-shadow: 
+                                0 25px 50px rgba(0, 0, 0, 0.2),
+                                inset 2px 2px 4px rgba(255, 255, 255, 0.7),
+                                0 0 45px rgba(76, 175, 80, 0.35) !important;
+                        }
+
+                        /* Glowing Pulsing Scan Me Button */
+                        .scan-me-btn {
+                            width: 275px;
+                            padding: 15px 32px;
+                            font-size: 1.1rem;
+                            font-weight: 800;
+                            color: #111111 !important;
+                            background: linear-gradient(135deg, #fbc02d 0%, #fbc02d 100%) !important;
+                            border-radius: 40px !important;
+                            border: none !important;
+                            cursor: pointer;
+                            letter-spacing: 0.5px;
+                            box-shadow: 
+                                0 8px 22px rgba(251, 192, 45, 0.45),
+                                0 0 0 0px rgba(251, 192, 45, 0.25) !important;
+                            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 10px;
+                            text-transform: uppercase;
+                        }
+                        .scan-me-btn:hover {
+                            transform: scale(1.05) translateY(-2px);
+                            box-shadow: 
+                                0 12px 28px rgba(251, 192, 45, 0.55),
+                                0 0 0 10px rgba(251, 192, 45, 0) !important;
+                            background: linear-gradient(135deg, #fdd835 0%, #fbc02d 100%) !important;
+                        }
+                        .scan-me-btn:active {
+                            transform: scale(0.98) translateY(1px);
+                        }
+
+                        /* Animating Scanning Laser Beam inside the circle */
+                        .scan-laser {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 4px;
+                            background: linear-gradient(90deg, transparent, #4caf50, #81c784, #4caf50, transparent);
+                            box-shadow: 0 0 15px rgba(76, 175, 80, 0.8), 0 0 8px rgba(76, 175, 80, 0.5);
+                            z-index: 5;
+                            animation: laserSweep 3s infinite linear;
+                            display: none;
+                        }
+                        @keyframes laserSweep {
+                            0% { top: 0%; }
+                            50% { top: 100%; }
+                            100% { top: 0%; }
+                        }
+
+                        /* Pulsing Radar Ring Animation */
+                        .radar-ring {
+                            position: absolute;
+                            width: 90%;
+                            height: 90%;
+                            border-radius: 50%;
+                            border: 1px dashed rgba(76, 175, 80, 0.3);
+                            z-index: 3;
+                            animation: rotateRadar 15s infinite linear;
+                        }
+                        @keyframes rotateRadar {
+                            from { transform: rotate(0deg); }
+                            to { transform: rotate(360deg); }
+                        }
+
+                        /* Pulse Glow for idle icon */
+                        .idle-pulse {
+                            animation: idlePulse 2s infinite alternate ease-in-out;
+                        }
+                        @keyframes idlePulse {
+                            from { transform: scale(1); opacity: 0.85; filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.2)); }
+                            to { transform: scale(1.06); opacity: 1; filter: drop-shadow(0 0 15px rgba(76, 175, 80, 0.6)); }
+                        }
+                        .progress-pct, .progress-status, .progress-info-row * {
+                            font-family: 'Outfit', sans-serif !important;
+                        }
+                        
+                        /* Diagnostics Report Typography Enforcer */
+                        #scan-report, #scan-report * {
+                            
+                            color: #000000 !important;
+                        }
+                    </style>
+
+                    <!-- Standalone Header Centered & Styled inside its own Premium Pill Glass Box -->
+                    <div class="scanner-header" style="display: flex; justify-content: center; align-items: center; margin: 0.5rem auto 1.2rem auto; position: relative; z-index: 2; width: auto; max-width: fit-content; background: rgba(255, 255, 255, 0.25) !important; backdrop-filter: blur(30px) !important; -webkit-backdrop-filter: blur(30px) !important; border: 2px solid rgba(255, 255, 255, 0.5) !important; border-radius: 40px !important; padding: 0.75rem 2.4rem !important; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12), inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important;">
+                        <h2 class="notranslate" translate="no" style="font-size: 1.75rem; font-weight: 800; color: #000000 !important; text-align: center; margin: 0; letter-spacing: 0.5px; text-transform: uppercase;" data-i18n="scanTitle">BANANA ARMOR AI Pathogen Scanner</h2>
+                    </div>
+
+                    <!-- Scanner Interactive Deck -->
+                    <div class="scanner-deck" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem; margin-top: 0; position: relative; z-index: 2; width: 100%;">
+                        
+                        <!-- Circular Glass Viewport -->
+                        <div class="circular-viewport" id="circle-viewport">
+                            <!-- Image Preview Background Container -->
+                            <div id="circle-preview" style="position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; border-radius: 50%; display: none; z-index: 2;"></div>
+                            
+                            <!-- Laser Scanning Line -->
+                            <div class="scan-laser" id="circle-laser"></div>
+                            
+                            <!-- Rotating Radar Ring -->
+                            <div class="radar-ring" id="circle-radar"></div>
+                            
+                            <!-- Idle State Content -->
+                            <div id="circle-idle" style="display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 3; width: 100%; height: 100%;">
+                                <img class="idle-pulse" src="cool_banana_transparent.png" style="width: 210px; height: 210px; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.12));" alt="Cool Banana Character">
+                            </div>
+                        </div>
+
+                        <!-- Hidden File Input -->
+                        <input type="file" id="leaf-image-input" accept="image/*" style="display: none;">
+
+                        <!-- Glowing Pulse Scan Button -->
+                        <button class="scan-me-btn" id="scan-me-btn">
+                            ⚡ SCAN ME
+                        </button>
+                    </div>
+
+                    <!-- Loading/Scan Progress HUD (Flat & Borderless) -->
+                    <div class="scan-progress-hud" id="scan-progress" style="display: none; margin-top: 2rem; padding: 1.5rem 0; background: none; border: none; box-shadow: none; position: relative; z-index: 2; margin-bottom: 2rem; width: 100%;">
+                        <div class="progress-info-row" style="display: flex; justify-content: space-between; font-weight: 800; margin-bottom: 12px; align-items: center;">
+                            <span class="progress-status" id="scan-status" style="color: #1b5e20; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                                <span style="display:inline-block; width:8px; height:8px; background:#4caf50; border-radius:50%; animation: pulseGlow 1.2s infinite alternate;"></span>
+                                Analyzing leaf structures...
+                            </span>
+                            <span class="progress-pct" id="scan-pct" style="color: #111111; font-size: 1.1rem;">0%</span>
+                        </div>
+                        <div class="progress-bar-container" style="background: rgba(0,0,0,0.06); height: 14px; border-radius: 7px; overflow: hidden; position: relative; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);">
+                            <div class="progress-bar-fill" id="scan-bar" style="background: linear-gradient(90deg, #4caf50, #2e7d32); height: 100%; width: 0%; transition: width 0.1s linear; border-radius: 7px; box-shadow: 0 0 10px rgba(76,175,80,0.5);"></div>
+                        </div>
+                    </div>
+
+                    <!-- Science-Grounded Diagnostic Report Card (Stunning Translucent Frosted White Glass Board) -->
+                    <div class="diagnostics-report" id="scan-report" style="display: none; margin: 3.5rem auto 2rem auto; animation: tabFadeIn 0.5s ease-out; position: relative; z-index: 2; width: 100%; max-width: 1000px; box-sizing: border-box; background: rgba(255, 255, 255, 0.22) !important; backdrop-filter: blur(30px) !important; -webkit-backdrop-filter: blur(30px) !important; border: 2px solid rgba(255, 255, 255, 0.45) !important; border-radius: 28px !important; padding: 3rem !important; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18), inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important;">
+                        
+                        <!-- Bold centered black heading: DISEASE BOARD -->
+                        <h2 style=" font-size: 2.6rem; font-weight: 800; color: #000000 !important; text-align: center; margin: 0 0 2rem 0; letter-spacing: 2px; border-bottom: 2px solid rgba(0, 0, 0, 0.12) !important; padding-bottom: 1.5rem; text-transform: uppercase; width: 100%;">DISEASE BOARD</h2>
+
+                        <div class="report-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.8rem; flex-wrap: wrap; gap: 1rem;">
+                            <h3 id="report-class" style="font-size: 2rem; font-weight: 800; color: #000000 !important; margin: 0; letter-spacing: -0.5px;">Yellow Sigatoka Spot</h3>
+                            <span class="confidence-badge" id="report-confidence" style="background: none; border: none; color: #000000 !important; font-weight: 700; font-size: 1.25rem; box-shadow: none; padding: 0;">98.42% Confidence</span>
+                        </div>
+                        
+                        <div class="report-meta" style="font-size: 1.25rem; margin-bottom: 2rem; background: none; padding: 0; border: none; font-weight: 700; color: #000000 !important; display: flex; align-items: center; gap: 10px;">
+                            🔬 <span style="color:#000000 !important;">Pathogen Class:</span> <span id="report-pathogen" style="color: #000000 !important; font-weight: 800;">Pseudocercospora musae (Ascomycete Fungal Spores)</span>
+                        </div>
+
+                        <div class="symptom-check-card" style="background: none; border: none; padding: 0; margin-bottom: 2.5rem; box-shadow: none;">
+                            <h5 style="font-size: 1.3rem; font-weight: 800; margin: 0 0 1.2rem 0; color: #000000 !important; letter-spacing: -0.2px;">📋 Field Diagnosis Verification Checklist</h5>
+                            <ul id="report-symptoms" style="list-style-type: none; padding-left: 0; display: flex; flex-direction: column; gap: 12px; font-weight: 600; color: #000000 !important;">
+                                <!-- Symptoms list -->
+                            </ul>
+                        </div>
+
+                        <div class="treatment-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem;">
+                            <div class="treatment-box pesticide" style="background: none; border-left: 5px solid #000000 !important; padding: 0 0 0 1.5rem; border-radius: 0; border-top: none; border-right: none; border-bottom: none; box-shadow: none;">
+                                <h5 style="font-size: 1.35rem; font-weight: 800; color: #000000 !important; margin: 0 0 0.8rem 0; display: flex; align-items: center; gap: 8px;">🧪 Chemical Prescription & Dosage</h5>
+                                <p id="report-chemical" style="font-size: 1.1rem; line-height: 1.6; font-weight: 600; color: #000000 !important; margin: 0;">--</p>
+                            </div>
+                            <div class="treatment-box nutrient" style="background: none; border-left: 5px solid #000000 !important; padding: 0 0 0 1.5rem; border-radius: 0; border-top: none; border-right: none; border-bottom: none; box-shadow: none;">
+                                <h5 style="font-size: 1.35rem; font-weight: 800; color: #000000 !important; margin: 0 0 0.8rem 0; display: flex; align-items: center; gap: 8px;">🌱 Organic Care & Preventive Actions</h5>
+                                <p id="report-organic" style="font-size: 1.1rem; line-height: 1.6; font-weight: 600; color: #000000 !important; margin: 0;">--</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Futuristic Treatment Redirect Button -->
+                        <div style="display: flex; justify-content: center; width: 100%;">
+                            <button onclick="goToPesticideCalculatorForDisease()" class="scan-me-btn" style="margin-top: 2.5rem; width: 100%; max-width: 450px; background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%) !important; color: #ffffff !important; box-shadow: 0 8px 25px rgba(27, 94, 32, 0.45), 0 0 0 0px rgba(27, 94, 32, 0.2) !important; text-shadow: none !important;">
+                                📊 Calculate Treatment Dosage
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Separate Standalone Product Recommendation Glass Board -->
+                    <div class="product-recommendation-box" id="product-recommendation-report" style="display: none; margin: 2rem auto 2rem auto; animation: tabFadeIn 0.5s ease-out; position: relative; z-index: 2; width: 100%; max-width: 1000px; box-sizing: border-box; background: rgba(255, 255, 255, 0.22) !important; backdrop-filter: blur(30px) !important; -webkit-backdrop-filter: blur(30px) !important; border: 2px solid rgba(255, 255, 255, 0.45) !important; border-radius: 28px !important; padding: 3rem !important; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18), inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important;">
+                        <h4 style=" font-size: 1.6rem; font-weight: 800; text-align: center; margin-bottom: 2.2rem; color: #000000 !important; letter-spacing: 0.5px; text-transform: uppercase; width: 100%;">📦 RECOMMENDED CROP PROTECTION & NUTRITIONAL PRODUCTS</h4>
+                        <div id="product-list-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; width: 100%;">
+                            <!-- Dynamically generated product cards -->
+                        </div>
+                    </div>
+                </div> <!-- end disease-scan-view -->
+
+                <!-- Stunning Precision Fertilizer & Pesticide Calculators View -->
+                <div id="nutrient-care-view" class="armor-view" style="display: none; width: 100%;">
+                    
+                    <!-- Standalone Header Centered & Styled inside its own Premium Pill Glass Box -->
+                    <div class="nutrient-header-standalone" style="display: flex; justify-content: center; align-items: center; margin: 0 auto 2.5rem auto; position: relative; z-index: 2; width: auto; max-width: fit-content; background: rgba(255, 255, 255, 0.22) !important; backdrop-filter: blur(30px) !important; -webkit-backdrop-filter: blur(30px) !important; border: 2px solid rgba(255, 255, 255, 0.45) !important; border-radius: 40px !important; padding: 1.2rem 4rem !important; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12), inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important; text-align: center;">
+                        <h2 style=" font-size: 2.3rem; font-weight: 900; color: #000000 !important; text-align: center; margin: 0; letter-spacing: 1px; text-transform: uppercase;">PRECISION DOSAGE CONTROL DECK</h2>
+                    </div>
+
+                    <div class="card glass nutrient-card" style="display: flex !important; flex-direction: column !important; height: auto !important; min-height: unset !important; background: rgba(255, 255, 255, 0.22) !important; backdrop-filter: blur(30px) !important; -webkit-backdrop-filter: blur(30px) !important; border: 2px solid rgba(255, 255, 255, 0.45) !important; border-radius: 28px !important; padding: 2.2rem 2.8rem !important; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18), inset 1px 1px 2px rgba(255, 255, 255, 0.5) !important; color: #000000 !important; max-width: 1400px; width: 100%; margin: 0 auto; box-sizing: border-box;">
+                        
+                        <!-- Segmented View Toggle Buttons -->
+                        <div style="display: flex; background: rgba(0,0,0,0.05); padding: 6px; border-radius: 40px; border: 1.5px solid rgba(0,0,0,0.06); width: 80%; max-width: 600px; margin: 0 auto 2.5rem auto; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05); box-sizing: border-box;">
+                            <button id="btn-toggle-fertilizer" onclick="switchCalcView('fertilizer')" class="calc-tab-btn active">🌱 Fertilizer Calculator</button>
+                            <button id="btn-toggle-pesticide" onclick="switchCalcView('pesticide')" class="calc-tab-btn">🧪 Pesticide Spray Calculator</button>
+                        </div>
+
+                        <!-- ==========================================
+                             1. FERTILIZER CALCULATOR VIEW
+                             ========================================== -->
+                        <div id="fertilizer-calc-view" style="display: block; width: 100%; box-sizing: border-box;">
+                            <div style="display: grid; grid-template-columns: 1fr 1.05fr; gap: 2.5rem; width: 100%; box-sizing: border-box;">
+                                
+                                <!-- Inputs Column -->
+                                <div style="display: flex; flex-direction: column; justify-content: space-between !important; height: 100% !important; min-height: 480px; box-sizing: border-box;">
+                                    <h4 style="font-size: 1.45rem; font-weight: 800; margin: 0; border-bottom: 1.5px solid rgba(0,0,0,0.08); padding-bottom: 0.8rem; text-transform: uppercase;">🔢 Calculator Inputs</h4>
+                                    
+                                    <!-- Calculation Mode Pill Selector -->
+                                    <div>
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Nutrient Mode</label>
+                                        <div style="display: flex; background: rgba(0,0,0,0.05); padding: 6px; border-radius: 30px; border: 1px solid rgba(0,0,0,0.05);">
+                                            <button id="btn-mode-plants" onclick="setFertMode('plants')" style="flex: 1; border: none; background: #ffffff !important; padding: 12px 20px; border-radius: 25px; font-weight: 800; cursor: pointer; color: #000000 !important; font-size: 1.1rem; transition: all 0.3s ease;">By Plant Count</button>
+                                            <button id="btn-mode-area" onclick="setFertMode('area')" style="flex: 1; border: none; background: transparent !important; padding: 12px 20px; border-radius: 25px; font-weight: 700; cursor: pointer; color: #000000 !important; opacity: 0.7; font-size: 1.1rem; transition: all 0.3s ease;">By Farm Area (Acres)</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Size Numeric Input -->
+                                    <div>
+                                        <label id="lbl-fert-size" style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Number of Plants</label>
+                                        <input type="number" id="inp-fert-size" value="500" min="1" max="10000000" oninput="calculateFertilizer()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 14px; padding: 16px 20px; font-size: 1.25rem; font-weight: 700; color: #000000 !important;">
+                                    </div>
+
+                                    <!-- Growth Stage Selector -->
+                                    <div>
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Crop Growth Phase</label>
+                                        <select id="sel-fert-stage" onchange="calculateFertilizer()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 14px; padding: 16px 20px; font-size: 1.2rem; font-weight: 700; color: #000000 !important; cursor: pointer;">
+                                            <option value="seedling">Seedling Stage (Establishment | Months 1-3)</option>
+                                            <option value="vegetative" selected>Vegetative Stage (Rapid Canopy | Months 4-6)</option>
+                                            <option value="flowering">Flowering / Shooting (Bunch Emergence | Months 7-9)</option>
+                                            <option value="fruiting">Fruiting Stage (Bunch Development | Months 10-11)</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Soil Fertility Selector -->
+                                    <div>
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Soil Testing Fertility</label>
+                                        <select id="sel-fert-soil" onchange="calculateFertilizer()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 14px; padding: 16px 20px; font-size: 1.2rem; font-weight: 700; color: #000000 !important; cursor: pointer;">
+                                            <option value="low">Low Fertility (+20% Dosage Supplement)</option>
+                                            <option value="medium" selected>Medium Fertility (Standard Crop Guide)</option>
+                                            <option value="high">High Fertility (-20% Dosage Discount)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <!-- Outputs Column -->
+                                <div style="display: flex; flex-direction: column; gap: 0.8rem; background: rgba(255, 255, 255, 0.18) !important; backdrop-filter: blur(25px) !important; -webkit-backdrop-filter: blur(25px) !important; padding: 1.4rem; border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.45); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), inset 1px 1px 2px rgba(255,255,255,0.5); box-sizing: border-box; min-width: 0;">
+                                    
+                                    <!-- Header -->
+                                    <div style="border-bottom: 1.5px solid rgba(0,0,0,0.06); padding-bottom: 0.6rem; margin-bottom: 0.2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                                        <h4 style="font-size: 1.15rem; font-weight: 900; margin: 0; color: #1b5e20 !important; letter-spacing: 0.5px; text-transform: uppercase;">📊 RECOMMENDED DOSAGE RESULTS</h4>
+                                        <span id="val-fert-npk" style="font-size: 0.82rem; font-weight: 800; background: rgba(0,0,0,0.06); color: #000000 !important; padding: 4px 12px; border-radius: 20px; display: inline-block;">N: -- kg | P: -- kg | K: -- kg</span>
+                                    </div>
+
+                                    <!-- Futuristic NPK Visualizer Deck -->
+                                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 0.2rem;" class="ai-metrics-row">
+                                        
+                                        <!-- Nitrogen Gauge Card -->
+                                        <div style="background: rgba(255,255,255,0.45) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 14px !important; padding: 0.7rem 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 100px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
+                                            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, rgba(0, 210, 255, 0.12) 0%, rgba(0, 102, 255, 0.02) 100%); transition: height 0.5s ease-out;" id="bar-fert-n"></div>
+                                            <span style="font-size: 0.72rem; font-weight: 800; color: #0066ff !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Nitrogen (N)</span>
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #00d2ff, #0066ff); color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 3px 6px rgba(0, 102, 255, 0.25);">N</div>
+                                            <span id="val-fert-n" style="font-size: 1.15rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- kg</span>
+                                        </div>
+
+                                        <!-- Phosphorus Gauge Card -->
+                                        <div style="background: rgba(255,255,255,0.45) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 14px !important; padding: 0.7rem 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 100px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
+                                            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, rgba(224, 64, 251, 0.12) 0%, rgba(106, 27, 154, 0.02) 100%); transition: height 0.5s ease-out;" id="bar-fert-p"></div>
+                                            <span style="font-size: 0.72rem; font-weight: 800; color: #6a1b9a !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Phosphorus (P)</span>
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #e040fb, #6a1b9a); color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 3px 6px rgba(106, 27, 154, 0.25);">P</div>
+                                            <span id="val-fert-p" style="font-size: 1.15rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- kg</span>
+                                        </div>
+
+                                        <!-- Potassium Gauge Card -->
+                                        <div style="background: rgba(255,255,255,0.45) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 14px !important; padding: 0.7rem 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 100px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
+                                            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, rgba(255, 179, 0, 0.12) 0%, rgba(255, 111, 0, 0.02) 100%); transition: height 0.5s ease-out;" id="bar-fert-k"></div>
+                                            <span style="font-size: 0.72rem; font-weight: 800; color: #ff6f00 !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Potassium (K)</span>
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #ffb300, #ff6f00); color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 3px 6px rgba(255, 111, 0, 0.25);">K</div>
+                                            <span id="val-fert-k" style="font-size: 1.15rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- kg</span>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Fertilizer Cards Deck -->
+                                    <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                                        
+                                        <!-- Urea Card -->
+                                        <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(255,255,255,0.55); padding: 0.7rem 1rem; border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.7); box-shadow: 0 3px 10px rgba(0,0,0,0.01); transition: all 0.3s ease; position: relative; overflow: hidden;" class="sample-card">
+                                            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, #00d2ff, #0066ff);"></div>
+                                            <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(0, 102, 255, 0.06); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">🧪</div>
+                                            <div style="flex: 1; min-width: 0;">
+                                                <div style="display: flex; align-items: center; gap: 6px;">
+                                                    <h5 style="margin: 0; font-size: 1rem; font-weight: 800; color: #000000 !important;">Urea</h5>
+                                                    <span style="font-size: 0.65rem; font-weight: 800; background: rgba(0, 102, 255, 0.08); color: #0066ff !important; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">46% N</span>
+                                                </div>
+                                                <p style="margin: 2px 0 0 0; font-size: 0.78rem; font-weight: 600; opacity: 0.8; line-height: 1.2;">Apply around root ring base collar in split wet schedule.</p>
+                                            </div>
+                                            <div style="text-align: right; min-width: 105px;">
+                                                <span style="display: block; font-size: 1.15rem; font-weight: 900; color: #0066ff !important; letter-spacing: -0.5px;" id="val-fert-urea">-- kg</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #000000 !important; opacity: 0.75;" id="val-bags-urea">-- Bags (50kg)</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- SSP Card -->
+                                        <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(255,255,255,0.55); padding: 0.7rem 1rem; border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.7); box-shadow: 0 3px 10px rgba(0,0,0,0.01); transition: all 0.3s ease; position: relative; overflow: hidden;" class="sample-card">
+                                            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, #e040fb, #6a1b9a);"></div>
+                                            <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(106, 27, 154, 0.06); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">🌱</div>
+                                            <div style="flex: 1; min-width: 0;">
+                                                <div style="display: flex; align-items: center; gap: 6px;">
+                                                    <h5 style="margin: 0; font-size: 1rem; font-weight: 800; color: #000000 !important;">SSP</h5>
+                                                    <span style="font-size: 0.65rem; font-weight: 800; background: rgba(106, 27, 154, 0.08); color: #6a1b9a !important; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">16% P</span>
+                                                </div>
+                                                <p style="margin: 2px 0 0 0; font-size: 0.78rem; font-weight: 600; opacity: 0.8; line-height: 1.2;">Incorporate deep inside corm zone for active root initiation.</p>
+                                            </div>
+                                            <div style="text-align: right; min-width: 105px;">
+                                                <span style="display: block; font-size: 1.15rem; font-weight: 900; color: #6a1b9a !important; letter-spacing: -0.5px;" id="val-fert-ssp">-- kg</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #000000 !important; opacity: 0.75;" id="val-bags-ssp">-- Bags (50kg)</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- MOP Card -->
+                                        <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(255,255,255,0.55); padding: 0.7rem 1rem; border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.7); box-shadow: 0 3px 10px rgba(0,0,0,0.01); transition: all 0.3s ease; position: relative; overflow: hidden;" class="sample-card">
+                                            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, #ffb300, #ff6f00);"></div>
+                                            <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(255, 111, 0, 0.06); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">🍌</div>
+                                            <div style="flex: 1; min-width: 0;">
+                                                <div style="display: flex; align-items: center; gap: 6px;">
+                                                    <h5 style="margin: 0; font-size: 1rem; font-weight: 800; color: #000000 !important;">MOP</h5>
+                                                    <span style="font-size: 0.65rem; font-weight: 800; background: rgba(255, 111, 0, 0.08); color: #ff6f00 !important; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">60% K</span>
+                                                </div>
+                                                <p style="margin: 2px 0 0 0; font-size: 0.78rem; font-weight: 600; opacity: 0.8; line-height: 1.2;">Essential Potassium feed to boost bunch shooting weight.</p>
+                                            </div>
+                                            <div style="text-align: right; min-width: 105px;">
+                                                <span style="display: block; font-size: 1.15rem; font-weight: 900; color: #ff6f00 !important; letter-spacing: -0.5px;" id="val-fert-mop">-- kg</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #000000 !important; opacity: 0.75;" id="val-bags-mop">-- Bags (50kg)</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Plantix Split Schedule Timeline -->
+                                    <div style="margin-top: 0.6rem; border-top: 1.5px solid rgba(0,0,0,0.06); padding-top: 0.8rem;">
+                                        <h5 style="font-size: 0.88rem; font-weight: 900; margin: 0 0 0.6rem 0; text-transform: uppercase; color: #1b5e20 !important; letter-spacing: 0.5px;">📅 Split Application Timeline (Per Plant Dosage)</h5>
+                                        
+                                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; position: relative;" class="split-timeline-grid">
+                                            
+                                            <!-- Connected Line Background for Desktop -->
+                                            <div style="position: absolute; top: 15px; left: 12.5%; right: 12.5%; height: 2px; background: rgba(46, 125, 50, 0.15); z-index: 1;" class="timeline-desktop-line"></div>
+                                            
+                                            <!-- Step 1 -->
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(46, 125, 50, 0.2);">1</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Basal Dose</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #1b5e20 !important; background: rgba(46, 125, 50, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(46, 125, 50, 0.12); white-space: nowrap;" id="lbl-split-1">--g/plant</span>
+                                            </div>
+
+                                            <!-- Step 2 -->
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(46, 125, 50, 0.2);">2</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Month 2</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #1b5e20 !important; background: rgba(46, 125, 50, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(46, 125, 50, 0.12); white-space: nowrap;" id="lbl-split-2">--g/plant</span>
+                                            </div>
+
+                                            <!-- Step 3 -->
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(46, 125, 50, 0.2);">3</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Month 4</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #1b5e20 !important; background: rgba(46, 125, 50, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(46, 125, 50, 0.12); white-space: nowrap;" id="lbl-split-3">--g/plant</span>
+                                            </div>
+
+                                            <!-- Step 4 -->
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(46, 125, 50, 0.2);">4</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Month 6</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #1b5e20 !important; background: rgba(46, 125, 50, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(46, 125, 50, 0.12); white-space: nowrap;" id="lbl-split-4">--g/plant</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div> <!-- closes Outputs Column -->
+                            </div> <!-- closes grid container -->
+                        </div> <!-- closes fertilizer-calc-view -->
+
+                        <!-- ==========================================
+                             2. PESTICIDE SPRAY CALCULATOR VIEW
+                             ========================================== -->
+                        <div id="pesticide-calc-view" style="display: none; width: 100%; box-sizing: border-box;">
+                            <div style="display: grid; grid-template-columns: 1fr 1.05fr; gap: 2.5rem; width: 100%; box-sizing: border-box;">
+                                
+                                <!-- Inputs Column -->
+                                <div style="display: flex; flex-direction: column; justify-content: space-between !important; height: 100% !important; min-height: 480px; box-sizing: border-box;">
+                                    <h4 style="font-size: 1.45rem; font-weight: 800; margin: 0; border-bottom: 1.5px solid rgba(0,0,0,0.08); padding-bottom: 0.8rem; text-transform: uppercase;">🔢 Spray Inputs</h4>
+                                    
+                                    <!-- AI Scanned Target Disease Card (Auto-filled from Scanner - Option A) -->
+                                    <div>
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">AI Scanned Target Disease</label>
+                                        <div id="target-disease-card" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.75); border: 2px solid rgba(46, 125, 50, 0.4); border-radius: 16px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; box-shadow: 0 6px 18px rgba(0,0,0,0.05);">
+                                            <div id="target-disease-icon" style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 900; flex-shrink: 0; box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);">🛡️</div>
+                                            <div style="flex: 1; min-width: 0;">
+                                                <div style="display: flex; align-items: center; gap: 8px;">
+                                                    <span style="font-size: 0.72rem; font-weight: 900; color: #1b5e20 !important; text-transform: uppercase; letter-spacing: 0.5px;">AI DIAGNOSED TARGET</span>
+                                                    <span id="lbl-target-disease-badge" style="font-size: 0.65rem; font-weight: 800; background: rgba(46, 125, 50, 0.12); color: #1b5e20; padding: 2px 6px; border-radius: 6px;">AUTO-FILLED FROM SCANNER</span>
+                                                </div>
+                                                <span id="lbl-target-disease-name" style="display: block; font-size: 1.2rem; font-weight: 900; color: #000000 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;">Black Sigatoka Leaf Spot (Propiconazole 25% EC)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sprayer Water Tank Capacity Pill Selector -->
+                                    <div>
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Sprayer Water Tank Capacity</label>
+                                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: rgba(0,0,0,0.03); padding: 8px; border-radius: 18px; border: 1px solid rgba(0,0,0,0.05);">
+                                            <button id="btn-tank-12" onclick="setTankCapacity(12)" class="tank-btn">12 L</button>
+                                            <button id="btn-tank-16" onclick="setTankCapacity(16)" class="tank-btn active">16 L</button>
+                                            <button id="btn-tank-20" onclick="setTankCapacity(20)" class="tank-btn">20 L</button>
+                                            <button id="btn-tank-200" onclick="setTankCapacity(200)" class="tank-btn">200 L</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Crops count input -->
+                                    <div>
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Number of Crops to Treat</label>
+                                        <input type="number" id="inp-pest-crops" value="500" min="1" max="10000000" oninput="calculatePesticide()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 14px; padding: 16px 20px; font-size: 1.25rem; font-weight: 700; color: #000000 !important;">
+                                    </div>
+
+                                    <!-- Crop Growth Phase for fluid rate calculation -->
+                                    <div>
+                                        <label style="display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;">Crop Stage (Spray Coverage Factor)</label>
+                                        <select id="sel-pest-stage" onchange="calculatePesticide()" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(0,0,0,0.15); border-radius: 14px; padding: 16px 20px; font-size: 1.2rem; font-weight: 700; color: #000000 !important; cursor: pointer;">
+                                            <option value="seedling">Seedling Stage (0.2 Liters / plant)</option>
+                                            <option value="vegetative" selected>Vegetative Stage (0.5 Liters / plant)</option>
+                                            <option value="flowering">Flowering Stage (0.6 Liters / plant)</option>
+                                            <option value="fruiting">Fruiting Stage (0.75 Liters / plant)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <!-- Outputs Column -->
+                                <div style="display: flex; flex-direction: column; gap: 0.8rem; background: rgba(255, 255, 255, 0.18) !important; backdrop-filter: blur(25px) !important; -webkit-backdrop-filter: blur(25px) !important; padding: 1.4rem; border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.45); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), inset 1px 1px 2px rgba(255,255,255,0.5); box-sizing: border-box; min-width: 0;">
+                                    
+                                    <!-- Header -->
+                                    <div style="border-bottom: 1.5px solid rgba(0,0,0,0.06); padding-bottom: 0.6rem; margin-bottom: 0.2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                                        <h4 style="font-size: 1.15rem; font-weight: 900; margin: 0; color: #1b5e20 !important; letter-spacing: 0.5px; text-transform: uppercase;">📊 Dilution & Sprayer Calculations</h4>
+                                    </div>
+
+                                    <!-- Futuristic Pesticide Visualizer Deck -->
+                                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 0.2rem;" class="ai-metrics-row">
+                                        
+                                        <!-- Dose Per Tank Card -->
+                                        <div style="background: rgba(255,255,255,0.45) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 14px !important; padding: 0.7rem 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 100px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
+                                            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, rgba(0, 203, 214, 0.12) 0%, rgba(0, 128, 128, 0.02) 100%); transition: height 0.5s ease-out;" id="bar-pest-dose"></div>
+                                            <span style="font-size: 0.72rem; font-weight: 800; color: #008080 !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Dose / Tank</span>
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080); color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 3px 6px rgba(0, 128, 128, 0.2);">D</div>
+                                            <span id="val-pest-dose-tank" style="font-size: 1.15rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- ml</span>
+                                            <span id="lbl-pest-dilution" style="font-size: 0.68rem; font-weight: 700; color: #008080 !important; opacity: 0.85; z-index: 2; margin-top: -2px;">(--)</span>
+                                        </div>
+
+                                        <!-- Sprayer Tanks Card -->
+                                        <div style="background: rgba(255,255,255,0.45) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 14px !important; padding: 0.7rem 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 100px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
+                                            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, rgba(179, 136, 255, 0.12) 0%, rgba(98, 0, 234, 0.02) 100%); transition: height 0.5s ease-out;" id="bar-pest-tanks"></div>
+                                            <span style="font-size: 0.72rem; font-weight: 800; color: #6200ea !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Sprayer Tanks</span>
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #b388ff, #6200ea); color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 3px 6px rgba(98, 0, 234, 0.2);">T</div>
+                                            <span id="val-pest-tanks" style="font-size: 1.15rem; font-weight: 900; color: #000000 !important; z-index: 2;">-- Tanks</span>
+                                        </div>
+
+                                        <!-- Safety Waiting PHI Card -->
+                                        <div style="background: rgba(255,255,255,0.45) !important; border: 1.5px solid rgba(255,255,255,0.5) !important; border-radius: 14px !important; padding: 0.7rem 0.5rem !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; min-height: 100px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.01) !important;" class="metric-item">
+                                            <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(180deg, rgba(211, 47, 47, 0.12) 0%, rgba(198, 40, 40, 0.02) 100%); transition: height 0.5s ease-out;" id="bar-pest-buy"></div>
+                                            <span style="font-size: 0.72rem; font-weight: 800; color: #d32f2f !important; letter-spacing: 0.5px; text-transform: uppercase; z-index: 2;">Safety PHI</span>
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #ff8a80, #d32f2f); color: white; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; z-index: 2; margin: 4px 0; box-shadow: 0 3px 6px rgba(211, 47, 47, 0.2);">P</div>
+                                            <span id="val-pest-phi" style="font-size: 1.15rem; font-weight: 900; color: #d32f2f !important; z-index: 2;">-- Days</span>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Detailed Chemical Product Card -->
+                                    <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(255,255,255,0.55); padding: 0.7rem 1rem; border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.7); box-shadow: 0 3px 10px rgba(0,0,0,0.01); transition: all 0.3s ease; position: relative; overflow: hidden;" class="sample-card">
+                                        <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, #00cbd6, #008080);" id="pest-border-color"></div>
+                                        <img id="img-pest-product" src="propiconazole.png" style="width: 36px; height: 36px; object-fit: contain; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.08));" alt="Product">
+                                        <div style="flex: 1; min-width: 0; margin-left: 0.2rem;">
+                                            <div style="display: flex; align-items: center; gap: 6px;">
+                                                <h5 id="lbl-pest-name" style="margin: 0; font-size: 1rem; font-weight: 800; color: #000000 !important;">Propiconazole 25% EC</h5>
+                                                <span id="lbl-pest-type" style="font-size: 0.65rem; font-weight: 800; background: rgba(0, 102, 255, 0.08); color: #0066ff !important; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">Foliar Systemic Fungicide</span>
+                                            </div>
+                                            <p id="lbl-pest-safety" style="margin: 2px 0 0 0; font-size: 0.78rem; font-weight: 600; opacity: 0.8; line-height: 1.2;">Wear gloves. Spray undersides of leaves thoroughly.</p>
+                                        </div>
+                                        <div style="text-align: right; min-width: 105px;">
+                                            <span style="display: block; font-size: 1.15rem; font-weight: 900; color: #008080 !important; letter-spacing: -0.5px;" id="val-pest-buy">-- ml</span>
+                                            <span style="font-size: 0.78rem; font-weight: 800; color: #000000 !important; opacity: 0.75;" id="val-pest-total-fluid">-- L total</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Precision Spray Protocol Timeline -->
+                                    <div style="margin-top: 0.6rem; border-top: 1.5px solid rgba(0,0,0,0.06); padding-top: 0.8rem;">
+                                        <h5 style="font-size: 0.88rem; font-weight: 900; margin: 0 0 0.6rem 0; text-transform: uppercase; color: #0066ff !important; letter-spacing: 0.5px;">📅 Precision Spray Protocol Timeline</h5>
+                                        
+                                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; position: relative;" class="split-timeline-grid">
+                                            
+                                            <!-- Connected Line Background for Desktop -->
+                                            <div style="position: absolute; top: 15px; left: 12.5%; right: 12.5%; height: 2px; background: rgba(0, 102, 255, 0.15); z-index: 1;" class="timeline-desktop-line"></div>
+                                            
+                                            <!-- Step 1 -->
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(0, 128, 128, 0.2);">1</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Weather Check</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #008080 !important; background: rgba(0, 128, 128, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(0, 128, 128, 0.12); white-space: nowrap;">Wind &lt; 10km/h</span>
+                                            </div>
+
+                                            <!-- Step 2 -->
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(0, 128, 128, 0.2);">2</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Dilution Mix</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #008080 !important; background: rgba(0, 128, 128, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(0, 128, 128, 0.12); white-space: nowrap;" id="lbl-pest-step-dilution">-- ml/L</span>
+                                            </div>
+
+                                            <!-- Step 3 -->
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(0, 128, 128, 0.2);">3</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Spray Method</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #008080 !important; background: rgba(0, 128, 128, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(0, 128, 128, 0.12); white-space: nowrap;">Leaf Underside</span>
+                                            </div>
+
+                                            <!-- Step 4 -->
+                                            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 2; background: rgba(255,255,255,0.45); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px; padding: 0.5rem 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.01); transition: all 0.3s ease;" class="step-card">
+                                                <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #00cbd6, #008080) !important; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 900; margin-bottom: 4px; box-shadow: 0 1px 4px rgba(0, 128, 128, 0.2);">4</div>
+                                                <span style="font-size: 0.75rem; font-weight: 800; color: #111111 !important; display: block; margin-bottom: 2px;">Harvest Safety</span>
+                                                <span style="font-size: 0.78rem; font-weight: 800; color: #d32f2f !important; background: rgba(211, 47, 47, 0.06); padding: 2px 6px; border-radius: 8px; border: 1px solid rgba(211, 47, 47, 0.12); white-space: nowrap;" id="lbl-pest-step-phi">-- Days PHI</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div> <!-- closes Outputs Column -->
+                            </div> <!-- closes grid container -->
+                        </div> <!-- closes pesticide-calc-view -->
+                    </div>
+                </div> <!-- Closes #nutrient-care-view -->
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="translations.js"></script>
+    <script src="hub_features_translations.js"></script>
+    <script src="pest_watch_guidance.js?v=300"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>
+
+
+
