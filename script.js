@@ -466,6 +466,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log("🔥 Official Firebase Password Reset Email sent to:", email);
                 } catch (fbErr) {
                     console.warn("Firebase Auth reset notice:", fbErr.code || fbErr.message);
+                    if (fbErr.code === 'auth/user-not-found' || (fbErr.message && fbErr.message.includes('user-not-found'))) {
+                        try {
+                            await auth.createUserWithEmailAndPassword(email, "ResetTemp@123456");
+                            await auth.sendPasswordResetEmail(email);
+                            console.log("🔥 Account registered and Firebase Reset Email sent to:", email);
+                        } catch (createErr) {
+                            console.warn("Auto-creation notice:", createErr.message);
+                        }
+                    }
                 }
             }
 
@@ -484,6 +493,61 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Instant In-App Reset Handler
+    const instantPassBtn = document.getElementById('btnInstantSetPass');
+    const instantPassInput = document.getElementById('fp-new-pass');
+    const instantStatus = document.getElementById('fp-instant-status');
+
+    if (instantPassBtn && instantPassInput) {
+        instantPassBtn.addEventListener('click', async () => {
+            const newPass = instantPassInput.value.trim();
+            if (!newPass || newPass.length < 6) {
+                if (instantStatus) {
+                    instantStatus.textContent = '❌ Please enter a new password of at least 6 characters.';
+                    instantStatus.style.color = '#d32f2f';
+                    instantStatus.style.display = 'block';
+                }
+                return;
+            }
+
+            instantPassBtn.textContent = 'Saving New Password...';
+            instantPassBtn.disabled = true;
+
+            const dbUsers = getUsersDB();
+            if (!dbUsers[currentResetEmail]) {
+                dbUsers[currentResetEmail] = {
+                    name: currentResetEmail.split('@')[0] || "Farmer Partner",
+                    email: currentResetEmail,
+                    farmSize: "10.0",
+                    soilType: "red",
+                    state: "Tamil Nadu"
+                };
+            }
+            dbUsers[currentResetEmail].password = newPass;
+            saveUserDB(dbUsers);
+
+            if (typeof auth !== 'undefined' && auth && auth.currentUser) {
+                try {
+                    await auth.currentUser.updatePassword(newPass);
+                } catch(e) {
+                    console.warn("Firebase updatePassword notice:", e.message);
+                }
+            }
+
+            window.setMicrosunSession(dbUsers[currentResetEmail]);
+
+            if (instantStatus) {
+                instantStatus.textContent = '✅ New Password Saved! Signing in...';
+                instantStatus.style.color = '#2e7d32';
+                instantStatus.style.display = 'block';
+            }
+
+            setTimeout(() => {
+                window.location.href = 'welcome.html';
+            }, 600);
+        });
+    }
+
     // Resend Email via Firebase
     if (resendBtn) {
         resendBtn.addEventListener('click', async (e) => {
@@ -499,6 +563,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log("🔥 Resent Firebase reset email to:", currentResetEmail);
                 } catch (err) {
                     console.warn("Resend email notice:", err.message);
+                    if (err.code === 'auth/user-not-found' || (err.message && err.message.includes('user-not-found'))) {
+                        try {
+                            await auth.createUserWithEmailAndPassword(currentResetEmail, "ResetTemp@123456");
+                            await auth.sendPasswordResetEmail(currentResetEmail);
+                        } catch(e) {}
+                    }
                 }
             }
 
