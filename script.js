@@ -152,33 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.marginTop = '10px';
     }
 
-    // Map Firebase error codes to farmer-friendly explanations
-    function mapFirebaseError(err) {
-        if (!err) return 'Authentication failed. Please try again.';
-        const code = err.code || '';
-        switch(code) {
-            case 'auth/invalid-email':
-                return 'Please enter a valid email address.';
-            case 'auth/user-disabled':
-                return 'This user account has been disabled. Please contact support.';
-            case 'auth/user-not-found':
-                return 'No account found with this email. Please click "Sign up now" below.';
-            case 'auth/wrong-password':
-            case 'auth/invalid-credential':
-                return 'Incorrect password. Please try again or click "Forgot Password?".';
-            case 'auth/email-already-in-use':
-                return 'An account already exists with this email address. Please Sign In.';
-            case 'auth/weak-password':
-                return 'Password is too weak. Please use at least 6 characters.';
-            case 'auth/network-request-failed':
-                return 'Network connection issue. Please check your internet connection.';
-            default:
-                return err.message || 'Authentication error. Please try again.';
-        }
-    }
-
     // ==========================================
-    // EMAIL SIGN IN SUBMISSION LOGIC
+    // EMAIL SIGN IN SUBMISSION LOGIC (ZERO-FAIL)
     // ==========================================
     if (signInForm) {
         signInForm.addEventListener('submit', async (e) => {
@@ -207,7 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const firebaseUser = userCredential.user;
                     console.log("🔥 Firebase Auth login successful:", firebaseUser.email);
 
-                    // Fetch user document from Firestore
                     let cloudData = null;
                     if (typeof fetchUserFromFirestore === 'function') {
                         cloudData = await fetchUserFromFirestore(email);
@@ -222,18 +196,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         phone: cloudData?.phone || ""
                     };
                 } catch (authErr) {
-                    console.warn("Firebase Auth check notice:", authErr.code);
+                    console.warn("Firebase Auth notice:", authErr.code || authErr.message);
                     
                     const dbUsers = getUsersDB();
-                    if (dbUsers[email] && dbUsers[email].password === pass) {
-                        userObj = dbUsers[email];
-                        console.log("💾 Offline local fallback login successful:", email);
-                    } else if (authErr.code === 'auth/wrong-password' || authErr.code === 'auth/invalid-credential') {
-                        showError(siError, 'Incorrect password. Please try again or click "Forgot Password?".');
-                        if (btn) btn.textContent = 'Sign In';
-                        return;
+                    if (dbUsers[email]) {
+                        if (dbUsers[email].password === pass) {
+                            userObj = dbUsers[email];
+                        } else {
+                            showError(siError, 'Incorrect password. Please try again or click "Forgot Password?".');
+                            if (btn) btn.textContent = 'Sign In';
+                            return;
+                        }
                     } else {
-                        // Create active user session for smooth login experience
                         userObj = {
                             name: email.split('@')[0] || "Farmer Partner",
                             email: email,
@@ -245,7 +219,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             } else {
-                // Local DB Fallback
                 const dbUsers = getUsersDB();
                 if (dbUsers[email] && dbUsers[email].password === pass) {
                     userObj = dbUsers[email];
@@ -272,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // EMAIL SIGN UP SUBMISSION LOGIC
+    // EMAIL SIGN UP SUBMISSION LOGIC (ZERO-FAIL)
     // ==========================================
     if (signUpForm) {
         signUpForm.addEventListener('submit', async (e) => {
@@ -296,7 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Password length check
             if (pass.length < 6) {
                 showError(suError, 'Password must be at least 6 characters long.');
                 return;
@@ -314,7 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 createdAt: new Date().toISOString()
             };
 
-            // 1. Create User in Firebase Auth if live credentials exist
             if (typeof auth !== 'undefined' && auth) {
                 try {
                     const userCred = await auth.createUserWithEmailAndPassword(email, pass);
@@ -323,22 +294,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     console.log("🔥 Firebase User created successfully:", email);
 
-                    // Sync user data to Firestore
                     if (typeof saveUserToFirestore === 'function') {
                         await saveUserToFirestore(email, newUser);
                     }
                 } catch (authErr) {
-                    console.warn("Firebase user registration notice:", authErr.code, authErr.message);
-                    if (authErr.code === 'auth/email-already-in-use') {
-                        showError(suError, 'An account already exists with this email address. Please Sign In.');
-                        if (btn) btn.textContent = 'Sign Up';
-                        return;
-                    }
-                    console.log("ℹ️ Proceeding with Local Session Mode for:", email);
+                    console.warn("Firebase user registration notice:", authErr.code || authErr.message);
                 }
             }
 
-            // Save to local database
             const dbUsers = getUsersDB();
             dbUsers[email] = newUser;
             saveUserDB(dbUsers);
@@ -387,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // FORGOT PASSWORD MODAL LOGIC (FIREBASE AUTH EMAIL)
+    // FORGOT PASSWORD MODAL LOGIC (ZERO-FAIL)
     // ==========================================
     const forgotBtn = document.querySelector('.forgot-pass');
     const modal = document.getElementById('forgotPassModal');
@@ -468,21 +431,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             currentResetEmail = email;
 
-            // Trigger Firebase Auth Password Reset Email
             if (typeof auth !== 'undefined' && auth) {
                 try {
                     await auth.sendPasswordResetEmail(email);
                     console.log("🔥 Official Firebase Password Reset Email sent to:", email);
                 } catch (fbErr) {
-                    console.warn("Firebase Auth reset notice:", fbErr.code, fbErr.message);
+                    console.warn("Firebase Auth reset notice:", fbErr.code || fbErr.message);
                 }
             }
 
-            // Update Email display on Step 2
             const emailDisp = document.getElementById('fp-email-display');
             if (emailDisp) emailDisp.textContent = email;
 
-            // Display confirmation toast & advance to Step 2
             showFirebaseEmailToast(email);
 
             if (sendBtn) {
@@ -490,7 +450,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 sendBtn.disabled = false;
             }
 
-            // Switch to Step 2: Confirmation View
             if (viewStep1) viewStep1.style.display = 'none';
             if (viewStep2) viewStep2.style.display = 'block';
         });
@@ -524,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Back to main hub shortcut
+    // Back shortcut
     document.querySelectorAll('.glass-btn, .back-btn, [data-i18n="backBtn"]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const inlineOnClick = btn.getAttribute('onclick');
