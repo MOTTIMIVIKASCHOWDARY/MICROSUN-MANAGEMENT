@@ -180,16 +180,21 @@
         </div>
     </div>
 
-    <!-- Firebase SDK (Compat Version so it works without Node.js) -->
+    <!-- Auto-purge any stale demo key from browser localStorage -->
+    <script>
+        if (typeof localStorage !== 'undefined' && (localStorage.getItem('firebase_api_key') === 'DEMO_KEY' || (localStorage.getItem('firebase_api_key') && localStorage.getItem('firebase_api_key').length < 20))) {
+            localStorage.removeItem('firebase_api_key');
+        }
+    </script>
+
+    <!-- Firebase SDK (Compat Version) -->
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
 
-    <!-- Your Firebase Config -->
-    <script src="firebase-config.js"></script>
-
-    <!-- Your App Scripts -->
-    <script src="translations.js"></script>
-    <script src="script.js"></script>
+    <!-- Your Firebase Config & App Scripts with Cache-Busting -->
+    <script src="firebase-config.js?v=2.0"></script>
+    <script src="translations.js?v=2.0"></script>
+    <script src="script.js?v=2.0"></script>
 </body>
 </html>
