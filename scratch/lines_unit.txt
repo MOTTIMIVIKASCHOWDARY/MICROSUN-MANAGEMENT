@@ -1,2 +1,0 @@
-﻿    "optUnitAcre": "/ acre",
-    "optUnitAcre": "/ एकड़",

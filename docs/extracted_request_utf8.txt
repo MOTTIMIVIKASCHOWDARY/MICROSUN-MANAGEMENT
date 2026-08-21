@@ -1,0 +1,31 @@
+﻿<USER_REQUEST>
+// useWeather.js
+// Uses OpenWeatherMap API (your key) + exact GPS â†’ live weather + nearby regions
+
+import { useState, useCallback } from "react";
+
+const OWM = "https://api.openweathermap.org/data/2.5";
+
+function distKm(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) ** 2;
+  return +(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))).toFixed(1);
+}
+
+function fmtTime(unix, offsetSec) {
+  const d = new Date((unix + offsetSec) * 1000);
+  let h = d.getUTCHours(), m = d.getUTCMinutes();
+  const ap = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+  return `${h}:${String(m).padStart(2, "0")} ${ap}`;
+}
+
+function degToDir(deg) {
+  const dirs = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+<truncated 7093 bytes>
