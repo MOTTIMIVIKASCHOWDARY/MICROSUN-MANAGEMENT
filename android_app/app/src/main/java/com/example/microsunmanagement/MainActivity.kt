@@ -56,15 +56,15 @@ class MainActivity : AppCompatActivity() {
             javaScriptEnabled = true
             domStorageEnabled = true
             databaseEnabled = true
-            allowFileAccess = true
-            allowContentAccess = true
+            allowFileAccess = false
+            allowContentAccess = false
             useWideViewPort = false
             loadWithOverviewMode = false
             textZoom = 100
             mediaPlaybackRequiresUserGesture = false
-            mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-            javaScriptCanOpenWindowsAutomatically = true
-            setSupportMultipleWindows(true)
+            mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW
+            javaScriptCanOpenWindowsAutomatically = false
+            setSupportMultipleWindows(false)
 
             // Standard Mobile User-Agent allows Google OAuth to work inside Android WebView
             val currentUa = userAgentString
