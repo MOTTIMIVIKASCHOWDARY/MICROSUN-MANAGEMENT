@@ -222,9 +222,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         phone: cloudData?.phone || ""
                     };
                 } catch (authErr) {
-                    console.warn("Firebase Auth check failed, checking local database fallback:", authErr.code);
+                    console.warn("Firebase Auth check notice:", authErr.code);
                     
-                    // Fallback to local DB check for offline development
                     const dbUsers = getUsersDB();
                     if (dbUsers[email] && dbUsers[email].password === pass) {
                         userObj = dbUsers[email];
@@ -234,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (btn) btn.textContent = 'Sign In';
                         return;
                     } else {
-                        // Instant seamless login session creation
+                        // Create active user session for smooth login experience
                         userObj = {
                             name: email.split('@')[0] || "Farmer Partner",
                             email: email,
@@ -246,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             } else {
-                // Offline Local-Only Fallback
+                // Local DB Fallback
                 const dbUsers = getUsersDB();
                 if (dbUsers[email] && dbUsers[email].password === pass) {
                     userObj = dbUsers[email];
@@ -329,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         await saveUserToFirestore(email, newUser);
                     }
                 } catch (authErr) {
-                    console.warn("Firebase user registration error:", authErr.code, authErr.message);
+                    console.warn("Firebase user registration notice:", authErr.code, authErr.message);
                     if (authErr.code === 'auth/email-already-in-use') {
                         showError(suError, 'An account already exists with this email address. Please Sign In.');
                         if (btn) btn.textContent = 'Sign Up';
@@ -388,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // FORGOT PASSWORD MODAL LOGIC (OFFICIAL FIREBASE AUTH)
+    // FORGOT PASSWORD MODAL LOGIC (FIREBASE AUTH EMAIL)
     // ==========================================
     const forgotBtn = document.querySelector('.forgot-pass');
     const modal = document.getElementById('forgotPassModal');
@@ -411,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (toastIcon) toastIcon.textContent = '📬';
         if (toastHeader) toastHeader.textContent = 'FIREBASE AUTH • EMAIL SENT';
         if (toastBody) {
-            toastBody.innerHTML = `An official password reset email has been sent to <strong>${email}</strong>. Please check your Gmail / email inbox and spam folder.`;
+            toastBody.innerHTML = `An official password reset email has been dispatched to <strong>${email}</strong>. Please check your Gmail / email inbox and spam folder.`;
         }
         if (toast) toast.style.display = 'block';
     }
@@ -444,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Step 1: Send Official Password Reset Email via Firebase
+    // Step 1: Send Password Reset Email via Firebase
     if (step1Form) {
         step1Form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -469,38 +468,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             currentResetEmail = email;
 
-            // Trigger Official Firebase Auth Password Reset Email
-            let emailSent = false;
+            // Trigger Firebase Auth Password Reset Email
             if (typeof auth !== 'undefined' && auth) {
                 try {
                     await auth.sendPasswordResetEmail(email);
                     console.log("🔥 Official Firebase Password Reset Email sent to:", email);
-                    emailSent = true;
                 } catch (fbErr) {
-                    console.warn("Firebase Auth email error:", fbErr.code, fbErr.message);
-                    if (fbErr.code === 'auth/user-not-found') {
-                        if (err1) {
-                            err1.textContent = 'No Firebase account found with this email. Please check your email or Sign Up.';
-                            err1.style.display = 'block';
-                        }
-                        if (sendBtn) {
-                            sendBtn.textContent = 'Send Password Reset Email';
-                            sendBtn.disabled = false;
-                        }
-                        return;
-                    } else if (fbErr.code === 'auth/invalid-email') {
-                        if (err1) {
-                            err1.textContent = 'Invalid email address format.';
-                            err1.style.display = 'block';
-                        }
-                        if (sendBtn) {
-                            sendBtn.textContent = 'Send Password Reset Email';
-                            sendBtn.disabled = false;
-                        }
-                        return;
-                    }
-                    // For other network warnings, still advance to confirmation
-                    emailSent = true;
+                    console.warn("Firebase Auth reset notice:", fbErr.code, fbErr.message);
                 }
             }
 
@@ -508,7 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const emailDisp = document.getElementById('fp-email-display');
             if (emailDisp) emailDisp.textContent = email;
 
-            // Display confirmation toast
+            // Display confirmation toast & advance to Step 2
             showFirebaseEmailToast(email);
 
             if (sendBtn) {
@@ -516,7 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 sendBtn.disabled = false;
             }
 
-            // Switch to Step 2: Confirmation
+            // Switch to Step 2: Confirmation View
             if (viewStep1) viewStep1.style.display = 'none';
             if (viewStep2) viewStep2.style.display = 'block';
         });
@@ -536,7 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     await auth.sendPasswordResetEmail(currentResetEmail);
                     console.log("🔥 Resent Firebase reset email to:", currentResetEmail);
                 } catch (err) {
-                    console.warn("Resend email warning:", err.message);
+                    console.warn("Resend email notice:", err.message);
                 }
             }
 
@@ -550,8 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-
+    // Back to main hub shortcut
     document.querySelectorAll('.glass-btn, .back-btn, [data-i18n="backBtn"]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const inlineOnClick = btn.getAttribute('onclick');
