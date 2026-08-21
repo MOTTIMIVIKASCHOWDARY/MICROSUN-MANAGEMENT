@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKY INTEL AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <!-- Import main style for fonts and base -->
+    <link rel="stylesheet" href="climate_risk.css">
+    <script>
+        function cleanSingleVarietyName(str) {
+            if (!str) return 'GRAND NAINE (G9)';
+            let clean = str.replace(/<[^>]*>/g, ' ').replace(/^(crop|selected variety|selected crop):\s*/i, '');
+            let parts = clean.split(/(?:CROP:|Crop:|Selected variety:|Selected crop:|[\n\r,])/i);
+            let first = parts[0] ? parts[0].trim() : 'GRAND NAINE (G9)';
+            return first.replace(/^(crop|selected variety|selected crop):\s*/i, '').trim() || 'GRAND NAINE (G9)';
+        }
+        (function() {
+            try {
+                let name = localStorage.getItem('microsun_selected_variant_name');
+                if (name) {
+                    let clean = cleanSingleVarietyName(name);
+                    localStorage.setItem('microsun_selected_variant_name', clean);
+                }
+            } catch(e) {}
+        })();
+    </script>
+</head>
+<body>
+    <div class="bg-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background: url('bg.png') no-repeat center center/cover; z-index:-1;"></div>
+
+    <!-- Top Bar & Menu Controls -->
+    <button id="menuToggle" class="hamburger-btn">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </button>
+
+
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <div class="layout-wrapper">
+        <!-- Sidebar -->
+        <aside id="mainSidebar" class="sidebar">
+            <div class="sidebar-header" data-i18n="appTitle">MICROSUN MANAGEMENT</div>
+            <ul class="menu-list">
+                <li class="menu-item" onclick="window.location.href='dashboard.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🌱</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_new_crop">PLANTER AI</span>
+                </li>
+                <li class="menu-item active" onclick="window.location.href='climate_risk.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">⛅</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_weather">SKY INTEL AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='renting.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🚜</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_equipment">RENTROX AI</span>
+                </li>
+
+                <li class="menu-item has-submenu" id="bananaArmorToggle" onclick="window.location.href='pest_watch_guidance.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🍌</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_banana_armor">BANANA ARMOR AI</span>
+                </li>
+                <ul class="submenu-list" id="bananaArmorSubmenu" style="display: none;">
+                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=pest-watch'">
+                        <span class="submenu-icon">🐛</span>
+                        <span data-i18n="submenu_pest_watch">Pest Watch</span>
+                    </li>
+                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=disease-scan'">
+                        <span class="submenu-icon">🦠</span>
+                        <span data-i18n="submenu_disease_scan">Disease Scan</span>
+                    </li>
+                    <li class="submenu-item" onclick="window.location.href='pest_watch_guidance.html?view=nutrient-care'">
+                        <span class="submenu-icon">🌱</span>
+                        <span data-i18n="submenu_nutrient_care">Nutrient Care</span>
+                    </li>
+                </ul>
+
+                <li class="menu-item" onclick="window.location.href='analytics.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📉</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_expense">YEXA AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='market.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">💰</span></div>
+                    <span class="menu-text notranslate" translate="no" data-i18n="menu_market">MARKETX AI</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='b2c_selling.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">📦</span></div>
+                    <span class="menu-text" data-i18n="menu_direct">B2C Produce Selling</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='profile.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">👤</span></div>
+                    <span class="menu-text" data-i18n="menu_profile">User Profile</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='main_hub.html'">
+                    <div class="menu-icon-circle"><span style="font-size: 1.8rem;">🏠</span></div>
+                    <span class="menu-text" data-i18n="menu_back_hub">Back to Main Hub</span>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar" style="padding: 10px 20px; display: flex; justify-content: flex-end; align-items: center;">
+            </header>
+            <div class="search-bar-wrapper">
+                        <input type="text" id="citySearch" placeholder="Search city..." class="search-input">
+                        <button id="searchBtn" class="icon-btn search-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </button>
+                        <button id="locBtn" class="icon-btn loc-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M2 12h4"></path><path d="M18 12h4"></path><circle cx="12" cy="12" r="4"></circle></svg>
+                        </button>
+                    </div>
+                    <div class="dashboard-container">
+            
+            <div class="left-column">
+                <!-- Main Weather Widget -->
+                <div class="weather-widget dark-glass">
+                    <div class="widget-header">
+                        <div class="location-pill dark-pill" style="align-items: flex-start; gap: 10px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 2px; color: var(--banana-yellow, #FBC02D);"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2;">
+                                <span style="font-size: 0.75rem; color: rgba(0,0,0,0.5); text-transform: uppercase; letter-spacing: 0.5px;">Current Location</span>
+                                <span id="loc-text" style="font-weight: 600; font-size: 1.15rem; color: #1A1A1A;">Locating...</span>
+                            </div>
+                        </div>
+                        <div class="unit-toggle dark-pill" id="unit-toggle" style="position: relative;">
+                            <span id="unit-label">°C</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            
+                            <!-- Dropdown Options -->
+                            <div id="unit-dropdown" class="dark-dropdown" style="display: none;">
+                                <div class="unit-option" data-unit="c">°C (Celsius)</div>
+                                <div class="unit-option" data-unit="f" style="border-top: 1px solid rgba(255,255,255,0.1);">°F (Fahrenheit)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="date-col">
+                            <h2 id="day-text">--</h2>
+                            <p id="date-text">--</p>
+                        </div>
+                        
+                        <div class="icon-col">
+                            <img id="weather-icon" src="https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Sun%20behind%20cloud/3D/sun_behind_cloud_3d.png" alt="Weather Icon">
+                        </div>
+
+                        <div class="temp-col">
+                            <div class="current-temp"><span id="temp-value">--</span><span class="degree">°C</span></div>
+                            <div class="min-max">/<span id="min-max-value">--°C</span></div>
+                            <div class="condition" id="condition-text">Loading...</div>
+                            <div class="feels-like">Feels like <span id="feels-like-value">--°</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nearby Regions Widget -->
+                <div class="nearby-widget dark-glass">
+                    <div class="widget-title-row">
+                        <h3>Other Regions</h3>
+                    </div>
+                    <div class="nearby-list" id="nearby-list">
+                        <div class="loading-text">Finding nearby regions...</div>
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <!-- Today's Highlight -->
+                <div class="highlight-widget dark-glass">
+                    <h3>Today's Highlight</h3>
+                    <div class="highlight-grid">
+                        <div class="highlight-card">
+                            <div class="h-title">Wind Status</div>
+                            <div class="h-value"><span id="wind-val">--</span> <span class="h-unit">km/h</span></div>
+                            <div class="h-desc" id="wind-desc">--</div>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="h-title">Humidity</div>
+                            <div class="h-value"><span id="humidity-val">--</span> <span class="h-unit">%</span></div>
+                            <div class="h-desc" id="humidity-desc">--</div>
+                        </div>
+                        <div class="highlight-card sun-card">
+                            <div class="sun-item">
+                                <img 
+                                    src="https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Sunrise%20over%20mountains/3D/sunrise_over_mountains_3d.png" 
+                                    alt="Sunrise"
+                                    onerror="this.src='https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Sun/3D/sun_3d.png'"
+                                    style="width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(251,192,45,0.5));">
+                                <div>
+                                    <div class="sun-label">Sunrise</div>
+                                    <div class="sun-time" id="sunrise-val">--:--</div>
+                                </div>
+                            </div>
+                            <div class="sun-item">
+                                <img 
+                                    src="https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Sunset/3D/sunset_3d.png" 
+                                    alt="Sunset"
+                                    onerror="this.src='https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Sun%20behind%20horizon/3D/sun_behind_horizon_3d.png'"
+                                    style="width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(255,120,0,0.5));">
+                                <div>
+                                    <div class="sun-label">Sunset</div>
+                                    <div class="sun-time" id="sunset-val">--:--</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="h-title">UV Index</div>
+                            <div class="h-value"><span id="uv-val">--</span> <span class="h-unit">uv</span></div>
+                            <div class="h-desc" id="uv-desc">--</div>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="h-title">Visibility</div>
+                            <div class="h-value"><span id="vis-val">--</span> <span class="h-unit">km</span></div>
+                            <div class="h-desc" id="vis-desc">--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7 Day Forecast -->
+                <div class="forecast-widget dark-glass">
+                    <h3>7 Day Forecast</h3>
+                    <div class="forecast-grid" id="forecast-grid">
+                        <div class="loading-text">Loading forecast...</div>
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
+
+            <!-- Best Widget: Growth Stage Intelligence -->
+            <style>
+                .agri-intel-grid .intel-card * {
+                    color: #000000 !important;
+                }
+                .intel-single-line-info {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background: rgba(255,255,255,0.4);
+                    padding: 25px 40px;
+                    border-radius: 20px;
+                    border: 1px solid rgba(255,255,255,0.7);
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+                    margin-bottom: 40px;
+                }
+                .info-block {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                    gap: 8px;
+                    flex: 1;
+                }
+                .info-block.divider {
+                    border-right: 1px solid rgba(0,0,0,0.1);
+                }
+                .info-label {
+                    font-size: 0.95rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    opacity: 0.6;
+                }
+                .info-val {
+                    font-size: 1.6rem;
+                    font-weight: 800;
+                }
+                .suit-val-large {
+                    font-size: 2.8rem;
+                    font-weight: 800;
+                    line-height: 1;
+                }
+                .intel-visual-center {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 30px;
+                }
+                .intel-visual-center img {
+                    max-height: 280px;
+                    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.2));
+                    transition: transform 0.4s;
+                    border-radius: 15px;
+                }
+                .intel-visual-center img:hover {
+                    transform: scale(1.05);
+                }
+                .intel-actions-grid {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 20px;
+                }
+                .action-card-modern {
+                    background: rgba(255, 255, 255, 0.4);
+                    border: 1px solid rgba(255, 255, 255, 0.7);
+                    border-radius: 18px;
+                    padding: 25px 20px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+                .action-card-modern:hover {
+                    background: rgba(255, 255, 255, 0.8);
+                    transform: translateY(-8px);
+                    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+                }
+                .ac-icon {
+                    font-size: 2.5rem;
+                    margin-bottom: 12px;
+                }
+                .ac-title {
+                    font-size: 1rem;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    opacity: 0.7;
+                    margin-bottom: 8px;
+                }
+                .ac-value {
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                }
+            </style>
+            <div class="agri-intel-grid" style="margin-top: 30px; margin-bottom: 50px;">
+                <div class="intel-card dark-glass" style="max-width: 1550px; margin: 0 auto; display: block; color: #000000; padding: 40px 50px;">
+                    
+                    <!-- Centered Header -->
+                    <div class="intel-header" style="display: flex; justify-content: center; align-items: center; gap: 20px; border-bottom: 2px solid rgba(0,0,0,0.1); padding-bottom: 20px; margin-bottom: 30px;">
+                        <h2 style="margin:0; font-size: 2rem; font-weight: 800; letter-spacing: -0.5px;">Growth Stage Intelligence</h2>
+                        <div class="stage-badge" style="background: #1A1A1A; color: #FFF !important; padding: 10px 20px; border-radius: 25px; font-weight: 700; font-size: 1rem; letter-spacing: 0.5px;">Current Stage</div>
+                        <div class="stage-badge" id="selected-variant-badge" style="background: var(--banana-yellow, #FBC02D); color: #1A1A1A !important; padding: 10px 20px; border-radius: 25px; font-weight: 700; font-size: 1rem; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 380px; display: none;"></div>
+                    </div>
+                    
+                    <!-- Single Line Info Banner -->
+                    <div class="intel-single-line-info">
+                        <div class="info-block divider">
+                            <div class="info-label">Detected Phase</div>
+                            <div id="stage-display" class="info-val">Seedling (0-5 weeks)</div>
+                        </div>
+                        
+                        <div class="info-block divider" style="flex: 1.5; padding: 0 30px;">
+                            <div class="info-label">Climate Suitability</div>
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; width: 100%;">
+                                <span id="suit-val" class="suit-val-large">63%</span>
+                                <div style="width: 200px; height: 14px; background: rgba(0,0,0,0.1); border-radius: 7px; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);">
+                                    <div id="suit-bar" style="width: 63%; height: 100%; background: linear-gradient(90deg, #4CAF50, #8BC34A); border-radius: 7px; transition: width 1s ease-in-out;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-block">
+                            <div class="info-label">Expected Harvest</div>
+                            <div id="harvest-days" class="info-val" style="color: #2E7D32;">In 365 Days</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom Section: Image & Actions -->
+                    <div style="display: grid; grid-template-columns: 1fr 2.5fr; gap: 40px; align-items: center;">
+                        <div class="intel-visual-center">
+                            <img src="banana_vegetative.png" alt="Banana Plant" id="stage-img">
+                        </div>
+                        
+                        <div class="intel-actions-grid">
+                            <div class="action-card-modern">
+                                <div class="ac-icon">💧</div>
+                                <div class="ac-title">Irrigation</div>
+                                <div class="ac-value" id="action-water">4-6 L/Plant</div>
+                            </div>
+                            <div class="action-card-modern">
+                                <div class="ac-icon">🧪</div>
+                                <div class="ac-title">Nutrition</div>
+                                <div class="ac-value" id="action-fert">NPK (50g)</div>
+                            </div>
+                            <div class="action-card-modern">
+                                <div class="ac-icon">🚜</div>
+                                <div class="ac-title">Farm Task</div>
+                                <div class="ac-value" id="action-ops">Weeding</div>
+                            </div>
+                            <div class="action-card-modern">
+                                <div class="ac-icon">🐛</div>
+                                <div class="ac-title">Pest Risk</div>
+                                <div class="ac-value" id="action-pest">Scout Aphids</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+
+    <!-- Firebase SDK (Compat Version so it works without Node.js) -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+
+    <!-- Your Firebase Config -->
+    <script src="firebase-config.js"></script>
+
+    <!-- Your App Translations -->
+    <script src="translations.js"></script>
+    <script src="dashboard_translations.js"></script>
+
+    <script src="climate_risk.js?v=22"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Display Selected Variant Badge from localStorage (Single Clean Name Only)
+            const rawVariantName = localStorage.getItem('microsun_selected_variant_name');
+            const variantBadge = document.getElementById('selected-variant-badge');
+            if (rawVariantName && variantBadge && typeof cleanSingleVarietyName === 'function') {
+                const singleCropName = cleanSingleVarietyName(rawVariantName);
+                variantBadge.textContent = 'CROP: ' + singleCropName.toUpperCase();
+                variantBadge.style.display = 'inline-block';
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langSwitch = document.getElementById('lang-switch');
+            if (langSwitch) {
+                function applyTranslations(langCode) {
+                    if (typeof translations === 'undefined' || !translations[langCode]) return;
+                    const dict = translations[langCode];
+                    document.querySelectorAll('[data-i18n]').forEach(el => {
+                        const key = el.getAttribute('data-i18n');
+                        if (dict[key]) {
+                            el.textContent = dict[key];
+                        }
+                    });
+                    localStorage.setItem('microsun_lang', langCode);
+                }
+                langSwitch.addEventListener('change', (e) => {
+                    applyTranslations(e.target.value);
+                });
+                const savedLang = localStorage.getItem('microsun_lang') || 'en';
+                langSwitch.value = savedLang;
+                applyTranslations(savedLang);
+            }
+        });
+    </script>
+    <script src="sidebar.js"></script>
+</body>
+</html>
+
+
+
