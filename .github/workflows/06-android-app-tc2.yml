@@ -1,16 +1,10 @@
-name: "06. Android App - Test Case 2: Appium Mobile E2E Automation Suite"
+﻿name: "06. Android App - Test Case 2: Appium Mobile E2E Automation Suite"
 run-name: "06. Android App - Test Case 2: Appium Mobile E2E Automation Suite"
 
 on:
-  workflow_run:
-    workflows: ["05. Android App - Test Case 1: Android Studio App Build & APK Package"]
-    types:
-      - completed
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read

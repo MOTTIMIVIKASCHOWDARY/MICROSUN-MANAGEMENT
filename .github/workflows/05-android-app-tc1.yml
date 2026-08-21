@@ -1,16 +1,10 @@
-name: "05. Android App - Test Case 1: Android Studio App Build & APK Package"
+﻿name: "05. Android App - Test Case 1: Android Studio App Build & APK Package"
 run-name: "05. Android App - Test Case 1: Android Studio App Build & APK Package"
 
 on:
-  workflow_run:
-    workflows: ["04. Web App - Test Case 4: CI/CD Deployment & Route Inventory"]
-    types:
-      - completed
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read

@@ -1,16 +1,10 @@
-name: "04. Web App - Test Case 4: CI/CD Deployment & Route Inventory"
+﻿name: "04. Web App - Test Case 4: CI/CD Deployment & Route Inventory"
 run-name: "04. Web App - Test Case 4: CI/CD Deployment & Route Inventory (Phase 7)"
 
 on:
-  workflow_run:
-    workflows: ["03. Web App - Test Case 3: 12-Phase DevSecOps & Security Audit"]
-    types:
-      - completed
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read

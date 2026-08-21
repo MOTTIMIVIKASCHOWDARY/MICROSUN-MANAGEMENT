@@ -1,16 +1,10 @@
-name: "07. Android App - Test Case 3: Mobile App Security & Manifest Audit"
+﻿name: "07. Android App - Test Case 3: Mobile App Security & Manifest Audit"
 run-name: "07. Android App - Test Case 3: Mobile App Security & Manifest Audit"
 
 on:
-  workflow_run:
-    workflows: ["06. Android App - Test Case 2: Appium Mobile E2E Automation Suite"]
-    types:
-      - completed
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read

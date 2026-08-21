@@ -1,16 +1,10 @@
-name: "02. Web App - Test Case 2: Node.js Selenium E2E Automation"
+﻿name: "02. Web App - Test Case 2: Node.js Selenium E2E Automation"
 run-name: "02. Web App - Test Case 2: Node.js Selenium E2E Automation (24 Test Cases)"
 
 on:
-  workflow_run:
-    workflows: ["01. Web App - Test Case 1: Baseline & 100 VU Load Testing"]
-    types:
-      - completed
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read

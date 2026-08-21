@@ -1,14 +1,10 @@
-name: "01. Web App - Test Case 1: Baseline & 100 VU Load Testing"
+﻿name: "01. Web App - Test Case 1: Baseline & 100 VU Load Testing"
 run-name: "01. Web App - Test Case 1: Baseline & 100 VU Load Testing (524K Reqs @ 8738 RPS)"
 
 on:
   push:
     branches: [ "main" ]
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read

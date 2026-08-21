@@ -1,16 +1,10 @@
-name: "08. Android App - Test Case 4: Mobile API Integration & Device Test"
+﻿name: "08. Android App - Test Case 4: Mobile API Integration & Device Test"
 run-name: "08. Android App - Test Case 4: Mobile API Integration & Device Test"
 
 on:
-  workflow_run:
-    workflows: ["07. Android App - Test Case 3: Mobile App Security & Manifest Audit"]
-    types:
-      - completed
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read

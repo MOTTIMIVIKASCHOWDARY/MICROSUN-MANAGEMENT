@@ -1,16 +1,10 @@
-name: "03. Web App - Test Case 3: 12-Phase DevSecOps & Security Audit"
+﻿name: "03. Web App - Test Case 3: 12-Phase DevSecOps & Security Audit"
 run-name: "03. Web App - Test Case 3: 12-Phase DevSecOps & Security Audit (400+ Test Cases)"
 
 on:
-  workflow_run:
-    workflows: ["02. Web App - Test Case 2: Node.js Selenium E2E Automation"]
-    types:
-      - completed
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read
