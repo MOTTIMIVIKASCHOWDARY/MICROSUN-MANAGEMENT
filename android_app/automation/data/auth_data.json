@@ -1,0 +1,14 @@
+{
+  "validUsers": [
+    { "email": "farmer.ramesh@gmail.com", "password": "SecurePassword123!", "role": "FARMER", "name": "Ramesh Kumar", "village": "Thuraiyur, Trichy" },
+    { "email": "buyer.chennai@freshmandi.com", "password": "BuyerSecure2026!", "role": "BUYER", "name": "Chennai Wholesale Mart", "city": "Koyambedu, Chennai" }
+  ],
+  "invalidUsers": [
+    { "email": "invalid_email", "password": "123", "expectedError": "Invalid email address format" },
+    { "email": "farmer.ramesh@gmail.com", "password": "WrongPassword", "expectedError": "Authentication failed: invalid credentials" },
+    { "email": "' OR '1'='1", "password": "' OR '1'='1", "expectedError": "SQLi attempt detected and blocked" }
+  ],
+  "otpVectors": [
+    { "mobile": "+919842100001", "validOtp": "784920", "invalidOtp": "000000" }
+  ]
+}

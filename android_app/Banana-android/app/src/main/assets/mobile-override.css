@@ -1,0 +1,423 @@
+/* =========================================================================
+   MOBILE-OVERRIDE.CSS - GLOBAL SITE-WIDE NATIVE ANDROID MOBILE FIXES
+   ========================================================================= */
+
+/* Hide Multi-Language Selector, Redundant Top-Bar Header & Standalone Back Buttons Globally */
+.language-selector, #lang-switch, .hub-lang, .top-bar, .header-logo, .back-btn, .guidance-back-btn, .back-to-hub, [data-i18n="backBtn"] {
+    display: none !important;
+}
+
+/* Universal Box-Sizing & Safe-Area Notch Insets */
+*, *::before, *::after {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+html, body {
+    width: 100% !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important; /* Fixed Fullscreen Mobile View - No Page Scroll */
+    font-family: 'Outfit', sans-serif !important;
+    font-size: clamp(0.85rem, 2.5vw, 1rem) !important;
+    line-height: 1.4 !important;
+}
+
+/* --- SLEEK NATIVE ANDROID TOP HEADER & CIRCULAR WHITE GLASS 3-BAR BUTTON --- */
+
+/* 1. Header Wrapper - Padded for Large Title Presentation */
+.welcome-header {
+    position: relative !important;
+    padding-top: 40px !important; /* Below status bar clock */
+    padding-left: 15px !important; /* Padded to clear screen-edge button */
+    padding-right: 15px !important; /* Padded to keep title centered */
+    text-align: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.hub-header-row {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 2px !important;
+}
+
+/* 2. Perfect Circular White Glass UI 3-Bar Button - Anchored at Far Left Screen Edge */
+.hamburger-btn {
+    position: fixed !important;
+    top: 40px !important;
+    left: 12px !important; /* Fixed at the far left edge of the mobile screen */
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+    border-radius: 50% !important; /* Perfect Circle Button */
+    background: rgba(255, 255, 255, 0.28) !important; /* Frosted White Glass UI */
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important; /* Glowing White Glass Border */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), inset 0 0 10px rgba(255, 255, 255, 0.6) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    z-index: 60 !important;
+    cursor: pointer !important;
+}
+
+.hamburger-line {
+    width: 20px !important;
+    height: 2.2px !important;
+    background-color: #ffffff !important;
+    border-radius: 2px !important;
+}
+
+/* 3. Enlarged "Farmer Central Hub" Title Text (Large & Prominent) */
+.welcome-header h1 {
+    font-size: 1.88rem !important; /* Large, Bold, Prominent Title Font Size */
+    font-weight: 900 !important;
+    margin: 0 !important;
+    color: #ffffff !important;
+    text-shadow: 0 3px 14px rgba(0,0,0,0.95) !important;
+    letter-spacing: -0.4px !important;
+    white-space: nowrap !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
+}
+
+/* Subtitle Fixed in 1 Single Horizontal Line with Proper Alignment */
+.welcome-header p {
+    font-size: 0.74rem !important; /* Scaled to fit in 1 single horizontal line */
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.85) !important;
+    margin-top: 4px !important;
+    text-align: center !important;
+    white-space: nowrap !important; /* 1 Single Horizontal Line */
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+    letter-spacing: -0.1px !important;
+}
+
+/* 4. Sleek Compact Logout Button - Hidden on Hub, Managed in User Profile */
+.logout-btn {
+    display: none !important;
+}
+
+/* --- DRAMATICALLY NARROW SIDEBAR HORIZONTAL WIDTH (175px / 50% SCREEN MAX) --- */
+.sidebar {
+    width: 175px !important;
+    max-width: 50vw !important;
+    padding: 90px 0 15px 0 !important; /* Top 90px padding ensures close (X) button never overlaps PLANTER AI */
+    background: rgba(12, 22, 12, 0.95) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    box-shadow: 6px 0 20px rgba(0,0,0,0.6) !important;
+    overflow-y: auto !important;
+}
+
+.sidebar-header {
+    display: none !important;
+}
+
+/* RESTORED SPACIOUS VERTICAL GAP BETWEEN OPTIONS */
+.menu-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    padding: 0 6px !important;
+}
+
+.menu-item {
+    padding: 4px 2px !important;
+}
+
+/* Sleek Circle Icons & Instant Emoji Rendering */
+.menu-icon-circle {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    border-radius: 50% !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.75) !important;
+    margin-bottom: 4px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.menu-icon-circle span {
+    font-size: 1.55rem !important;
+    line-height: 1 !important;
+    display: block !important;
+}
+
+.menu-icon {
+    width: 26px !important;
+    height: 26px !important;
+}
+
+/* INCREASED OPTION NAME TEXT SIZE */
+.menu-text {
+    font-size: 0.82rem !important; /* Increased Option Name Font-Size */
+    font-weight: 800 !important;
+    letter-spacing: 0.3px !important;
+    margin-top: 2px !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+}
+
+/* Touch Targets: 44px Minimum Height & 16px Font-Size Prevent Focus Auto-Zoom */
+input, select, textarea, button, .btn, .action-btn, .submit-btn, .glass-btn {
+    font-size: 16px !important;
+    min-height: 44px !important;
+    min-width: 44px !important;
+    border-radius: 10px !important;
+    padding: 8px 12px !important;
+    box-sizing: border-box !important;
+    touch-action: manipulation !important;
+}
+
+/* --- COMPACT PERFECT CIRCLE BANANA VARIETY BADGES - EXACTLY 3 IN 1 HORIZONTAL LINE --- */
+.variant-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* EXACTLY 3 IN 1 HORIZONTAL LINE / ROW */
+    gap: 16px 10px !important;
+    justify-items: center !important;
+    align-items: start !important;
+    width: 100% !important;
+    padding: 12px 4px !important;
+}
+
+@media (min-width: 600px) {
+    .variant-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* 1. Small Circular Badge Box Container (NO Tall Rectangular Box) */
+.variant-card {
+    width: 90px !important;
+    max-width: 90px !important;
+    min-width: 90px !important;
+    height: auto !important;
+    min-height: auto !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    background: transparent !important; /* NO RECTANGULAR GREY/WHITE GLASS BACKGROUND */
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: center !important;
+    cursor: pointer !important;
+}
+
+/* 2. Small Perfect Circle Banana Image Badge (72px Circle) */
+.variant-card img {
+    width: 72px !important;
+    height: 72px !important;
+    min-width: 72px !important;
+    min-height: 72px !important;
+    max-width: 72px !important;
+    max-height: 72px !important;
+    border-radius: 50% !important; /* PERFECT CIRCLE SHAPE */
+    object-fit: cover !important;
+    background: #ffffff !important;
+    border: 3px solid rgba(255, 255, 255, 0.95) !important; /* Glowing White Circle Border */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4) !important; /* Floating Circle Shadow */
+    margin: 0 0 6px 0 !important;
+    display: block !important;
+    mix-blend-mode: normal !important;
+    transition: transform 0.25s ease, border-color 0.25s ease !important;
+}
+
+.variant-card:hover img, .variant-card.active img, .variant-card.selected img {
+    border-color: #2e7d32 !important; /* Green glowing ring */
+    transform: scale(1.1) !important;
+    box-shadow: 0 8px 22px rgba(46, 125, 50, 0.75) !important;
+}
+
+/* 3. Name Directly Below the Small Circle */
+.variant-card h4 {
+    font-size: 0.76rem !important; /* Crisp, Bold Name Text */
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.95) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+    word-break: break-word !important;
+    width: 100% !important;
+}
+
+/* COMPACT REDUCED WHITE GLASS UI CARDS & DESIGN CONTAINERS (EXCLUDING VARIANT-CARD) */
+.container, 
+.main-container, 
+.wrapper, 
+.layout-wrapper,
+.main-content,
+.prof-container,
+.b2c-container,
+.main-hub-container,
+.hub-container,
+.hero-section,
+.pest-container,
+.analytics-container,
+.climate-container,
+.card, 
+.glass,
+.glass-card, 
+.dashboard-card, 
+.market-card, 
+.renting-card, 
+.pest-card, 
+.analytics-card, 
+.info-panel, 
+.form-panel,
+.cyber-hud-card,
+.climate-card,
+.risk-widget,
+.kpi-card,
+.chart-card,
+.rental-item-card,
+.apmc-card,
+.graph-card,
+.prof-grid,
+.prof-main,
+.prof-sidebar,
+.b2c-grid,
+.b2c-main,
+.b2c-sidebar,
+.main-dashboard,
+.widgets-grid,
+.disease-item,
+.guidance-container,
+.pest-card-grid,
+.intel-card,
+[class*="-card"]:not(.variant-card),
+[class*="-panel"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    min-height: auto !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 4px !important;
+    margin-bottom: 8px !important;
+    padding: 10px 12px !important;
+    border-radius: 14px !important;
+    box-sizing: border-box !important;
+    flex-direction: column !important;
+}
+
+/* Compact Glass Panel Padding */
+.info-panel, .form-panel {
+    padding: 12px 10px !important;
+    border-radius: 12px !important;
+}
+
+/* Hide / Shrink Oversized Decorative Elements Under 480px */
+@media (max-width: 480px) {
+    .decor-circle, .decor-circle-2, [class*="decor-"] {
+        display: none !important;
+    }
+}
+
+/* Collapse Multi-Column Grids to 1 Column under 600px */
+@media (max-width: 600px) {
+    .grid, 
+    .card-grid, 
+    .features-grid, 
+    .option-grid, 
+    .apmc-cards-row, 
+    .market-split-layout, 
+    .renting-grid, 
+    .form-grid, 
+    .climate-risk-grid, 
+    .hud-grid, 
+    .action-board, 
+    .kpi-grid, 
+    .analytics-split,
+    .widgets-grid,
+    .main-dashboard,
+    .guidance-container,
+    .pest-card-grid,
+    .prof-grid,
+    .b2c-grid,
+    .dashboard-layout,
+    .dashboard-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+        gap: 8px !important;
+    }
+}
+
+/* Compact Form Group Margins */
+.input-group, .form-group, .form-grp {
+    margin-bottom: 8px !important;
+}
+
+.input-group label, .form-grp label {
+    margin-bottom: 3px !important;
+    font-size: 0.8rem !important;
+}
+
+/* Compact Top App Header Bar */
+.top-bar, .header, .navbar, .app-header {
+    padding: 6px 10px !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.logo {
+    font-size: 1rem !important;
+}
+
+/* Touch-Scrollable Data Tables */
+.table-container {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+table {
+    width: 100% !important;
+    min-width: 320px;
+}
+
+/* Desktop Monitor Scaling (>= 1025px Only) */
+@media (min-width: 1025px) {
+    body {
+        overflow: auto !important;
+    }
+    .sidebar {
+        width: 280px !important;
+        max-width: 300px !important;
+        padding-top: 20px !important;
+    }
+    .container, .prof-container, .b2c-container, .main-hub-container {
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+    }
+    .card {
+        max-width: 1000px !important;
+        padding: 2rem !important;
+    }
+}

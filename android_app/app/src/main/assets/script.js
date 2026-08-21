@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     };
                 } catch (authErr) {
                     console.warn("Firebase Auth notice:", authErr.code || authErr.message);
-                    
+
                     const dbUsers = getUsersDB();
                     if (dbUsers[email]) {
                         if (dbUsers[email].password === pass) {

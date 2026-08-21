@@ -7,10 +7,10 @@ param (
     [int]$Port = 8085
 )
 
-$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
-if (-not $scriptDir) { $scriptDir = "c:\Users\unite\OneDrive\Desktop\PDD\web_app" }
-$parentDir = Split-Path -Parent $scriptDir
-if (-not $parentDir) { $parentDir = "c:\Users\unite\OneDrive\Desktop\PDD" }
+$rootDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
+if (-not $rootDir) { $rootDir = "c:\Users\unite\OneDrive\Desktop\PDD" }
+$webAppDir = Join-Path $rootDir "web_app"
+if (-not (Test-Path $webAppDir)) { $webAppDir = $rootDir }
 
 $serverSource = @"
 using System;
@@ -302,7 +302,7 @@ try {
     # Class already loaded in AppDomain
 }
 
-$server = New-Object MicrosunCore.AgriTechServer($Port, $scriptDir, $parentDir)
+$server = New-Object MicrosunCore.AgriTechServer($Port, $webAppDir, $rootDir)
 $server.Start()
 
 Write-Host ""
@@ -315,7 +315,7 @@ Write-Host "  Preview URL        : http://127.0.0.1:$Port/preview.html" -Foregro
 Write-Host "  Load Test Console  : http://127.0.0.1:$Port/load_test.html" -ForegroundColor White
 Write-Host "  Health API         : http://127.0.0.1:$Port/api/health" -ForegroundColor White
 Write-Host "  Status API         : http://127.0.0.1:$Port/api/status" -ForegroundColor White
-Write-Host "  Web App Directory  : $scriptDir" -ForegroundColor Gray
+Write-Host "  Web App Directory  : $webAppDir" -ForegroundColor Gray
 Write-Host "  Concurrency Engine : Asynchronous ThreadPool (100+ Virtual Users)" -ForegroundColor Green
 Write-Host "=================================================================" -ForegroundColor Green
 Write-Host "Press Ctrl+C to stop the server.`n"

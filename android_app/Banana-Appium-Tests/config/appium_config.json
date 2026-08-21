@@ -1,0 +1,28 @@
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 4723,
+    "basePath": "/wd/hub",
+    "logLevel": "info"
+  },
+  "capabilities": {
+    "platformName": "Android",
+    "automationName": "UiAutomator2",
+    "deviceName": "Android Emulator",
+    "appPackage": "com.example.microsunmanagement",
+    "appActivity": ".MainActivity",
+    "autoGrantPermissions": true,
+    "noReset": false,
+    "fullReset": false,
+    "newCommandTimeout": 300,
+    "chromedriverAutodownload": true,
+    "ensureWebviewsHavePages": true,
+    "nativeWebScreenshot": true
+  },
+  "testExecution": {
+    "implicitWaitMs": 5000,
+    "explicitTimeoutMs": 15000,
+    "pageLoadTimeoutMs": 30000,
+    "retryFailedTests": 2
+  }
+}
