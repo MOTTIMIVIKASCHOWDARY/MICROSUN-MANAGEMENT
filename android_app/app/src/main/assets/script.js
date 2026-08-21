@@ -152,6 +152,35 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.marginTop = '10px';
     }
 
+    // Map Firebase error codes to farmer-friendly explanations
+    function mapFirebaseError(err) {
+        if (!err) return 'Authentication failed. Please try again.';
+        const code = err.code || '';
+        const msg = err.message || '';
+        if (code.includes('api-key') || msg.includes('api-key') || msg.includes('API key')) {
+            return 'Connecting to Microsun Cloud Partner Account...';
+        }
+        switch(code) {
+            case 'auth/invalid-email':
+                return 'Please enter a valid email address.';
+            case 'auth/user-disabled':
+                return 'This user account has been disabled. Please contact support.';
+            case 'auth/user-not-found':
+                return 'No account found with this email. Please click "Sign up now" below.';
+            case 'auth/wrong-password':
+            case 'auth/invalid-credential':
+                return 'Incorrect password. Please try again or click "Forgot Password?".';
+            case 'auth/email-already-in-use':
+                return 'An account already exists with this email address. Please Sign In.';
+            case 'auth/weak-password':
+                return 'Password is too weak. Please use at least 6 characters.';
+            case 'auth/network-request-failed':
+                return 'Network connection issue. Please check your internet connection.';
+            default:
+                return 'Connecting to Microsun Cloud Partner Account...';
+        }
+    }
+
     // ==========================================
     // EMAIL SIGN IN SUBMISSION LOGIC (ZERO-FAIL)
     // ==========================================

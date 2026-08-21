@@ -10,6 +10,8 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
   actions: write
 
 jobs:
@@ -18,11 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Stage 1: Repository Checkout"
-        run: git clone --depth=1 https://github.com/MOTTIMIVIKASCHOWDARY/MICROSUN-MANAGEMENT.git .
+        uses: actions/checkout@v4
 
       - name: "Stage 2: Deployment Verification"
         run: |
           echo "Verifying Live Deployment URL: https://mottimivikaschowdary.github.io/MICROSUN-MANAGEMENT/"
+          test -f index.html || exit 1
           test -f web_app/index.html || exit 1
 
       - name: "Stage 3: Publish CI/CD Deployment Summary"
@@ -40,3 +43,20 @@ jobs:
         with:
           name: "04-Web-App-TestCase-4-API-Endpoint-Inventory.xlsx"
           path: "Vulnerability Test Results/endpoint-inventory.xlsx"
+
+      - name: "Stage 5: Upload GitHub Pages Artifact"
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+  deploy-pages-job:
+    name: "Deploy to GitHub Pages Environment"
+    needs: cicd-deployment-job
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: https://mottimivikaschowdary.github.io/MICROSUN-MANAGEMENT/
+    steps:
+      - name: "Deploy to Live GitHub Pages"
+        id: deployment
+        uses: actions/deploy-pages@v4
