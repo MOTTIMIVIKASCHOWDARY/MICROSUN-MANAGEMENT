@@ -1,18 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=web_app/index.html">
-    <title>MICROSUN MANAGEMENT • Redirecting...</title>
-    <script>
-        window.location.href = 'web_app/index.html';
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MICROSUN MANAGEMENT - Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body style="background-color: #0d2818; color: #ffffff; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
-    <div style="text-align: center;">
-        <h2>🌾 MICROSUN MANAGEMENT</h2>
-        <p>Redirecting to Central Command Portal...</p>
-        <a href="web_app/index.html" style="color: #4ade80; text-decoration: underline;">Click here if you are not redirected automatically.</a>
+
+<body>
+
+    <!-- Background Overlay -->
+    <div class="bg-overlay"></div>
+
+    <!-- Top Bar -->
+    <header class="top-bar">
+        <div class="logo">
+            <span class="leaf-icon">🌿</span>
+            <span data-i18n="appTitle">MICROSUN MANAGEMENT</span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+        <div class="card glass">
+            <!-- Left Info Panel -->
+            <div class="info-panel">
+                <div class="info-content">
+                    <h2 data-i18n="appTitle">MICROSUN MANAGEMENT</h2>
+                    <p data-i18n="appSubtitle">Banana Crop Agricultural System</p>
+                    <div class="decor-circle"></div>
+                    <div class="decor-circle-2"></div>
+                </div>
+            </div>
+
+            <!-- Right Forms Panel -->
+            <div class="form-panel">
+
+                <!-- Sign In Form -->
+                <form id="signInForm" class="form-view active">
+                    <h3 data-i18n="signInTitle">Welcome Back</h3>
+
+                    <div class="input-group">
+                        <label for="si-email" data-i18n="emailLabel">Email Address</label>
+                        <input type="email" id="si-email" data-i18n-placeholder="emailPlaceholder"
+                            placeholder="Enter your email address" required autocomplete="email">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="si-pass" data-i18n="passwordLabel">Password</label>
+                        <input type="password" id="si-pass" data-i18n-placeholder="passwordPlaceholder"
+                            placeholder="Enter your password" required autocomplete="current-password">
+                    </div>
+
+                    <div class="form-actions">
+                        <a href="#" class="forgot-pass" data-i18n="forgotPassword">Forgot Password?</a>
+                    </div>
+
+                    <div id="si-error" class="error-msg" style="display: none;"></div>
+
+                    <button type="submit" class="btn primary-btn" data-i18n="signInBtn">Sign In</button>
+
+                    <p class="toggle-text notranslate" translate="no">
+                        <span data-i18n="noAccount">Don't have an account?</span>
+                        <a href="#" id="toSignUp" data-i18n="signUpLink">Sign up now</a>
+                    </p>
+                </form>
+
+                <!-- Sign Up Form -->
+                <form id="signUpForm" class="form-view">
+                    <h3 data-i18n="signUpTitle">Join Our Network</h3>
+
+                    <div class="input-group">
+                        <label for="su-name" data-i18n="nameLabel">Full Name</label>
+                        <input type="text" id="su-name" data-i18n-placeholder="namePlaceholder"
+                            placeholder="Enter your full name" required autocomplete="name">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="su-email" data-i18n="emailLabel">Email Address</label>
+                        <input type="email" id="su-email" data-i18n-placeholder="emailPlaceholder"
+                            placeholder="Enter your email address" required autocomplete="email">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="su-farm" data-i18n="farmLabel">Farm Size (Acres)</label>
+                        <input type="number" step="0.1" id="su-farm" min="0" max="10000" data-i18n-placeholder="farmPlaceholder"
+                            placeholder="E.g., 5.5" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="su-soil" data-i18n="soilTypeLabel">Soil Type</label>
+                        <select id="su-soil" required style="width: 100%; padding: 1.1rem 1.4rem; border: 2px solid transparent; border-radius: 12px; background: rgba(255, 255, 255, 0.9); font-size: 1rem; color: var(--text-main); outline: none; transition: var(--transition); cursor: pointer; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%232E7D32%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 1.2rem top 50%; background-size: 0.8rem auto;">
+                            <option value="" disabled selected data-i18n="soilTypePlaceholder">Select Soil</option>
+                            <option value="red" data-i18n="soil_red">Red Soil</option>
+                            <option value="black" data-i18n="soil_black">Black Soil</option>
+                            <option value="alluvial" data-i18n="soil_alluvial">Alluvial Soil</option>
+                            <option value="laterite" data-i18n="soil_laterite">Laterite Soil</option>
+                            <option value="sandy" data-i18n="soil_sandy">Sandy Soil</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="su-pass" data-i18n="passwordLabel">Password</label>
+                        <input type="password" id="su-pass" data-i18n-placeholder="passwordPlaceholder"
+                            placeholder="Enter your password" required autocomplete="new-password">
+                        <div id="su-pass-strength" style="font-size: 0.85rem; font-weight: 600; margin-top: 6px;"></div>
+                    </div>
+
+                    <div id="su-error" class="error-msg" style="display: none;"></div>
+
+                    <button type="submit" class="btn primary-btn" data-i18n="signUpBtn">Sign Up</button>
+
+                    <p class="toggle-text notranslate" translate="no">
+                        <span data-i18n="hasAccount">Already have an account?</span>
+                        <a href="#" id="toSignIn" data-i18n="signInLink">Sign in here</a>
+                    </p>
+                </form>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Forgot Password Reset Modal powered by Firebase Auth -->
+    <div id="forgotPassModal" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 10000; justify-content: center; align-items: center; padding: 1.5rem;">
+        <div style="background: rgba(255, 255, 255, 0.98); border-radius: 28px; padding: 2.2rem; max-width: 440px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.3); border: 1.5px solid rgba(255,255,255,0.8); position: relative; animation: modalPop 0.3s ease;">
+            
+            <button type="button" id="closeForgotModal" style="position: absolute; top: 18px; right: 20px; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #555; line-height: 1;">&times;</button>
+            
+            <!-- STEP 1: Enter Registered Email Address -->
+            <div id="fp-view-step1">
+                <div style="text-align: center; margin-bottom: 1.4rem;">
+                    <div style="font-size: 2.8rem; margin-bottom: 0.3rem;">🔑</div>
+                    <h3 style="font-size: 1.5rem; color: #1b5e20; font-weight: 700; margin-bottom: 0.3rem;">Reset Password</h3>
+                    <p style="font-size: 0.92rem; color: #555; line-height: 1.4;">Enter your registered email address to receive an official password reset link directly from Firebase.</p>
+                </div>
+
+                <form id="forgotPassFormStep1">
+                    <div class="input-group" style="margin-bottom: 1.2rem;">
+                        <label style="font-weight: 600; color: #2e7d32; display: block; margin-bottom: 0.4rem;">✉️ Registered Email Address</label>
+                        <input type="email" id="fp-email" placeholder="Enter your registered email" required style="width: 100%; box-sizing: border-box; padding: 0.95rem 1.1rem; border-radius: 12px; border: 1.5px solid #c8e6c9; font-size: 1rem; outline: none;">
+                    </div>
+                    <div id="fp-error1" class="error-msg" style="display: none; margin-bottom: 1rem; color: #d32f2f; font-size: 0.9rem;"></div>
+                    <button type="submit" id="btnSendOtp" class="btn primary-btn" style="width: 100%; padding: 1rem; border-radius: 12px; font-weight: 700; background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white; border: none; cursor: pointer; font-size: 1rem;">Send Password Reset Email</button>
+                </form>
+            </div>
+
+            <!-- STEP 2: Official Confirmation & Direct Verification -->
+            <div id="fp-view-step2" style="display: none; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 0.4rem;">📬</div>
+                <h3 style="font-size: 1.45rem; color: #1b5e20; font-weight: 700; margin-bottom: 0.5rem;">Reset Email Sent!</h3>
+                <div style="background: #e8f5e9; border: 1.5px solid #a5d6a7; padding: 1.2rem; border-radius: 16px; color: #1b5e20; font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.4rem; text-align: left;">
+                    An official password reset email has been dispatched to: <br><strong id="fp-email-display" style="font-size: 1.05rem; color: #1b5e20; display: block; margin-top: 4px;">your.email@gmail.com</strong>
+                    <hr style="border: none; border-top: 1px solid #c8e6c9; margin: 10px 0;">
+                    <span style="font-size: 0.85rem; color: #2e7d32;">👉 Please check your <strong>Inbox</strong> (and <strong>Spam / Junk</strong> folder) and click the secure link to create your new password.</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <button type="button" id="btnResendFirebaseEmail" style="width: 100%; padding: 0.85rem; border-radius: 12px; font-weight: 700; background: #ffffff; color: #2e7d32; border: 1.5px solid #2e7d32; cursor: pointer; font-size: 0.95rem;">Resend Email</button>
+                    <button type="button" id="btnBackToLogin" class="btn primary-btn" style="width: 100%; padding: 0.95rem; border-radius: 12px; font-weight: 700; background: #2e7d32; color: white; border: none; cursor: pointer; font-size: 1rem;">Back to Sign In</button>
+                </div>
+            </div>
+
+        </div>
     </div>
+
+    <!-- Live Toast Notification Banner -->
+    <div id="smsToastNotification" style="display: none; position: fixed; top: 20px; right: 20px; z-index: 99999; background: #1b5e20; color: #ffffff; padding: 1.1rem 1.5rem; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.35); max-width: 400px; width: 90%; border: 1px solid rgba(255,255,255,0.3); animation: slideDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+        <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="font-size: 1.8rem;" id="toastIcon">✉️</div>
+            <div style="flex: 1;">
+                <div style="font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #a5d6a7; margin-bottom: 2px;" id="toastHeader">NOTIFICATIONS • MICROSUN AUTH</div>
+                <div style="font-size: 0.92rem; line-height: 1.4; color: #ffffff;" id="toastBody">Password reset email sent. Please check your inbox.</div>
+            </div>
+            <button type="button" onclick="document.getElementById('smsToastNotification').style.display='none'" style="background: none; border: none; color: rgba(255,255,255,0.7); font-size: 1.4rem; cursor: pointer; line-height: 1;">&times;</button>
+        </div>
+    </div>
+
+    <!-- Auto-purge any stale demo key from browser localStorage -->
+    <script>
+        if (typeof localStorage !== 'undefined' && (localStorage.getItem('firebase_api_key') === 'DEMO_KEY' || (localStorage.getItem('firebase_api_key') && localStorage.getItem('firebase_api_key').length < 20))) {
+            localStorage.removeItem('firebase_api_key');
+        }
+    </script>
+
+    <!-- Firebase SDK (Compat Version) -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+
+    <!-- Your Firebase Config & App Scripts with Cache-Busting -->
+    <script src="firebase-config.js?v=2.0"></script>
+    <script src="translations.js?v=2.0"></script>
+    <script src="script.js?v=2.0"></script>
 </body>
 </html>
