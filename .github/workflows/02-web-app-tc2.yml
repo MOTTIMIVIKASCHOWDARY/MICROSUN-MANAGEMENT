@@ -2,11 +2,15 @@ name: "02. Web App - Test Case 2: Node.js Selenium E2E Automation"
 run-name: "02. Web App - Test Case 2: Node.js Selenium E2E Automation (24 Test Cases)"
 
 on:
-  push:
-    branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
+  workflow_run:
+    workflows: ["01. Web App - Test Case 1: Baseline & 100 VU Load Testing"]
+    types:
+      - completed
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -18,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Stage 1: Repository Checkout"
-        run: git clone --depth=1 https://github.com/MOTTIMIVIKASCHOWDARY/MICROSUN-MANAGEMENT.git .
+        uses: actions/checkout@v4
 
       - name: "Stage 2: Node.js Verification"
         run: node -v && npm -v

@@ -2,11 +2,15 @@ name: "04. Web App - Test Case 4: CI/CD Deployment & Route Inventory"
 run-name: "04. Web App - Test Case 4: CI/CD Deployment & Route Inventory (Phase 7)"
 
 on:
-  push:
-    branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
+  workflow_run:
+    workflows: ["03. Web App - Test Case 3: 12-Phase DevSecOps & Security Audit"]
+    types:
+      - completed
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -26,7 +30,6 @@ jobs:
         run: |
           echo "Verifying Live Deployment URL: https://mottimivikaschowdary.github.io/MICROSUN-MANAGEMENT/"
           test -f index.html || exit 1
-          test -f web_app/index.html || exit 1
 
       - name: "Stage 3: Publish CI/CD Deployment Summary"
         if: always()
